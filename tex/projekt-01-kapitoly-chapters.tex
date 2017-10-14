@@ -1,11 +1,201 @@
 %=========================================================================
 % (c) Michal Bidlo, Bohuslav Křena, 2008
 
-\chapter{Preliminaries And Definitions}
-Abychom mohli napsat odborný text jasně a~srozumitelně, musíme splnit několik základních předpokladů:
+\chapter{Introduction}
+In~the~software industry, the~great and~accessible code is crucial for modern
+business, and~the~best way for us to~connect and~share it is through APIs. But
+not only there hasn't been an~industry standard for~designing APIs, there hasn't
+been an~industry standard for documenting them. APIs are supposed to~connect
+engineers and~allow for~the~sharing of~great developments. APIs let companies
+add value to~the~products and~create an~ecosystem of~shared knowledge. But
+an~API is only valuable if~it's accessible. And for that, it needs clear, human
+and~machine readable documentation. So developers have worked hard to~find a~way
+to~present their APIs.
 
-\chapter{Understanding Remote Interfaces}
+This thesis aim to~solve the~problem of~presenting APIs. The~goal is to~design
+an~application that provides innovative user interface with regard to~clarity
+and~simple use, aimed to~developers, even in~case of~large remote interfaces.
+The~application will be based on~existing JRAPIDoc \cite{JRAPIDoc} tool that
+provides a~way to~automate API code generation, but currently lacks its good
+represenetation. Ultimately, the~iprovements should provide not~only
+a~remote API reference, but also the functionality to~test and~call the~listed
+web services.
+
+The thesis is organized as~follows. Chapter \ref{preliminaries} gives
+definitions needed to~follow the~thesis and~provides overview of~an~existing API
+Reference generators. Chapter \ref{technology} focuses on~technologies that are
+going to~be used for~building the~improvements. Chapter
+\ref{design} describes the~iterative application design that is based on~live
+mockups and~later~on~PatternFly Framework. The last Chapter contains an~overall summary
+of~the~designed solution and~final thoughts on~the~work done within this thesis.
+
+\chapter{Preliminaries And Definitions}
+\label{preliminaries}
+This chapter will gradually introduce terms necessary to~follow the~thesis.
+In the first sections, we will provide explanation why is API documentation
+important and~why it is important to~automate API code generation. In~the~next
+section, we will go over the~basic terminology and~establish notion of~remote
+interfaces. The~last section covers the existing solutions for~API code
+generation, their advantages and~disadvantages.
+
+\section{What is API Documentation and Why It Matters?}
+In~this section we explain what API is, we introduce the~basic terms that relate
+to~APIs and~we focuses on~why it is important to~document APIs.
+
+\subsection{What is application programming interface?}
+In~computer programming an application programming interface (API) is
+the~defined interface through which interactions happen between an~enterprise
+and~users of~its assets. An~API can become the~primary entry point for~enterprise services, for~its own website
+and~applications, as~well as~for~a~partner and~customer integrations. APIs are
+defined through a~contract so~that any application can use it with relative
+ease. An~API approach is an~architectural approach that resolves around
+providing programmable interfaces to~a~set of~services to~different applications
+serving different kinds of~customers. It assumes that these different user
+groups might change or~evolve over time in~the way they utilize services.
+The~API approach creates a~loosely coupled architecture that allows a~component
+service to~have a~wide range of~future uses, and is technology agnostic.
+The~strategy of~providing APIs leads to~the~following benefits:
+
+\begin{itemize}
+  \item \textbf{Automation}. With APIs, computers rather than people can manage
+  the work. Through APIs, agencies can update work flows to~make them quicker
+  and~more productive.
+  \item \textbf{Integration}. APIs allow content to~be embedded from any site
+  or~application more easily. This guarantees more fluid information delivery
+  and~an~integrated user experience.
+  \item \textbf{Personalization}. Through APIs any user or~company can customize
+  the~content and~services that they use the~most.
+  \item \textbf{Reduction of costs}. APIs is a~cheaper way of~building
+  applications by~increasing the~reuse of~services. Providing a~usage or~\uv{analytics-based}
+  evolutionary development platform decreases cost of~development and~change
+  to~services.
+  \item \textbf{Increasing customer loyalty}. The~company who releases
+  the~API allows its customers to~access their conferencing services in~new,
+  more efficient ways, increasing brand recognition and~customer loyalty.
+\end{itemize}
+
+Overall, APIs allow users to~enhance and~add services over existing products.
+This introduces the~product to~a~new type of~user: \uv{the~third-party}
+developer. Catering to~the~developer is tricky. They are analytical, precise,
+and are trying to~solve important problems with your API. They want to
+understand how to~use your API effectively, which is where API documentation
+comes into the~picture.
+
+\subsection{What is API Documentation and Why We Need One?}
+API documentation is a~technical content deliverable, containing instructions
+about how to~effectively use and~integrate with~an~API. It is a~concise
+reference manual that contains all the~information required to~work
+with~the~API, with~details about the~functions, classes, return types and~more,
+supported by~tutorials and~examples. 
+
+The~\uv{thid-party} developer, who is API's main consumer, is busy solving
+complex programming challenges. API is a~means to~an~end for~the~technical user,
+and they want to~integrate as~quickly as~possible to~move forward in~their
+software development, meaning they should immediately understand the~value
+and~usage of~the~API. The~aggregate experience of~the~developer when
+discovering, learning to~use, and~finally integrating with the API is termed
+as~Developer Experience (DX) \cite{practical-api}.  Generally speaking, DX is
+essentially the~sum of~the~experiences using the~API. If many of~those experiences were difficult
+or~just annoying, users are going to~have a~bad experience and~they won't want
+to~use the~product that the~API provides. Therefore good API documentation is
+the~key to~a~great DX. You can have the~best, functional product, but no one
+will use it if they don't know how~to. Documentation is the~foundation for~good
+Developer Experience. Following lists the~exact reasons, why API documentation
+matters.
+
+// TODO pridat poznamku pod carou, co to je network effect
+\begin{itemize}
+  \item \textbf{Increased Awareness}. The~network effect is the~phenomenon when
+  a~service or~product becomes more valuable when more people use~it. Satisfied
+  consumers will be the~APIs biggest advocates. As~more users adopt the~API
+  and~reach critical mass, there will be a~probable increase in~publicity,
+  leading to~the~network effect. 
+  \item \textbf{Easier maintenance}. Good documentation leads directly to~good
+  product maintenance. It helps internal teams know the details of~resources,
+  methods, and their associated requests and~responses, making maintenance
+  and~updates quicker.
+  \item \textbf{Saves time and costs}. Good documentation decreases
+  the~amount of~time spent onboarding new users. In~addition, if API provides
+  the~ability to~try out the API before implementing it, the~amount of~time
+  spent onboarding will decrease even more.
+\end{itemize}
+
+The~point is that documentation is the~key to~a~great experience when consuming
+the~API.
+
+%// TODO link  "API-fication" (PDF download). www.hcltech.com. August 2014. ->
+% file:///C:/Users/toucheqt/Downloads/apis_for_dsi.pdf
+
+\subsection{Why automate API code generation?}
+Among all the~phases in~the~API lifecycle, documentation is probably the~area
+showing the~most growth. However the~developers pay little to~no attention it
+when launching code. For a~lot of~developers it is because writing documentation
+is still tedious and~time consuming task. This is especially true for teams that
+rely on~static documentation that is manually updated with every release of~new
+version of~the~API. Therefore the~more we can automate around the~documentation,
+the~less work it is for the~developers to~iterate and~make improvements.
+
+That is why there is great need of~a~framework that allows developers and~teams
+to~design, build, document and~consume their APIs with primary focus
+on~the~ability to~generate interactive documentation. This documentation allows
+anyone to~visualize and~interact with the~API's resources without having any
+implementation logic in~place.
+
+The~\uv{auto-generated} documentation is a~central resource that the~developers
+and~teams can customize, and build on~to~create a~more comprehensive user manual
+for working with the~API.
+
+\section{Understanding Web Services}
+A~web service is a~software system designed to~support interoperable machine
+to~machine interaction over a~network.
+A~web service is a~collection of~open protocols and~standards used for
+exchanging data between applications or~systems. Software
+applications written in~various programming languages and~running on~various
+platforms can use web services to~exchange data over computer networks like
+the~Internet in~a~manner similar to~interprocess communication on~a~single
+computer. This interoperability is due~to~the~use of~open standards. 
+
+// TODO link na soap
+In~the~past, web services used mostly SOAP over HTTP protocol, allowing less
+constly interactions over the~Internet than via proprietary solutions like
+EDI/B2B. In~a~2004, the W3C extended the~definition of~web services about
+REST-complient web services, in~which the~primary purpose of~the web service is
+to~manipulate XML representations of~web resources using a~uniform set
+of~stateless operations.
+
+
+ https://en.wikipedia.org/wiki/Web_service
+https://www.service-architecture.com/articles/web-services/web_services_explained.html
+https://www.tutorialspoint.com/webservices/what_are_web_services.htm
+https://www.javatpoint.com/what-is-web-service
+
+
 TODO text about remote interfaces
+\subsection{\uv{SOAP-based} Web Services}
+\subsection{RESTful Web Services}
+
+\section{Existing solutions for API code generation}
+\subsection{JRAPIDoc}
+\subsection{Swagger}
+\subsection{Apiary}
+\subsection{Spring REST Docs}
+\subsection{Postman}
+https://nordicapis.com/ultimate-guide-to-30-api-documentation-solutions/
+
+\chapter{Technologic overview}
+\label{technology}
+\section{Angular}
+\section{TypeScript}
+\section{PatternFly}
+
+\chapter{Application Design}
+\label{design}
+\section{The initial state}
+\section{Building live mockups}
+\section{Improving the mockups with PatternFly}
+
+\chapter{Conclusion}
+https://blog.readme.io/what-is-swagger-and-why-it-matters/
 
 \begin{itemize}
   \item Technologies for Remote Interfaces

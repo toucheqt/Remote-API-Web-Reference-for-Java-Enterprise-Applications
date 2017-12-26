@@ -35,6 +35,39 @@
 % Základní balíčky jsou dole v souboru šablony fitthesis.cls
 % Basic packages are at the bottom of template file fitthesis.cls
 %zde muzeme vlozit vlastni balicky / you can place own packages here
+\usepackage{listings}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Octave,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
 
 %---rm---------------
 \renewcommand{\rmdefault}{lmr}%zavede Latin Modern Roman jako rm / set Latin Modern Roman as rm
@@ -139,71 +172,36 @@
 }
 
 %Abstrakt (cesky, slovensky ci anglicky) / Abstract (in czech, slovak or english)
-\abstract[cs]{Tato práce popisuje vylepšení existujícího nástroje JRAPIDoc,
-který umožňuje ze~zdrojového kódu automaticky vygenerovat API dokumentaci. Tento
-nástroj ovšem postrádá jednoduchou a~kvalitní prezentaci vygenerovaného API.
-Cílem této práce je návrh vylepšení, které umožní zmíněnému nástroji nejen
-jednoduché a~propracované zobrazení automaticky vytvořeného API, ale
-také jeho testování pomocí volání webových služeb, které dané API poskytuje.
-Teoretická část práce popisuje principy webových služeb, vzdálených rozhraní
-a~zkoumá již existující nástroje pro~automatické generování API. Dále jsou zde
-popsány technologie, které budou použity při vývoji a~také designové návrhy
-výsledného nástroje. Výsledky této práce umožní vývoj vylepšení nástroje
-JRAPIDoc, který bude moci poskytnout automatické generování snadno přístupného
-a~testovatelného API, což umožní snížení nákladů potřebných pro~tvorbu
-dokumentace a~tím i~realizaci systémové integrace.}
+\abstract[cs]{Tato práce popisuje návrh aplikace, která na~základě nástroje
+Swagger umožní vytvářet testovací scénáře z~API aplikací. Teoretická
+část práce vysvětluje principy webových služeb, vzdálených rozhraní
+a~představuje nástroj Swagger. V~práci jsou dále prezentovány designové návrhy
+aplikace a~jsou zde představeny technologie, které budou použité při~jejím
+vývoji. Výsledky této práce umožní vytvořit aplikaci, která poskytne možnost
+testovat API aplikací a~navíc na~základě těchto API vytvářet testovací
+scénáře -- kombinující jednotlivé části API, a~tím snížit náklady na~vývoj
+aplikací a~umožnit realizaci průběžného testování.}
 
-\abstract[en]{This thesis focuses on~modification of~an~existing tool
-JRAPIDoc that allows automatically generate an~API documentation
-from~an~existing source code, but currently lacks good and~simple presentation
-of~the~generated API. The~goal of~this thesis is to~design an~innovate user
-interface with regard to~clarity and~simple use, aimed to developers, even
-in~case of~large remote interfaces. Ultimately, the~resulting tool will provide
-not~only presentation of~a~generated API, but it will also allow its testing
-through calling web services that are provided by~the~API. The~theoretical part describes
-the~principles of~web services, remote interfaces and~examines existing tools
-for~automatic API code generation. Last but not least the~thesis describes
-the~technologies that will be used for development of~the tool and~presents the
-tool's first designs. In conclusion, the~results of~this thesis allows
-the~development of~the JRAPIDoc improvements, which allow for decrease need
-of~funds for the development of~the~documentation and~for~the~realization
-of~the~system integration.}
-
-% ABSTRACT DP
-%\abstract[cs]{Tato diplomová práce popisuje
-%vylepšení existujícího nástroje JRAPIDoc, který umožňuje automaticky vytvořit
-% ke~zdrojovému kódu API dokumentaci, ale postrádá její jednoduchou a~kvalitní prezentaci.
-%Výsledkem této práce je nástroj, který umožňuje nejen jednoduché a~současně
-% propracované zobrazení generovaného API, ale také jeho testování pomocí volání webových
-%služeb, které dané API poskytuje. Teoretická část práce popisuje princip
-%webových služeb a~vzdálených rozhraní, použité nástroje a~technologie. Dále je
-% zde popsán návrh a~implementace výše zmíněného nástroje. Na~závěr je vytvořený nástroj
-%otestován na~API poskytovaném nástrojem Red Hat JBoss BPM Suite. Výsledky této
-%práce umožňují snížení nákladů potřebných pro~tvorbu dokumentace a~tím
-% i~realizaci systémové integrace.}
-
-%\abstract[en]{This master thesis focuses on~modification
-%of~an~existing tool JRAPIDoc that allows creating an~API documentation
-%of~an~existing source code, but currently lacks its good and~simple
-%presentation. The~result of~this~thesis is~a tool that allows not~only good
-%and~simple presentation of~a~generated API, but also its testing through
-% calling web services that are provided by~the~API. The~theoretical part describes
-%the~principles of~web services and~remote interfaces, used tools
-%and~technologies. In conclusion, the~results are tested on~an~API provided
-%by~the~Red Hat JBoss BPM Suite application. With the~usage of~the~tool there
-%will be decrease of~needed funds for~the~development of~the~documentation
-% and~for~the~realization of~the~system integration.}
+\abstract[en]{The~thesis describes a~draft of~an~application based on~Swagger
+Framework that will allow to~create test cases from~the~application's API.
+The~theoretical part of~the~thesis explains the~principles of~web services,
+remote interfaces, technologies that will be used for~development, and~the~Swagger Framework itself.
+Subsequently, the~design drafts of~the~application are presented in~detail. The~results
+of~the~thesis allow development of~the~application that will provide an~option
+to~create test cases through calling web services that are provided by~the~APIs. This will lead
+to~decrease need of~funds for~development and~for~the~simpler realization
+of~continuous testing.}
 
 %Klicova slova (cesky, slovensky ci anglicky) / Keywords (in czech, slovak or english)
-\keywords[cs]{Vzdálená~API, Webové~služby, Nástroj~na dokumentaci API,
-Systémová integrace, REST, JRAPIDoc, Angular, PatternFly, Red~Hat} 
-\keywords[en]{Remote~API, Web~Services, API documentation tool, System
-integration, REST, JRAPIDoc, Angular, PatternFly, Java Enterprise
-Applications, Red~Hat}
+\keywords[cs]{Webové služby, REST, Automatické testování, Průběžné testování,
+Swagger, PatternFly, Angular, Red~Hat, Testovací scénáře}
+\keywords[en]{REST, Continuous testing,
+Swagger, PatternFly, Angular, Red~Hat, Automated testing, Web~Services, Test
+cases }
 
 %Prohlaseni (u anglicky psane prace anglicky, u slovensky psane prace slovensky)
 %Declaration (for thesis in english should be in english)
-\declaration{Hereby I declare that this master's thesis was prepared as an
+\declaration{Hereby I declare that this term project was prepared as an
 original author's work under the supervision of Mr. Ing. Radek Kočí, Ph.D.
 The supplementary information was provided by Mr. Mrg. Ivo Bek. All the relevant
 information sources, which were used during preparation of this thesis, are

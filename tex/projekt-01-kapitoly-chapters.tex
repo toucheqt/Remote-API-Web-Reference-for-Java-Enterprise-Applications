@@ -1,37 +1,45 @@
+% TODO pridat nekam citaci na Swagger
+% TODO zmenit frameworks for testing API subsekci na samostatnou sekci, mozna to
+% trochu rozvest?
+% TODO predelat obrazky z draw.io
+% TODO zkontrolovat, jestli \vspace{1.5mm je OK}
+% TODO nastavit barevne LST LISTING
+
 % =============================================================================
 
 
 \chapter{Introduction}
-In~the~software industry, the~great, accessible and~testable code is crucial
-for~modern business, and~the~best way for~us to~test and~share it is
-through APIs\footnote{API is an~abbreviation for~an~Application Programming
-Interface which is a~set of~protocols and~tools for building application
-software.}. They are supposed to~connect engineers, allow for~sharing
-of~developments, let companies add value to~the~products and~create an~ecosystem
-of~shared knowledge. To~fulfill these tasks they have to~be clear, accessible
+In~the~software industry, the~accessible and~testable code is crucial for~modern
+businesses, and~the~best way for~developers to~access or~test it is
+through APIs\footnote{API is an~abbreviation for~an~Application Programming Interface which is a~set
+of~protocols and~tools for~building application software.}. APIs are~supposed
+to~connect engineers, let companies add value to~the~products and~create
+an~ecosystem of~shared knowledge that allows other developers to~use the~code
+provided by~the~APIs. To~fulfill these tasks, APIs have to~be clear, accessible
 and~most importantly human and~machine readable. However, despite their
-importance, there hasn't been an~industry standard for documentating nor~testing
+importance, there hasn't been an~industry standard for~documentating nor~testing
 them.
 
-This thesis aim to~solve the~problem of~documentating and~testing the~APIs.
+This thesis aims to~solve the~problem of~documentating and~testing the~APIs.
 The~goal is to~design and~develop an~application having an~innovative user
 interface with~regard to~clarity and~simple use, aimed to~developers, even
-in~case of~large interfaces. The~application will be based on~Swagger
-framework that provides a~way to~automate API generation.
-The~application will provide not~only API reference, but mainly
-the~functionality to~create extensive test cases from~the~listed web services.
+in~case of~large interfaces. The~application will be based on~Swagger framework
+that provides a~way to~automate API generation. The~application will provide
+not~only an~API reference, but mainly the~functionality to~create extensive test
+cases from~the~listed web services.
 
 % TODO
 % DP - Pridat do designu vetu o - based on~live mockups.. and~later
 %      on~PatternFly Framework.
 
 The~thesis is organizes as~follows. Chapter~\ref{Preliminaries} gives
-definitions needed to~follow the~thesis and~explains web services
-and~RESTful APIs in~detail. Chapter~\ref{Technologies} focuses on~technologies
-that are going to~be used for~implementation of~the~application. Chapter~\ref{Design}
-describes the~application design, wireframes and~mockups.
-The~last Chapter contains an~overall summary of~the~designed solution and~final
-thoughts on~the~work done within the~thesis.
+definitions needed to~follow the~thesis and~explains web services and~RESTful
+APIs in~detail. Chapter~\ref{Technologies} focuses on~technologies that are
+going to~be used for~implementation of~the~application. Chapter~\ref{Design}
+describes the~application designs, wireframes and~mockups which can help reveal
+any clashing visual elements before writing the~code. The~last Chapter contains
+an~overall summary of~the~designed solution and~final thoughts on~the~work done
+within the~thesis.
 
 
 % =============================================================================
@@ -40,88 +48,87 @@ thoughts on~the~work done within the~thesis.
 \chapter{Preliminaries and Definitions}
 \label{Preliminaries}
 This chapter will gradually introduce terms necessary to~follow the~thesis.
-In~the~first sections, is introduced the~basic terminology and~established
-notion of~remote interfaces and~web services. In~the~next section is
-provided an~explanation what APIs are, and~why is important to~automate
-their testing. The~last section covers the~introduction of~a~Swagger framework \cite{Swagger} 
-and~its importance to~the~thesis.
+In~the~first section is introduced basic terminology and~established notion
+of~remote interfaces and~web services. In~the~next section is provided
+an~explanation of~what APIs are, and~why it is important to~test them. The~last
+section covers the~existing frameworks for~testing APIs.
+
 
 \section{Understanding the Web Services}
 \label{WebServices}
 A~web service is a~software system designed to~support interoperable machine
-to~machine interaction over a~network. It is a~collection of~open protocols
-and~standards used for exchanging data between applications or~systems. Software
+to~machine interaction over~a~network. It is a~collection of~open protocols
+and~standards used for~exchanging data between applications or~systems. Software
 applications written in~various programming languages and~running on~various
-platforms can use web services to~exchange data over the~computer networks like
+platforms can use web services to~exchange data over~the~networks like
 the~Internet in~a~manner similar to~interprocess communication on~a~single
 computer.
 
 In~the~past, web services used mostly SOAP\footnote{Simple Object Access
 Protocol is a~protocol specification for~exchanging structured information
-in~the~implementation of~web services in~the~computer networks.} over HTTP
-protocol, allowing less costly interactions over the~Internet. In~a~2004,
-the~W3C extended the~definition of~web services about \uv{REST-complient} web
-services~\cite{W3CWebServices}, in~which the~primary purpose of~the~web service
-is to~manipulate XML or~JSON representations of~web resources using a~uniform
-set of~stateless operations.
+in~the~implementation of~web services in~the~computer networks.} over~HTTP
+protocol~\cite{HTTP}, allowing less costly interactions over~the~Internet.
+However, in~2004 the~W3C extended the~definition of~web services
+about~\uv{REST-complient} web services~\cite{W3CWebServices}, in~which
+the~primary purpose of~the~web service is to~manipulate XML or~JSON
+representations of~web resources using a~uniform set of~stateless operations.
+
 
 \subsection{Introduction to RESTful Web Services}
-The~REST stands for Representational State Transfer, which is an~architectural
+The~REST, abbreviation of~Representationl State Transfer, is an~architectural
 style for~networked hypermedia applications, primarily used to~build web
-services. The~term was first introduced and~defined in~the~year~2000 by~Roy
-Fielding in~his doctoral dissertation~\cite{Fielding}. Fielding's dissertation
-explained the~REST principles were known as~the~\uv{HTTP object model} beginning in~1994,
-and~were used in~designing the~HTTP 1.1 and~Uniform Resource Identifiers (URI)
-standards.
+services. The~term was first introduced and~defined in~the~year~2000
+by~R.~Fielding in~his doctoral dissertation~\cite{FieldingDissertation}.
+In~the~dissertation, Fielding explained that the~REST principles were known
+as~the~\uv{HTTP object model} beginning in~1994, and~were used in~designing
+the~HTTP~1.1 and~Uniform Resource Identifiers~\cite{URI-RFC} standards.
 
 The~REST architectural style constrains an~architecture to~a~\uv{client-server}
 architecture and~it's designed to~use a~stateless communication protocol,
-typically HTTP. The~clients and~servers exchange representations of~resources
-by~using a~standardized interface and~protocol. When the~client accesses
+typically HTTP. A~client and~a~server exchange representations of~resources
+by~using a~standardized interface and~a~protocol. When the~client accesses
 the~resource using the~unique URI, a~representation of~the~resource is returned.
 With each new resource representation, the~client is said to~transfer state.
-The~resources are typically represented by text, JSON or~XML, while JSON being
+The~resources are typically represented by~text, JSON or~XML, while JSON being
 currently the~most popular format being used.
 
-\subsection{Messaging}
-As~mentioned in~the~previous section, RESTful web services can use any stateless
-communication protocol as~a~medium of~communication between client and~server.
-However, the~HTTP protocol~\cite{HTTP} is the~most popular. A~client sends
-a~message in~form of~a~HTTP Request and~the~server responds in~the~form of~HTTP Response. This
-technique is termed as~Messaging. Apart from the~actual data, these messages
-also contain some metadata about the~message itself.
 
-As~shown in~figure~\ref{HTTPRequestFormat} a~request message from a~client
-to~a~server contains of~five major parts.
+\subsection{Messaging}
+As~mentioned earlier, the~RESTful web services can use any stateless
+communication protocol as~a~medium of~communication between client and~server.
+However, the~HTTP protocol is the~most popular. The~communication works
+as~follows: the~client sends a~message in~form of~HTTP~Request and~the~server
+responds in~the~form of~HTTP Response. This technique is termed
+as~\textit{Messaging}. Apart from~the~data, the~messages also contain some
+metadata about the~message itself. As~shown in~the~figure~\ref{fig-HTTPRequest}
+a~request message contains of~five major parts.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.65]{./obrazky-figures/html-request.png}
-	\caption{HTTP Request format}
-	\label{HTTPRequestFormat}
+	\includegraphics[scale=0.5]{./figures/http-request.png}
+	\caption{The~format of~a~HTTP Request.}
+	\label{fig-HTTPRequest}
 \end{figure}
 
 \begin{itemize}
-  \item \textbf{Verb} indicates the HTTP method like GET, PUT, POST, DELETE,
-  etc.
-  \item \textbf{URI} is the~Uniform Resource Identifier used~to~identify
+  \item \textbf{Verb} indicates the~HTTP method like GET, PUT, POST, etc.
+  \item \textbf{URI} is the~Uniform Resource Identifier used to~identify
   the~resource on~the~server.
   \item \textbf{HTTP Version} is the~version of~HTTP.
-  \item \textbf{Request Header} contains the~metadata as~a~collection
-  of~\uv{key-value} pairs of~headers and~their values. For~example, client
+  \item \textbf{Request Header} contains metadata as~a~collection
+  of~\uv{key-value} pairs of~headers and~their values. For~instance, a~client
   (or~browser) type, format supported by~the~client, format of~the~message body,
-  cache settings for~the~response, and~much more information.
-  \item \textbf{Request Body} is the~actual message content or~resource
-  representation.
+  cache settings for~the~response, and~more.
+  \item \textbf{Request Body} is the~message content or~resource representation.
 \end{itemize}
 
-In~the~listing~\ref{GETExample}, can be seen an~example of~an~actual GET
-request that was created by~the~browser when it was tried to~visit the~website
-of~Faculty of~Information Technology.
+In~the~listing~\ref{lst-GETRequest}, can be seen an~example of~a~GET request
+that was created by~the~browser when it tried to~visit the~website of~Faculty
+of~Information Technology.
 
-\vspace{2mm}
-\begin{lstlisting}[caption=A~sample of~a~simplified GET Request.,
-label=GETExample, language=HTML] 
+\vspace{1.5mm}
+\begin{lstlisting}[caption=An~example of~a~simplified GET request made
+by~the~browser., label=lst-GETRequest, language=HTML]
 GET / HTTP/1.1
 Host: www.fit.vutbr.cz
 User-Agent: Mozzila/5.0 (Windows NT 6.3; Win64; x64) ...
@@ -130,47 +137,21 @@ Accept-Encoding: gzip, deflate
 Accept-Language: cs-CZ,cs;
 \end{lstlisting}
 
-The~GET command is followed by the URI
-and~the~HTTP version. The~request also contains some headers.
-The~\uv{User-Agent} header contains information about the~type of~a~client which
-made the~request. The~\uv{Accept} headers tells the~server about the~various
-representation formats, the encoding and~a~language the~client supports.
-The~server, if it supports more than one representation format, can decide
-the~format for~a~response at~runtime depending on~the~value
-of~the~\uv{Accept} header. Because the~request in~listing~\ref{GETExample} is
-a~GET request, it does not contain any message body.
+As~can be seen, the~GET command is followed by~the~URI and~the~HTTP version.
+The~request also contains some headers. The~\uv{User-Agent} header contains
+information about the~type of~a~client which made the~request.
+The~\textit{Accept} headers tells the~server about various representation
+formats, the~encoding, and~a~language the~client supports. The~server, if it
+supports more than one representation format, can decide the~format
+for~the~response at~runtime depending on~the~value of~the~\textit{Accept}
+header. 
 
-When the~server receives the~request it should respond with a~HTTP Response.
-The response has four major parts.
+When the~server receives the~request it should respond with~a~HTTP response,
+such as~in~the~listing~\ref{lst-GETResponse}.
 
-\begin{figure}[!hbt]
-	\centering
-	\includegraphics[scale=0.65]{./obrazky-figures/html-response.png}
-	\caption{HTTP Response format}
-	\label{HTTPResponseFormat}
-\end{figure}
-
-\begin{itemize}
-  \item \textbf{Response Code} contains the~server status for~the~requested
-  resource. This response is generally the~\uv{3-digit} HTTP status code.
-  For~example, 404 means resource not found and~200 means
-  response is ok.
-  \item \textbf{HTTP Version} is the~version of~HTTP.
-  \item \textbf{Response Header} contains the~metadata and~settings about
-  the~response message as~\uv{key-value} pairs. For example, content length,
-  content type, response date, etc.
-  \item \textbf{Response Body} contains message content or~resource
-  representation if the~request was successful.
-\end{itemize}
-
-
-In~the~listing~\ref{GETExampleResponse}, can be seen an~example
-of~the~response to~the~GET request to~Faculty
-of~Information Technology website was made earlier.
-
-\vspace{2mm}
-\begin{lstlisting}[caption=A~sample of~a~simplified response to~a~GET Request.,
-label=GETExampleResponse, language=HTML]
+\vspace{1.5mm}
+\begin{lstlisting}[caption=An~example of~a~simplified response to~GET
+request., label=lst-GETResponse, language=HTML]
 HTTP/1.1 200 OK
 Date: Sat, 09 Dec 2017 08:36:01 GMT
 Server: Apache
@@ -184,60 +165,80 @@ Content-Language: cs
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
- ...
+...
 \end{lstlisting}
 
-The~response code \textit{200 OK} means that everything is ok
-and~the~response message body contains a~valid representation of~the~requested resource.
-In~this case, the~representation is an~HTML document that is declared
-by~\uv{Content-Type} header in~the~response header. The~other attributes
-in~the~header are self explanatory.
+As~can be seen from~the~figure~\ref{fig-HTTPResponse} the~response consists
+of~four major parts.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.5]{./figures/http-response.png}
+	\caption{The~format of~HTTP response.}
+	\label{fig-HTTPResponse}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{Response Code} contains the~server status for~the~requested
+  resource. The~response is generally a~\uv{3-digit} HTTP status code,
+  for~instance, 404 means resource not found and~200 means response is ok.
+  \item \textbf{HTTP Version} is the~version of~HTTP.
+  \item \textbf{Response Header} contains metadata and~settings of~the~response
+  message as~\uv{key-value} pairs. For~example, content type, content language,
+  response date, etc.
+  \item \textbf{Response Body} contains message content or~resource
+  representation if the~request was successful.
+\end{itemize}
+
 
 \subsection{Addressing the Resources}
-If we want to~get a~resource from~the~server, we need to~know, how to~address
-it. Addressing refers to~locating a~resource or~multiple resources lying
-on~the~server. It is analogous to~locate a~postal address of~a~person. A~RESTful
-service uses a~directory hierarchy like human readable URIs to~address its
-resources. Each resource is identified by~its URI which is of~the~following
-format:
-\begin{equation*}
-<protocol>://<serviceName>/<resourceType>/<resourceID>
-\end{equation*}
+If the~client wants to~get a~resource from~the~server, it needs to~know, how
+to~address it. \textit{Addressing} refers to~location a~resource or~multiple
+resources lying on~the~server. It is analogous to~locating a~postal address
+of~a~person. A~RESTful service uses directory hierarchy like human readable URIs
+to~address its resources. Each resource is identified by~its URI which is
+of~the~following format:
 
-The~URI should not say anything about the~operation or~action. This enables us
-to~call the~same URI with different HTTP verbs to~perform different operations.
-Verbs are used to identify the~operation to~be performed on~the~resource.
+\begin{equotation}
+<protocol>://<serviceName>/<resourceType>/<resourceId>
+\end{equotation}
 
-While designing a~URI some important points should be considered.
+The~most important is that the~URI should not say anything about the~operation
+or~action, because for~identifying the~operation to~be performed on~the~resource
+are used HTTP verbs. This enables the~client to~call the~same URI with different
+verbs to~perform different operations. Note that other important points should
+be considered too while designing a~URI.
 
 \begin{enumerate}
-  \item Plural Nouns should be used to~define resources.
-  \item Spaces should be avoided. Typically in~URIs it is recommended
-  to~use underscore or~hyphen when using a~long resource name.
-  \item Lowercase letters are recommended. Although URI is
-  \uv{case-insensitive}, it is a~good practice to~keep the~URL in~lower case
-  letters only.
-  \item Avoid verbs for the~resource names until the~resource is
-  actually an~operation or~a~process. 
+  \item Plural nouns should be used to~define resources.
+  \item Spaces should be avoided. Typically in~URIs it's recommended to~use
+  underscore or~hyphen when using long resource name.
+  \item Lowercase letters are recommended. Although URIs are
+  \uv{case-insensitive}, it's a~good practice to~keep them in~lower case letters
+  only.
+  \item Avoid verbs for~the~resource name until the~resource is actually
+  an~operation or~a~process.
 \end{enumerate}
 
-To~avoid confusion, let us have an~example. Suppose a~database
-of~users and~that the~users should be exposed to~the~Internet through a~service.
-We already know that the~resources should be addressed by~the~URI and~the~action
-perfomed on~the~resource should be defined by~a~HTTP verb. The~verbs correspond
-to~read, create, update, and~delete CRUD\footnote{In~computer programming,
-create, read, update, and delete (as~an~acronym CRUD) are the~four basic
-functions of~persistent storage.} operations.
+To~clarify, consider an~example. Suppose a~database of~users and~that the~users
+should be exposed to~the~Internet through a~service. As~mentioned earlier
+the~resources should be addressed by~the~URI and~the~action performed
+on~the~resource, which should be defined by~a~HTTP verb. The~verbs correspond
+to~read, create, update, and~delete\footnote{In~computer programming, create,
+read, update, and~delete (as~an~acronym CRUD) are four basic functions
+of~persistent storage.} operations.
+
 
 \subsubsection{Creating a~user -- POST /users}
-To~create new resources, in~this case a~user, the~POST verb is most often
-utilized. On~successful creation, returning a~\uv{Location} header with a~link
-to~the~newly created resource with the~\textit{201 Created} HTTP status.
+The~most often utilized verb for~creating resources is the~POST. On~successful
+creation, returning a~\textit{Location} header, with a~link to~the~create
+resource, and the~201 HTTP status. The~method is neither safe nor idempotent.
+Therefore it is recommended for~\uv{non-idempotent} resource requests. Making
+two identical POST requests will most likely result in~two resources containing
+same information.
 
-The~method is neither safe nor idempotent. Therefore it is recommended
-for~\uv{non-idempotent} resource requests. Making two identical POST requests
-will most likely result in~two resources containing the~same information.
 
+% TODO POKRACOVAT TADY
 \subsubsection{Retrieving a~user -- GET /users/\{id\}}
 The~HTTP GET method is used to~retrieve a~representation of~a~resource, in~this
 case a~user with specified id. If the~request is successful, it returns the~user
@@ -418,6 +419,7 @@ can occur. It makes the~testing a~crucial part of~the~application development
 process.
 
 \subsection{The~Frameworks for Testing APIs}
+\label{frameworks}
 As~APIs are becoming an~integral part of~how software works, and~the~more
 the~users rely on~\uv{web-based} systems, the~more crucial is that they are
 tested. Therefore it is not a~surprise that there are many frameworks
@@ -944,120 +946,182 @@ as~in~listing~\ref{PatternFlyGrid}.
 
 \chapter{Application Design}
 \label{Design}
-This chapter will explain the~application requirements and~cover the~application
-design drafts in~detail. The~drafts consists of~separate UI elements that, once
-combined, will represent the~final design draft of~the~application. The~complete
-design drafts can be found in~the~Chapter~\ref{drafts}.
+This chapter will go~over the~application requirements and~will cover
+the~application design drafts in~detail. The~design drafts can help reveal any
+clashing visual elements while it is still easy to~change them before writing
+the~code. Moreover, the~drafts allow to~fully flesh out the~ideas and~choose
+the~best possible options. The~drafts consists of~separate UI elements that,
+once combined, will represent the~final design draft of~the~application.
 
 \section{Application's Requirements}
-As~mentioned in~the~beginning, the~aim of~the~thesis is to~design
-an~application that will allow to~create test cases from an~application's API.
-Therefore it has to~allow the~user to~choose the~application's API upon which
-the~application developed in~the~thesis will work. When the~user chooses
-the~API, the~application should be able to~present the~API's endpoints
-to~the~user and~allow their testing. Once it has access to~the~API, it is
-needed to~specify the~most important requirement of~the~application --
-creating the~test cases. 
+As~mentioned in~the~beginning, the~aim of~the~thesis is to~degign an~application
+that will allow to~create test cases from~an~other~application's API.
+The~application's API will be provided using the~Swagger's documentation file,
+which will contain information about the~API. Therefore the~application
+developed in~the~thesis has to~allow the~user to~choose the~application's API
+upon which it will work. When the~user chooses the~file with~the~API,
+the~application should be able to~present the~API's endpoints to~the~user
+and~allow their testing. 
 
-It should allow creating test cases that can combine various endpoints and~other
-test cases. To~clarify, it should be possible to~test an~API's endpoint and~use
-its output as~an input of~another endpoint. Last but not least, once the~users
-create some test cases, they should be able to~view and~run them. Therefore
-the~application should be able to~present, filter, sort, and~run them.
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/dashboard.png}
+	\caption{The~Dashboard of~the~application that contains the~navigation bar,
+	menu and~an~overview of~recently run endpoints and~test cases.}
+	\label{dashboard}
+\end{figure}
+
+Last but not least, it is needed to~specify the~most
+important requirement for~the~application -- creating the~test cases.
+The~application should allow creating complex test cases that can combine various 
+endpoints and~other test cases. To~clarift, it should be possible
+to~test an~API's endpoint and~use its output as~an~input of~another endpoint.
+Moreover, once the~users create some test cases, they should be able to~manage
+them. Therfore the~application should be able to~present, filter, sort, and~run
+them.
 
 \section{Designing the~Project Explorer}
 This section focuses on~describing the~design process of~the~Project Explorer.
 The~Project Explorer will allow users to~create, manage and~remove projects
 in~the~application.
-As can be seen in~the~figure~\ref{figExplorer} the~project consists of~it's name
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/add-project.png}
+	\caption{A~modal window for~adding projects to~the~application.}
+	\label{addProject}
+\end{figure}
+
+As~can be seen in~the~figure~\ref{addProject} each project consists of~it's name
 and~a~source of~the~API. As~the~source of~the~API is considered an~URL
 (or~a~link to~the~local file system) of~a~Swagger's JSON file that contains
-the~API's documentation.
+the~API's documentation. When the~project is added to~the~application
+via~the~Project Explorer's modal window, it should appear in~the~Project
+Explorer's table as~can be seen in~the~figure~\ref{projectExplorer}. The~table
+consists of~an~enumeration of~the~projects and~their attributes, e.g. amount
+of~endpoints or~test cases in~the~project.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.7]{./designs/addProject.png}
-	\caption{A modal window for~adding projects to~the~application.}
-	\label{figExplorer}
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/project-explorer.png}
+	\caption{The~Project Explorer that contains information about projects that
+	were added to~the~application.}
+	\label{projectExplorer}
 \end{figure}
 
-When the~project is added to~the~application via the~Project Explorer's modal
-window, it should appear in~the~Explorer's table as~can be seen
-in~the~figure~\ref{figExplorerView}. Table consists of~an~enumeration
-of~the~projects and~their attributes, e.g. amount of~endpoints or~test cases
-that in~the~project.
-
-The~Project Explorer view will allow users to~manage various projects, however,
-to~keep things simple the~users will not need to~view the~Explorer for~switching
-between projects. As~can be seen in~the~figure~\ref{figOverview},
-the~application will contain the~navigation bar that will allow users swiftly
-switch between projects without accessing the~Project Explorer.
+The~table view will allows users to~manage various projects, however, to~keep
+things simple the~users will not need to~view the~Project Explorer for~switching
+between projects. As~can be seen in~the~figure~\ref{dashboard}, which shows
+the~application's dashboard, the~application will contain the~navigation bar
+that will allow users to~swiftly switch between projects without accessing
+the~Project Explorer.
 
 \section{Showing the~Endpoints}
-When the~users are able to~add a~project to~the~application. They should be able
-to~view and~test API endpoints that are provided by~that project. Many
-applications that provide overview of~an~API endpoints does not scale well
-enough if they encounter large amount of~the~endpoints. To~address this issue
-the~\uv{tree-like} structure was used for~the~presentation of~the~API.
+Once the~users choose a~project to~work with~within the~application, they should
+be able to~view and~test the~endpoints that are provided by~that project.
+However, as~explained in~the~section~\ref{frameworks}, many applications which
+provide an~overview of~an~API's endpoints does not scale well enough if they
+encounter large amount of~the~endpoints. To~address this issue, in~the~thesis
+was used for~the~presentation of~the~APIs a~\uv{tree-like} structure.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.62]{./designs/leafNode.png}
-	\caption{A~leaf node of~a~tree structure that is used for~displaying
-	the~information about API endpoints.}
-	\label{figLeafNode}
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/api-general.png}
+	\caption{The~overview of~an~API's endpoints ordered into~a~hierarchical
+	\uv{tree-like} structure.}
+	\label{api-general}
 \end{figure}
 
-As~can be seen in~figure~\ref{figAPI} by~default only \uv{top-level} nodes
-of~the~tree are shown. The~users can then expand the~nodes and~view details
-of~the~particular endpoints or~run tests using the~settings menu in~the~top
-right corner of~the~endpoint node. When the~user encounters the~leaf node,
+As~~can be seen in~figure~\ref{api-general} by~default only \uv{top-level} nodes
+of~the~tree are shown. However, the~users can then expand the~nodes and~view
+details of~particular endpoints or~run tests using the~settings menu in~the~top
+right corner of~the~endpoint node. Once the~user encounters the~leaf node,
 the~information about that particural leaf node are shown in~detail as~can be
-seen in~the~figure~\ref{figLeafNode}. 
+seen in~the~figure~\ref{api-detail}.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/api-detail.png}
+	\caption{A~leaf node of~a~hierarchical structure that is used for~displaying
+	the~information about~API's endpoints.}
+	\label{api-detail}
+\end{figure}
 
 \section{Creating the~Test Case}
-Even though it is important to~present the~API endpoints to~the~users
+Even though it is important to~present the~API's endpoints to~the~users
 in~a~friendly way, the~main focus of~the~application lies in~the~test cases.
-Therefore the~Test Case Creator was designed.
-The~design of~the~Creator is based on~canvas, which is a~HTML5 element that
-allows for~dynamic, scriptable rendering of~2D shapes and~bitmap images.
-The~Creator is designed as~an~dynamic editor that allows users
-to~build test cases using various endpoints, test cases and~control structures.
-The~idea behind it is that the~users will be able to~construct complex test
-cases in~the~same way as~they would create state machine
-diagrams\footnote{A~state machine diagram is a~behavior diagram which shows
-discrete behavior of~a~part of~designed system through finite state
+For~that particular reason the~Test Case Creator was designed. The~design is
+based on~canvas, which is a~HTML~5 element that allows for~dynamic, scriptable
+rendering of~2D shapes and~bitmap images. The~Creator is designed as~an~dynamic
+editor that allows users to~build test cases using various endpoints, test cases
+and~control structures. The~idea behind it is that the~users will be able
+to~construct complex test cases in~the~same way as~they would create state
+machine diagrams\footnote{A~state machine diagram is a~behavior diagram which
+showsh discrete behavior of~a~part of~designed system through finite state
 transitions.}.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.7]{./designs/fsm.png}
-	\caption{An~example of~a~test case in~the~format of~a~state machine diagram
-	created using the~Test Case Creator}
-	\label{figFSM}
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/add-endpoint-1.png}
+	\caption{A~modal window for adding endpoint to~a~test case -- selecting
+	the~endpoint's HTTP method.}
+	\label{add-endpoint-1}
 \end{figure}
 
-As~can be seen in~the~figure~\ref{figCreateTest} the~editor consists of~several
-parts. All of~them together allows users to~model desired test cases using
-the~drag and~drop functionality. To~clarify, consider an~example shown
-in~the~figure~\ref{figFSM}. In~the~example, using the~drag and~drop
-functionality was inserted several endpoints to~the~canvas. When an~endpoint is
-inserted, a~modal window with endpoint's details appears. Either the~endpoint
-details can be filled using the~form in~the~window or~using another endpoint's
-output, simply connecting them in~the~canvas. The~figure is modelling simple test case that
-will find a~student by~given id, uses its information details as~an~input 
-for~creating new student and~a~user, and~then enrolling the~newly created 
-student to~some~course.
+The~Creator consists of~several parts. All of~them together allows users
+to~model desired test cases using the~drag and~drop functionality. To~clarify,
+consider an~example shown in~the~figure~\ref{test-case-creator}. In~the~example,
+using the~drag and~drop functionality was inserted several endpoints
+to~the~canvas. When an~endpoint is dropped to~the~canvas a~modal window with
+endpoint's settings appears. If the~dropped endpoint was not a~leaf node
+the~modal window asks the~user to~select endpoint's method
+as~shown~in~the~figure~\ref{add-endpoint-1}.
 
-When the~test cases are made using the~Test Case Creator, the~users should be
-allow to~view, manage, edit, and~run them. Hence the~test cases overview was
-designed. As~can be seen in~the~figure~\ref{figTestCaseContainer} overview
-consists of~a~navigation bar with~buttons that allow managing the~test cases, e.g.
-creating, running or~removing them. Following the~design, the~table with test
-cases was created. This allows users to~view, sort and~filter all test cases
-in~the~project. The~name of~the~test case in~the~table is then~used to~create
-a~link that enables users to~edit the~test case in~the~Test Case Creator.
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/test-case-creator.png}
+	\caption{The~Test Case Creator with an~example of~a~test case in~the~format
+	of~as~state machine diagram.}
+	\label{test-case-creator}
+\end{figure}
 
+However, if the~endpoint was a~leaf node the~modal window with endpoint's detail
+is shown as~can be seen in~the~figure~\ref{add-endpoint-2}. Then either
+the~endpoint's details can be filled using the~form in~the~modal or~skipping
+the~form and~using another endpoint's output as~the~endpoint's details -- simply
+connecting them in~the~canvas. Overall, the~figure~\ref{test-case-creator} is
+modelling simple test case that will find a~student by~given id, uses its
+information details as~an~input for~creating new student and~a~user, and~tehn
+enrolling the~newly created student to~some~course.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/add-endpoint-2.png}
+	\caption{A~modal window for adding endpoint to~a~test case -- filling
+	the~endpoint's information.}
+	\label{add-endpoint-2}
+\end{figure}
+
+Once the~test case is creates using the~Creator, the~users should be allow
+to~view, edit, and~run it. Hence the~Test Cases Overview was designed. As~can be
+seen in~the~figure~\ref{test-cases}, the~overview consists of~a~navigation bar
+with~buttons that allow managing the~test cases, e.g. creating, running
+or~removing them. Following the~design, the~table with~test cases was created.
+The~table allows users to~view, sort and~filter all test cases in~the~project.
+Each test case in~the~table consists of~basic information about it, such
+as~the~day when it was last run or~whether the~last run was successful or~not.
+The~name of~the~test case in~the~table is then~used to~create a~link that
+enables users to~edit the~test case in~the~Creator.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.4]{./designs/drafts-1.0/test-cases.png}
+	\caption{The~Test Cases Overview that contains information about created test
+	cases.}
+	\label{test-cases}
+\end{figure}
+
+% TODO predelat obrazky do PDF
 
 % ===============================================================================
 

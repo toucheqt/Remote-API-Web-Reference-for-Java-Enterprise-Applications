@@ -1,0 +1,11 @@
+h1 {
+	font-size: 26px;
+}
+
+p {
+	font-size: 13px;
+}
+
+#empty-state {
+	height: 100vh;
+}

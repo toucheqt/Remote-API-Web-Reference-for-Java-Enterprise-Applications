@@ -1,0 +1,8 @@
+<app-masthead></app-masthead>
+<div *ngIf="project?.length > 0; else explorer">
+	<p>has projects</p>
+</div>
+<ng-template #explorer>
+	<app-empty-state></app-empty-state>
+</ng-template>
+

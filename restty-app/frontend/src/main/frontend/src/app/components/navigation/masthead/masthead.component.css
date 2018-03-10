@@ -1,0 +1,19 @@
+.navbar {
+	background-color: black;
+}
+
+.navbar-header {
+	height: 60px;
+}
+
+#logo {
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	font-size: 1.6em;
+	font-weight: bold;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+
+

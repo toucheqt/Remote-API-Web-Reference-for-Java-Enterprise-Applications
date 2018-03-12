@@ -1,0 +1,37 @@
+/* Popup settings */
+.popup {
+	width: 440px;	
+	color: #363636;
+	font-size: 14px;
+}
+
+.popup-header {
+	height: 35px;
+	width: auto;
+	margin: -10px -10px 0px -10px;
+	padding-top: 5px;
+	padding-left: 20px;
+	border-radius: 5px 5px 0px 0px;
+	text-align: left;
+}
+
+.pficon-close {
+	margin-left: 318px;
+	cursor: pointer;
+}
+
+.popup-body {
+	background-color: #fff;
+	margin: 0px -10px -10px -10px;
+	border-radius: 0px 0px 5px 5px;
+	padding: 10px 20px 10px 20px;
+	text-align: left;
+}
+
+.popup-body input {
+	font-size: 13px;	
+}
+
+.button-group {
+	text-align: right;	
+}

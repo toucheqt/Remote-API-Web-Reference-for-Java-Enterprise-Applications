@@ -1,0 +1,64 @@
+<button [popper]="createProject" [popperTrigger]="'click'" [popperPlacement]="'bottom'" [popperHideOnClickOutside]="false"
+	type="button" class="btn btn-primary btn-lg">
+	<span class="fa fa-plus" aria-hidden="true"></span>
+	<span class="icon-button-text">&nbsp;&nbsp;Create Project</span>	
+</button>
+<popper-content #createProject>
+	<div class="popup">
+		<div class="popup-header">
+			<span>Create Project</span>
+			<span class="pficon pficon-close" (click)="createProject.hide()"></span>
+		</div>
+		<div class="popup-body">
+			<fieldset>
+				<form [formGroup]="projectForm" #formDir="ngForm">
+					<div [hidden]="formDir.submitted">
+						<div class="form-group">
+							<label for="name" class="required">*&nbsp;Name</label>
+							<input id="name" class="form-control" formControlName="name" placeholder="my-project" required maxlength="63">
+							<div *ngIf="name.invalid && (name.dirty || name.touched)">
+								<div *ngIf="name.errors.required" class="has-error">
+									<span class="help-block ng-scope">Name is required.</span>
+								</div>
+								<div *ngIf="name.errors.minlength" class="has-error">
+									<span class="help-block ng-scope">Name must have at least two characters.</span>
+								</div>
+								<div *ngIf="name.errors.pattern" class="has-error">
+									<span class="help-block ng-scope">Project names may only contain lower-case letters, numbers and dashes. They may not start or end with a dash.</span>
+								</div>
+							</div>
+							<div *ngIf="!isUnique" class="has-error">
+								<span class="help-block ng-scope">Project with that name EXISTUJE</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="source" class="required">*&nbsp;Source</label>
+							<input id="source" class="form-control" formControlName="source" placeholder="http://my-project.org/api" required>
+							<div>
+								<span class="help-block">A path to Swagger's JSON API file.</span>
+							</div>
+							<div *ngIf="source.invalid && (source.dirty || source.touched)">
+								<div *ngIf="source.errors.required" class="has-error">
+									<span class="help-block ng-scope">Source is required.</span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="button-group">
+							<button type="button" class="btn btn-default dialog-btn" (click)="formDir.resetForm({})">Reset</button>
+							<button type="button" class="btn btn-default dialog-btn" (click)="popProject.hide()">Cancel</button>
+							<button type="submit" class="btn btn-primary dialog-btn" (click)="createProject()" [disabled]="projectForm.invalid">Create</button>
+						</div>
+					</div>
+				</form>
+			</fieldset>
+		</div>
+	</div>
+</popper-content>
+						
+
+		
+
+
+
+

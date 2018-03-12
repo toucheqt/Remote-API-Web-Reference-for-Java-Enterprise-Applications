@@ -19,6 +19,10 @@ export class ProjectService {
     return this.http.get<Project[]>('/api/projects');
   }
 
+  findByName(name: string) {
+    return this.http.get<Project>(`/api/projects/${name}`);
+  }
+
   /**
    * Creates project.
    * @param project Project entity with information about project.

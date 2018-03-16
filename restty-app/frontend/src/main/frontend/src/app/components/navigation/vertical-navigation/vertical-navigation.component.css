@@ -1,0 +1,23 @@
+.layout-pf-fixed .navbar-pf-vertical {
+	position: relative;
+	background-color: #292e34;
+	border-top: none;
+	border-bottom: 1px solid #000;
+}
+
+div#verticalNavLayout .navbar-pf-vertical .navbar-brand {
+	color: #d1d1d1;
+	padding: 2px 0px 0px 0px;
+}
+
+div#verticalNavLayout .navbar-pf-vertical .navbar-toggle {
+	margin: 4px 15px;
+}
+
+div#verticalNavLayout .navbar {
+	min-height: 40px;
+}
+
+.nav-pf-vertical { 
+	top: 103px;
+}

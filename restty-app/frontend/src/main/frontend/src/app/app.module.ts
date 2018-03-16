@@ -1,7 +1,7 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NotificationModule } from 'patternfly-ng';
+import { NotificationModule, PatternFlyNgModule } from 'patternfly-ng';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectService } from './services/project.service';
 import { NgxPopperModule } from 'ngx-popper';
@@ -16,6 +16,7 @@ import { CreateProjectButtonComponent } from './components/create-project-button
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/content/dashboard/dashboard.component';
 import { NotFoundComponent } from './components/content/not-found/not-found.component';
+import { VerticalNavigationComponent } from './components/navigation/vertical-navigation/vertical-navigation.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NotFoundComponent } from './components/content/not-found/not-found.comp
     EmptyProjectComponent,
     CreateProjectButtonComponent,
     DashboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    VerticalNavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { NotFoundComponent } from './components/content/not-found/not-found.comp
     NgxPopperModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PatternFlyNgModule
   ],
   providers: [
     ProjectService

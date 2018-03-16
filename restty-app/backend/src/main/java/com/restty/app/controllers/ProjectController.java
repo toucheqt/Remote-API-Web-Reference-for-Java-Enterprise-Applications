@@ -6,13 +6,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
+import com.restty.app.controllers.validators.ProjectValidator;
+import com.restty.app.dto.ProjectDto;
 import com.restty.app.entities.Project;
 import com.restty.app.repositories.ProjectRepository;
+import com.restty.app.service.ProjectService;
 
 /**
  * Controller that handles all /projects requests.
@@ -20,7 +26,7 @@ import com.restty.app.repositories.ProjectRepository;
  * @author Ondrej Krpec
  *
  */
-// @Transactional
+@Transactional
 @RestController
 public class ProjectController {
 
@@ -28,6 +34,12 @@ public class ProjectController {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private ProjectValidator projectValidator;
 
     /**
      * Finds all projects.
@@ -50,7 +62,20 @@ public class ProjectController {
     @Transactional(readOnly = true)
     @GetMapping(PROJECTS_PATH + "/{name}")
     public Project findByName(@PathVariable String name) {
-        return projectRepository.getByName(name);
+        return projectRepository.findByName(name).orElse(null);
+    }
+
+    /**
+     * Creates project from information in {@link ProjectDto}
+     * 
+     * @param projectDto
+     *            {@link ProjectDto} that contains information about new project.
+     * @return {@link Project}
+     */
+    @PostMapping(PROJECTS_PATH)
+    public Project createProject(@RequestBody @Validated ProjectDto projectDto) {
+        projectValidator.validateName(projectDto.getName());
+        return projectService.createProject(projectDto);
     }
 
 }

@@ -3,24 +3,33 @@ import { Observable } from 'rxjs/Observable';
 
 import { ProjectService } from './services/project.service';
 import { Project } from './model/project';
-
-// TODO vychazime z https://github.com/kdechant/angular5-httpclient-demo/tree/master/src/app
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'app';
   projects: Project[];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private router: Router,
+    private projectService: ProjectService) {}
 
-  OnInit() {
+  ngOnInit(): void {
     this.projectService
       .findProjects()
-      .subscribe(result => this.projects = result);
+      .subscribe(result => {
+        if (result.length > 0) {
+          this.router.navigate(['dashboard', 1]);
+//          this.router.navigate(['projects']);
+        } else {
+          this.router.navigate(['new-project']);
+        }
+      });
   }
 
 }

@@ -1,6 +1,9 @@
+import { Project } from '../../model/project';
 import { ProjectService } from '../../services/project.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PopperContent } from 'ngx-popper';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 
 @Component({
@@ -11,11 +14,14 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 export class CreateProjectButtonComponent implements OnInit {
 
   projectForm: FormGroup;
-  project = { name: '', source: ''};
+  project = new Project();
 
   isUnique = true;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private router: Router,
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit(): void {
     this.projectForm = new FormGroup({
@@ -42,6 +48,19 @@ export class CreateProjectButtonComponent implements OnInit {
             .subscribe(result => this.isUnique = result == null);
         }
       });
+  }
+
+  onCancel(): void {
+    this.projectForm.reset();
+  }
+
+  onSubmit(): void {
+    this.project.name = this.projectForm.get('name').value;
+    this.project.source = this.projectForm.get('source').value;
+    this.projectService.createProject(this.project).subscribe(project => {
+      this.router.navigate([`dashboard/${project.id}`]);
+    });
+    this.onCancel();
   }
 
   get name() {

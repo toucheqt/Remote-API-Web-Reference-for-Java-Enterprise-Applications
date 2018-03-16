@@ -28,7 +28,7 @@ export class ProjectService {
    * @param project Project entity with information about project.
    */
   createProject(project: Project) {
-    return this.http.post('/api/projects', JSON.stringify(project), httpOptions);
+    return this.http.post<Project>('/api/projects', JSON.stringify(project), httpOptions);
   }
 
 }

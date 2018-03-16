@@ -1,5 +1,7 @@
 package com.restty.app.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -18,9 +20,9 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
      * 
      * @param name
      *            Name to search by
-     * @return {@link Project} or null if project with provided name does not exist.
+     * @return {@link Project} or empty optional if project with provided name does not exist.
      */
-    @Query("FROM #{entityName} WHERE lower(name) = lower(?1)")
-    Project getByName(String name);
+    @Query("FROM #{#entityName} WHERE lower(name) = lower(?1)")
+    Optional<Project> findByName(String name);
 
 }

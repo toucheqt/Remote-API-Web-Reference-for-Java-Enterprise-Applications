@@ -9,13 +9,13 @@ import { NgxPopperModule } from 'ngx-popper';
 
 import { AppComponent } from './app.component';
 import { MastheadComponent } from './components/navigation/masthead/masthead.component';
-import { ProjectExplorerComponent } from './components/content/project-explorer/project-explorer.component';
-import { EmptyProjectComponent } from './components/content/empty-project/empty-project.component';
+import { ProjectExplorerComponent } from './pages/project-explorer/project-explorer.component';
+import { EmptyProjectComponent } from './pages/empty-project/empty-project.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateProjectButtonComponent } from './components/create-project-button/create-project-button.component';
 import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './components/content/dashboard/dashboard.component';
-import { NotFoundComponent } from './components/content/not-found/not-found.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { VerticalNavigationComponent } from './components/navigation/vertical-navigation/vertical-navigation.component';
 
 

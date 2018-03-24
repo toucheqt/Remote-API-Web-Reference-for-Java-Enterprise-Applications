@@ -1,4 +1,4 @@
-import { AppComponent } from '../../../app.component';
+import { AppComponent } from '../../app.component';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 

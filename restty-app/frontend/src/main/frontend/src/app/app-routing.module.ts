@@ -1,7 +1,7 @@
-import { DashboardComponent } from './components/content/dashboard/dashboard.component';
-import { EmptyProjectComponent } from './components/content/empty-project/empty-project.component';
-import { NotFoundComponent } from './components/content/not-found/not-found.component';
-import { ProjectExplorerComponent } from './components/content/project-explorer/project-explorer.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { EmptyProjectComponent } from './pages/empty-project/empty-project.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ProjectExplorerComponent } from './pages/project-explorer/project-explorer.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 

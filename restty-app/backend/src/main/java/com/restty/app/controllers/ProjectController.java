@@ -31,6 +31,7 @@ import com.restty.app.service.ProjectService;
 public class ProjectController {
 
     private static final String PROJECTS_PATH = REST_API_PREFIX + "/projects";
+    private static final String PROJECT_PATH = PROJECTS_PATH + "/{projectId}";
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -53,6 +54,19 @@ public class ProjectController {
     }
 
     /**
+     * Finds project by given id.
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @return {@link Project}
+     */
+    @GetMapping(PROJECT_PATH)
+    @Transactional(readOnly = true)
+    public Project findById(@PathVariable Long projectId) {
+        return projectRepository.findById(projectId).orElse(null);
+    }
+
+    /**
      * Finds project by given name
      * 
      * @param name
@@ -60,7 +74,7 @@ public class ProjectController {
      * @return {@link Project}
      */
     @Transactional(readOnly = true)
-    @GetMapping(PROJECTS_PATH + "/{name}")
+    @GetMapping(PROJECTS_PATH + "/validate/{name}")
     public Project findByName(@PathVariable String name) {
         return projectRepository.findByName(name).orElse(null);
     }

@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Project } from '../../../model/project';
+import { ProjectService } from '../../../services/project.service';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, Input } from '@angular/core';
 import { NavigationItemConfig } from 'patternfly-ng';
 
 @Component({
@@ -10,11 +11,16 @@ import { NavigationItemConfig } from 'patternfly-ng';
 })
 export class VerticalNavigationComponent implements OnInit {
 
+  @Input() activeProject: Project;
+
   navigationItems: NavigationItemConfig[];
+  projects: Project[];
+
+  defaultName = '';
 
   constructor(
     private chRef: ChangeDetectorRef,
-    private router: Router
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
@@ -22,6 +28,7 @@ export class VerticalNavigationComponent implements OnInit {
       {
         title: 'Dashboard',
         iconStyleClass: 'fa fa-dashboard',
+        trackActiveState: true,
         url: '/navigation/dashboard'
       },
       {
@@ -40,9 +47,24 @@ export class VerticalNavigationComponent implements OnInit {
         url: '/navigation/settings'
       }
     ];
+
+    this.projectService.findProjects()
+      .subscribe(results => {
+        this.projects = results;
+      });
   }
 
+  AfterContentInit(): void {
+    this.defaultName = this.activeProject.name;
+  }
+
+  
+  // TODO
   onItemClicked($event: NavigationItemConfig): void {
+    this.navigationItems.forEach(item => {
+      item.trackActiveState = false;
+    });
+    $event.trackActiveState = true;
     console.log('Item Clicked: ' + $event.title + '\n');
   }
 

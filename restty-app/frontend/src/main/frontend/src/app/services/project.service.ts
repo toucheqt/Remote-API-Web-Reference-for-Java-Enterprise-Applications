@@ -20,7 +20,11 @@ export class ProjectService {
   }
 
   findByName(name: string) {
-    return this.http.get<Project>(`/api/projects/${name}`);
+    return this.http.get<Project>(`/api/projects/validate/${name}`);
+  }
+
+  findById(projectId: number) {
+    return this.http.get<Project>(`/api/projects/${projectId}`);
   }
 
   /**

@@ -58,7 +58,7 @@ export class VerticalNavigationComponent implements OnInit {
     this.defaultName = this.activeProject.name;
   }
 
-  
+
   // TODO
   onItemClicked($event: NavigationItemConfig): void {
     this.navigationItems.forEach(item => {

@@ -1,3 +1,77 @@
-<p>
-  project-explorer works!
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div *ngIf="loading; else pageLoaded" class="loading">
+				<div class="spinner spinner-lg"></div>
+				<span>Loading</span>
+			</div>
+			<ng-template #pageLoaded>
+				<div class="projects-header">
+					<div class="projects-bar">
+						<h1>My Projects</h1>
+						<div class="projects-options">
+							<div class="projects-add">
+								<button class="btn btn-primary">
+									<span class="fa fa-plus"></span>
+									<span class="icon-button-text">Create Project</span>
+								</button>
+							</div>
+							<div class="projects-search">
+								<form role="form" class="search-pf has-button">
+									<div class="form-group has-clear">
+										<div>
+											<label for="search-projects" class="sr-only">Filter by keyword</label>
+											<input (input)="filter($event)" type="search" class="form-control" placeholder="Filter by keyword" id="search-projects" #filterField>
+											<span *ngIf="filterField.value" class="pficon pficon-close filter-clear-icon" (click)="filterField.value=''; filter()"></span>
+										</div>
+									</div>
+								</form>
+								<span class="vertical-divider"></span>
+								<span class="projects-sort-label">Sort by</span>
+								<div class="project-sort">
+									<pfng-sort [config]="sortConfig" (onChange)="sortChange($event)"></pfng-sort>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="!projects.length; else projectsContent" class="h3">
+					<span>The current filter is hiding all projects.</span>
+					<span (click)="filterField.value=''; filter()" class="clear-filter nowrap">Clear Filter</span>
+				</div>
+				<ng-template #projectsContent>
+					<div *ngFor="let project of projects" (click)="showDetail($event, project.id)" class="list-pf list-group projects-list">
+						<div class="list-pf-item list-group-item project-info tile-click">
+							<div class="list-pf-container">
+								<div class="list-pf-content list-pf-content-flex">
+									<div class="list-pf-content-wrapper">
+										<div class="list-pf-main-content">
+											<div class="list-pf-title project-name-item">
+												<h2 class="h3">
+													<a class="tile-target" title="{{project.name}}" href="#">{{project.name}}</a>
+												</h2>
+												<small>
+													<span>sourced from </span>
+													<a id="source" href="{{project.source}}" target="_blank">{{project.source}}</a>
+												</small>	
+											</div>
+											<div class="list-pf-description project-description">
+												<span class="fa fa-cube"></span>
+												<span>&nbsp;{{project.endpoints}} Endpoints</span>
+												<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+												<span class="fa fa-cubes"></span>
+												<span>&nbsp;{{project.tests}} Test cases</span>
+											</div>	
+										</div>
+									</div>
+									<pfng-action id="kebab" class="my-actions" [config]="actionConfig" (onActionSelect)="handleAction($event, project.id)"></pfng-action>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</ng-template>
+		</div>
+	</div>
+</div>
+

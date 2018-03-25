@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-h1 {
-	font-size: 28px;
+
+html, body {
+	height: 100%;
+	background-color: #ededed;
 }
 
-p {
-	font-size: 14px;
-	margin-bottom: 0px;
-}
+/* h1 { */
+/* 	font-size: 28px; */
+/* } */
 
-button {
-	font-size: 15px;
-}
+/* p { */
+/* 	font-size: 14px; */
+/* 	margin-bottom: 0px; */
+/* } */
+
+/* button { */
+/* 	font-size: 15px; */
+/* } */

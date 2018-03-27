@@ -1,0 +1,93 @@
+/* Container */
+.layout-pf-fixed .navbar-pf-vertical {
+	position: relative;
+	background-color: #292e34;
+	border-top: none;
+	border-bottom: 1px solid #000;
+}
+
+div#verticalNavLayout .navbar-header {
+	border-right: 1px solid #000;	
+}
+
+div#verticalNavLayout .navbar-pf-vertical .navbar-brand {
+	color: #d1d1d1;
+	padding: 2px 0px 0px 0px;
+}
+
+div#verticalNavLayout .navbar-pf-vertical .navbar-toggle {
+	margin: 4px 15px;
+}
+
+div#verticalNavLayout .navbar {
+	min-height: 40px;
+}
+
+
+/* Breadcrumbs */	
+div#verticalNavLayout .breadcrumbs {
+	background-color: #292e34;
+	color: #d1d1d1;
+	border: none;
+	box-shadow: unset;
+	height: 40px;
+	font-size: 15px;
+	font-weight: lighter;
+	margin-left: 70px;
+	padding-top: 7px;
+}
+
+div#verticalNavLayout .breadcrumbs-link.left {
+	margin-left: 5px;	
+}
+
+div#verticalNavLayout .breadcrumbs-link.right {
+	margin-right: 5px;
+}
+
+div#verticalNavLayout .breadcrumbs-link:hover {
+	cursor: pointer;
+	color: #39a5dc;
+}
+
+
+/* Vertical menu */ 
+.nav-pf-vertical { 
+	top: 103px;
+}
+
+.nav-pf-vertical .list-group-item>a {
+	font-size: 13px;
+}
+
+.nav-pf-vertical .list-group-item>a .fa, .nav-pf-vertical .list-group-item>a .glyphicon, .nav-pf-vertical .list-group-item>a .pficon {
+	font-size: 18px;
+	line-height: 24px;
+}
+
+.nav-pf-vertical.nav-pf-vertical-with-badges {
+	width: 215px;
+}
+
+.nav-pf-vertical.collapsed {
+	width: 75px;
+}
+
+/** Container **/
+.layout-pf.layout-pf-fixed .container-pf-nav-pf-vertical.nav-pf-vertical-with-badges {
+	margin-left: 215px;
+}
+
+.layout-pf.layout-pf-fixed .container-pf-nav-pf-vertical.nav-pf-vertical-with-badges.hidden-nav {
+	margin-left: 0px;
+}
+
+.layout-pf.layout-pf-fixed .container-pf-nav-pf-vertical.collapsed-nav {
+	margin-left: 75px;
+}
+
+.loading {
+	margin-top: 20.5%;
+	text-align: center;
+	font-size: 15px;
+}

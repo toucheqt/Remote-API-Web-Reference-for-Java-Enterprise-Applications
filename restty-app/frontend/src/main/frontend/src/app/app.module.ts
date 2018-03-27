@@ -8,15 +8,18 @@ import { NgxPopperModule } from 'ngx-popper';
 
 
 import { AppComponent } from './app.component';
-import { MastheadComponent } from './components/navigation/masthead/masthead.component';
+import { MastheadComponent } from './components/masthead/masthead.component';
 import { ProjectExplorerComponent } from './pages/project-explorer/project-explorer.component';
 import { EmptyProjectComponent } from './pages/empty-project/empty-project.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateProjectButtonComponent } from './components/create-project-button/create-project-button.component';
 import { RouterModule } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { VerticalNavigationComponent } from './components/navigation/vertical-navigation/vertical-navigation.component';
+import { ProjectContainerComponent } from './pages/project-container/project-container.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { ApiComponent } from './page-details/api/api.component';
+import { TestCasesComponent } from './page-details/test-cases/test-cases.component';
+import { SettingsComponent } from './page-details/settings/settings.component';
+import { ProjectDetailsComponent } from './page-details/project-details/project-details.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,11 @@ import { VerticalNavigationComponent } from './components/navigation/vertical-na
     ProjectExplorerComponent,
     EmptyProjectComponent,
     CreateProjectButtonComponent,
-    DashboardComponent,
-    NotFoundComponent,
-    VerticalNavigationComponent
+    ProjectContainerComponent,
+    ApiComponent,
+    TestCasesComponent,
+    SettingsComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +41,9 @@ import { VerticalNavigationComponent } from './components/navigation/vertical-na
     NgxPopperModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
-    PatternFlyNgModule
+    PatternFlyNgModule,
+    SelectDropDownModule,
+    AppRoutingModule
   ],
   providers: [
     ProjectService

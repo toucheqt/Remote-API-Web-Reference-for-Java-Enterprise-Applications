@@ -123,10 +123,7 @@ export class ProjectExplorerComponent implements OnInit {
   showDetail(event, projectId) {
     if (event.target.id !== 'source' && !event.target.classList.contains('fa-ellipsis-v') &&
       !event.target.classList.contains('dropdown-toggle') && !event.target.classList.contains('secondary-action')) {
-      console.log('navigating');
-      this.router.navigate(['dashboard', projectId]);
-    } else {
-      console.log(`projectId: ${projectId}`);
+      this.router.navigate(['projects', projectId]);
     }
   }
 

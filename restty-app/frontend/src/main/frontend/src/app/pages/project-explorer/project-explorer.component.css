@@ -1,5 +1,4 @@
 /** Projects header **/
-
 .projects-header {
 	margin-top: 21px;
 }
@@ -110,7 +109,6 @@
 
 
 /** Projects list **/
-
 .projects-list {
 	border-top: 0;
 	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .15), 0 2px 2px 0 rgba(0, 0, 0, .1), 0 1px 5px 0 rgba(0, 0, 0, .09);
@@ -194,4 +192,9 @@
     top: 7px;
     right: 17px;
     cursor: pointer;
+}
+
+.icon-button-text {
+	font-family: "Open Sans",Helvetica,Arial,sans-serif !important;
+	font-weight: 600;
 }

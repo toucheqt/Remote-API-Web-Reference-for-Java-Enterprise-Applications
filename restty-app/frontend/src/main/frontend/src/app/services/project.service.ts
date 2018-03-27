@@ -19,10 +19,18 @@ export class ProjectService {
     return this.http.get<Project[]>('/api/projects');
   }
 
+  /**
+   * Finds project by given name.
+   * @param name Project name to search by
+   */
   findByName(name: string) {
     return this.http.get<Project>(`/api/projects/validate/${name}`);
   }
 
+  /**
+   * Finds project by given id
+   * @param projectId ID of project to search by
+   */
   findById(projectId: number) {
     return this.http.get<Project>(`/api/projects/${projectId}`);
   }

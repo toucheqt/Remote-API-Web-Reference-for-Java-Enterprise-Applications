@@ -7,8 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
@@ -16,6 +15,7 @@ export class AppComponent implements OnInit {
   projects: Project[];
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService) {}
 

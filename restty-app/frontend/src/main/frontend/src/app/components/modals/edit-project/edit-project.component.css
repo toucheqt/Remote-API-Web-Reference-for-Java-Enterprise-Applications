@@ -1,0 +1,11 @@
+.modal-dialog {
+	width: 368px;
+}
+
+.modal-body {
+	padding-bottom: 0px;
+}
+
+.modal-footer {
+	padding: 0px 15px 15px;
+}

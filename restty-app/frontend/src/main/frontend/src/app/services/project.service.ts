@@ -43,4 +43,20 @@ export class ProjectService {
     return this.http.post<Project>('/api/projects', JSON.stringify(project), httpOptions);
   }
 
+  /**
+   * Renames given project.
+   * @param project Project to rename.
+   */
+  renameProject(project: Project) {
+    return this.http.put<Project>(`/api/projects/${project.id}`, JSON.stringify(project), httpOptions).subscribe();
+  }
+
+  /**
+   * Deletes project with given id.
+   * @param projectId ID of project that should be deleted
+   */
+  deleteProject(projectId: number) {
+      this.http.delete(`/api/projects/${projectId}`).subscribe();
+  }
+
 }

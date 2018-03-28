@@ -1,8 +1,10 @@
 import { Project } from '../../model/project';
 import { ProjectService } from '../../services/project.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortEvent, SortConfig, SortField, ActionConfig, Action } from 'patternfly-ng';
+
+declare var $: any;
 
 @Component({
   selector: 'app-project-explorer',
@@ -13,6 +15,7 @@ export class ProjectExplorerComponent implements OnInit {
 
   allProjects: Project[];
   projects: Project[];
+  project: Project;
 
   isAscendingSort = true;
 
@@ -112,11 +115,15 @@ export class ProjectExplorerComponent implements OnInit {
     }
   }
 
-  handleAction(action: Action, projectId: number): void {
+  onKebabClick(projectId): void {
+    this.project = this.projects.find(project => project.id === projectId);
+  }
+
+  handleAction(action: Action): void {
     if (action.id === 'deleteProject') {
-      console.log('deleting project');
+      $('#deleteModal').modal('show');
     } else if (action.id === 'editProject') {
-      console.log('editing project');
+      $('#editModal').modal('show');
     }
   }
 

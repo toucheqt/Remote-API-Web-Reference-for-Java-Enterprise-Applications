@@ -1,3 +1,7 @@
+<div *ngIf="project">
+	<app-edit-project [project]="project"></app-edit-project>
+	<app-delete-project [project]="project"></app-delete-project>
+</div>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -15,6 +19,7 @@
 									<span class="fa fa-plus"></span>
 									<span class="icon-button-text">Create Project</span>
 								</button>
+<!-- 								<app-create-project-button></app-create-project-button> -->
 							</div>
 							<div class="projects-search">
 								<form role="form" class="search-pf has-button">
@@ -64,7 +69,7 @@
 											</div>	
 										</div>
 									</div>
-									<pfng-action id="kebab" class="my-actions" [config]="actionConfig" (onActionSelect)="handleAction($event, project.id)"></pfng-action>	
+									<pfng-action id="kebab" class="my-actions" [config]="actionConfig" (click)="onKebabClick(project.id)" (onActionSelect)="handleAction($event)"></pfng-action>	
 								</div>
 							</div>
 						</div>
@@ -74,6 +79,4 @@
 		</div>
 	</div>
 </div>
-
-
 

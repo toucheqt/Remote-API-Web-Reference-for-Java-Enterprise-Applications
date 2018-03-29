@@ -1,5 +1,7 @@
 package com.restty.app.controllers.validators;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,9 +26,11 @@ public class ProjectValidator {
      * 
      * @param name
      *            project's name to validate
+     * @param projectId
+     *            ID of project to ignore when validating name (e.g. when renaming current project)
      */
-    public void validateName(String name) {
-        if (StringUtils.isBlank(name) || name.length() <= 2) {
+    public void validateName(String name, Optional<Long> projectId) {
+        if (StringUtils.isBlank(name) || name.length() < 2) {
             throw new IllegalArgumentException("Name must have at least two characters.");
         }
 
@@ -35,8 +39,11 @@ public class ProjectValidator {
                     "Project names may only contain lower-case letters, numbers and dashes. They may not start or end with a dash.");
         }
 
-        projectRepository.findByName(name)
-                .ifPresent(project -> new IllegalArgumentException(String.format("Project [name=%s] already exists.", name)));
+        Optional<Project> project = projectRepository.findByName(name);
+        if ((project.isPresent() && !projectId.isPresent())
+                || (project.isPresent() && projectId.isPresent() && !projectId.get().equals(project.get().getId()))) {
+            throw new IllegalArgumentException(String.format("Project [name=%s] already exists.", name));
+        }
     }
     
 }

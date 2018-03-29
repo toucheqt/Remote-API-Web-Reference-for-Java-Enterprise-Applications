@@ -20,4 +20,23 @@ public interface ProjectService {
      */
     Project createProject(ProjectDto projectDto);
 
+    /**
+     * Renames project.
+     * 
+     * @param projectId
+     *            ID of project to rename.
+     * @param name
+     *            New name of the project.
+     * @return Updated project.
+     */
+    Project renameProject(Long projectId, String name);
+
+    /**
+     * Deletes project with given ID.
+     * 
+     * @param projectId
+     *            ID of project to delete.
+     */
+    void deleteProject(Long projectId);
+
 }

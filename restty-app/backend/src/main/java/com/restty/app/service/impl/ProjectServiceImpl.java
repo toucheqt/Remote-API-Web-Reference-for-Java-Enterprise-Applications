@@ -31,4 +31,17 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.save(project);
     }
 
+    @Override
+    public Project renameProject(Long projectId, String name) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Project [ID=%d] does not exist.", projectId)));
+        project.setName(name);
+        return projectRepository.save(project);
+    }
+
+    @Override
+    public void deleteProject(Long projectId) {
+        projectRepository.deleteById(projectId);
+    }
+
 }

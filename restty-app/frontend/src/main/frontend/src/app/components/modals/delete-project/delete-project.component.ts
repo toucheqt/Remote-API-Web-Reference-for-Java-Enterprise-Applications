@@ -1,6 +1,6 @@
 import { Project } from '../../../model/project';
 import { ProjectService } from '../../../services/project.service';
-import { Component, OnInit, Input, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class DeleteProjectComponent implements OnInit {
 
   @Input() project: Project;
+  @Output() projectDeleteEvent = new EventEmitter<number>();
+
   nameForm: FormGroup;
 
   matches = false;
@@ -39,8 +41,9 @@ export class DeleteProjectComponent implements OnInit {
     this.nameForm.reset();
   }
 
-  onSubmit(): void {
+  onSubmit = (event: any) => {
     this.projectService.deleteProject(this.project.id);
+    this.projectDeleteEvent.emit(this.project.id);
     this.onCancel();
   }
 

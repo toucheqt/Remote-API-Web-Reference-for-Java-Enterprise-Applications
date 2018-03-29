@@ -115,6 +115,14 @@ export class ProjectExplorerComponent implements OnInit {
     }
   }
 
+  refreshProjects(projectId): void {
+    this.allProjects = this.allProjects.filter(project => project.id !== projectId);
+    this.projects = this.projects.filter(project => project.id !== projectId);
+    if (this.allProjects.length <= 0) {
+      this.router.navigate(['new-project']);
+    }
+  }
+
   onKebabClick(projectId): void {
     this.project = this.projects.find(project => project.id === projectId);
   }

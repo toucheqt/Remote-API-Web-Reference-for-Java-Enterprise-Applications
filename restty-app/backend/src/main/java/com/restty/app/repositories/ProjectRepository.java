@@ -22,7 +22,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
      *            Name to search by
      * @return {@link Project} or empty optional if project with provided name does not exist.
      */
-    @Query("FROM #{#entityName} WHERE lower(name) = lower(?1) ORDER BY name")
+    @Query("FROM #{#entityName} WHERE lower(name) = lower(?1) ORDER BY name ASC")
     Optional<Project> findByName(String name);
 
 }

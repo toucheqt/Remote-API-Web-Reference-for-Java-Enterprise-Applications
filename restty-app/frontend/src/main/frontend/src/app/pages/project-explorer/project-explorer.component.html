@@ -1,6 +1,6 @@
 <div *ngIf="project">
 	<app-edit-project [project]="project"></app-edit-project>
-	<app-delete-project [project]="project"></app-delete-project>
+	<app-delete-project [project]="project" (projectDeleteEvent)="refreshProjects($event)"></app-delete-project>
 </div>
 <div class="container-fluid">
 	<div class="row">

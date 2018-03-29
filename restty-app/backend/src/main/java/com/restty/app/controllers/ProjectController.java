@@ -3,13 +3,18 @@ package com.restty.app.controllers;
 import static com.restty.app.constants.AppConstants.REST_API_PREFIX;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -84,12 +89,40 @@ public class ProjectController {
      * 
      * @param projectDto
      *            {@link ProjectDto} that contains information about new project.
-     * @return {@link Project}
+     * @return {@link Project} and {@link HttpStatus#CREATED}
      */
     @PostMapping(PROJECTS_PATH)
-    public Project createProject(@RequestBody @Validated ProjectDto projectDto) {
-        projectValidator.validateName(projectDto.getName());
-        return projectService.createProject(projectDto);
+    public ResponseEntity<Project> createProject(@RequestBody @Validated ProjectDto projectDto) {
+        projectValidator.validateName(projectDto.getName(), Optional.empty());
+        return new ResponseEntity<>(projectService.createProject(projectDto), HttpStatus.CREATED);
+    }
+
+    /**
+     * Renames project.
+     * 
+     * @param projectId
+     *            ID of project to rename.
+     * @param projectDto
+     *            DTO that contains new project name
+     * @return updated project
+     */
+    @PutMapping(PROJECT_PATH)
+    public Project renameProject(@PathVariable Long projectId, @RequestBody ProjectDto projectDto) {
+        projectValidator.validateName(projectDto.getName(), Optional.of(projectId));
+        return projectService.renameProject(projectId, projectDto.getName());
+    }
+
+    /**
+     * Deletes project with given ID.
+     * 
+     * @param projectId
+     *            ID of project to delete
+     * @return {@link HttpStatus#NO_CONTENT}
+     */
+    @DeleteMapping(PROJECT_PATH)
+    public ResponseEntity<?> deleteProject(@PathVariable Long projectId) {
+        projectService.deleteProject(projectId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -1,6 +1,6 @@
 import { Project } from '../../model/project';
 import { ProjectService } from '../../services/project.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PopperContent } from 'ngx-popper';
@@ -9,9 +9,12 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 @Component({
   selector: 'app-create-project-button',
   templateUrl: './create-project-button.component.html',
-  styleUrls: ['./create-project-button.component.css']
+  styleUrls: ['./create-project-button.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateProjectButtonComponent implements OnInit {
+
+  @Input() listSettings: boolean;
 
   projectForm: FormGroup;
   project = new Project();
@@ -58,9 +61,8 @@ export class CreateProjectButtonComponent implements OnInit {
     this.project.name = this.projectForm.get('name').value;
     this.project.source = this.projectForm.get('source').value;
     this.projectService.createProject(this.project).subscribe(project => {
-      this.router.navigate([`dashboard/${project.id}`]);
+      this.router.navigate([`projects/${project.id}`]);
     });
-    this.onCancel();
   }
 
   get name() {

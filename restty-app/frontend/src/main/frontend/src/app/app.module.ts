@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateProjectButtonComponent } from './components/create-project-button/create-project-button.component';
 import { RouterModule } from '@angular/router';
 import { ProjectContainerComponent } from './pages/project-container/project-container.component';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ApiComponent } from './page-details/api/api.component';
 import { TestCasesComponent } from './page-details/test-cases/test-cases.component';
 import { SettingsComponent } from './page-details/settings/settings.component';
@@ -46,7 +45,6 @@ import { DeleteProjectComponent } from './components/modals/delete-project/delet
     FormsModule,
     ReactiveFormsModule,
     PatternFlyNgModule,
-    SelectDropDownModule,
     AppRoutingModule
   ],
   providers: [

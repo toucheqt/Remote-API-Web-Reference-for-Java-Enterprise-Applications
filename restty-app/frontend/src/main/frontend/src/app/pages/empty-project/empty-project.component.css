@@ -1,8 +1,17 @@
 #empty-state {
-	height: 100vh;
+	height: calc(100vh - 65px);
 }
 
 .blank-state-pf-icon {
 	line-height: 57.6px;
 	font-size: 57.6px;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+p {
+	font-size: 14px;
+	margin-bottom: 0px;
 }

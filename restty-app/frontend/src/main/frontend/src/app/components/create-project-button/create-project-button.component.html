@@ -1,8 +1,13 @@
-<button [popper]="projectPopper" [popperTrigger]="'click'" [popperPlacement]="'bottom'" [popperHideOnClickOutside]="false"
-	type="button" class="btn btn-primary btn-lg">
-	<span class="fa fa-plus" aria-hidden="true"></span>
-	<span class="icon-button-text">&nbsp;&nbsp;Create Project</span>	
-</button>
+	<button *ngIf="!listSettings" [popper]="projectPopper" [popperTrigger]="'click'" [popperPlacement]="'bottom'" [popperHideOnClickOutside]="false" 
+		type="button" class="btn btn-primary">
+		<span class="fa fa-plus"></span>
+		<span class="icon-button-text">Create Project</span>	
+	</button>
+	<button *ngIf="listSettings" [popper]="projectPopper" [popperTrigger]="'click'" [popperPlacement]="'bottom'" [popperHideOnClickOutside]="false"
+		[popperApplyClass]="'popper-settings'" [popperApplyArrowClass]="'popper-arrow-settings'" type="button" class="btn btn-primary">
+		<span class="fa fa-plus"></span>
+		<span class="icon-button-text">Create Project</span>	
+	</button>
 <popper-content #projectPopper>
 	<div class="popup">
 		<div class="popup-header">

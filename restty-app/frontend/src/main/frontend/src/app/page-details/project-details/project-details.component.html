@@ -1,3 +1,40 @@
-<p>
-  project-details works!
-</p>
+<div class="page-header page-header-bleed-left">
+	<h1>Statistics</h1>
+</div> 
+<div *ngIf="loadingCharts; else chartsLoaded" class="loading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="spinner spinner-lg"></div>
+				<span>Loading</span>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-template #chartsLoaded>
+	<div class="padding-15 content">
+		<div class="row">
+			<div class="col-lg-3 col-lg-offset-3 text-center">
+				<label>Endpoints Test Runs</label>
+			</div>
+			<div class="col-lg-3 text-center">
+				<label>Test Case Runs</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-lg-offset-3 text-center">
+				<pfng-chart-donut [chartData]="endpointsData" [config]="endpointsConfig"></pfng-chart-donut>
+			</div>
+			<div class="col-lg-3 text-center">
+				<pfng-chart-donut [chartData]="testCasesData" [config]="testCasesConfig"></pfng-chart-donut>
+			</div>
+		</div>
+		<div class="row padding-top-10">
+			<div class="col-sm-12">
+				<h4>Failures</h4>
+				<hr/>
+			</div>
+		</div>	
+	</div>
+</ng-template>
+	

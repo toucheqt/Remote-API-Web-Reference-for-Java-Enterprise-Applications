@@ -3,11 +3,18 @@ package com.restty.app.entities;
 import static com.restty.app.constants.DbConstants.PROJECT_SEQUENCE;
 import static com.restty.app.constants.DbConstants.PROJECT_TABLE;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,8 +35,7 @@ public class Project {
     private String name;
     private String source;
 
-    private Integer endpoints = new Integer(0);
-    private Integer tests = new Integer(0);
+    private Set<Endpoint> endpoints;
 
     @Id
     @Column(name = "id")
@@ -62,24 +68,14 @@ public class Project {
         this.source = source;
     }
 
-    @NotNull
-    @Column(name = "endpoints", nullable = false, columnDefinition = "integer default 0")
-    public Integer getEndpoints() {
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
+    public Set<Endpoint> getEndpoints() {
         return endpoints;
     }
 
-    public void setEndpoints(Integer endpoints) {
+    public void setEndpoints(Set<Endpoint> endpoints) {
         this.endpoints = endpoints;
-    }
-
-    @NotNull
-    @Column(name = "tests", nullable = false, columnDefinition = "integer default 0")
-    public Integer getTests() {
-        return tests;
-    }
-
-    public void setTests(Integer tests) {
-        this.tests = tests;
     }
 
 }

@@ -27,7 +27,11 @@
       "scripts": [
       	"../node_modules/patternfly/node_modules/jquery/dist/jquery.min.js",
       	"../node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min.js",
-      	"../node_modules/patternfly/dist/js/patternfly.min.js"
+      	"../node_modules/patternfly/dist/js/patternfly.min.js",
+      	"../node_modules/patternfly/dist/js/patternfly-settings.js",
+      	"../node_modules/patternfly/dist/js/patternfly-settings-base.js",
+      	"../node_modules/patternfly/dist/js/patternfly-settings-charts.js",
+      	"../node_modules/patternfly/dist/js/patternfly-settings-colors.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

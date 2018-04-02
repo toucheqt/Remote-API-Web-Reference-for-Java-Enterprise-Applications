@@ -24,7 +24,8 @@ export class AppComponent implements OnInit {
       .findProjects()
       .subscribe(result => {
         if (result.length > 0) {
-          this.router.navigate(['projects']);
+//          this.router.navigate(['projects']);
+          this.router.navigate(['projects', 48]);
         } else {
           this.router.navigate(['new-project']);
         }

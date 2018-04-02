@@ -53,7 +53,10 @@ div#verticalNavLayout .breadcrumbs-link:hover {
 
 /* Vertical menu */ 
 .nav-pf-vertical { 
-	top: 103px;
+	top: 41px;
+	position: absolute;
+	bottom: none !important;
+	height: calc(100vh - 103px);
 }
 
 .nav-pf-vertical .list-group-item>a {
@@ -76,6 +79,9 @@ div#verticalNavLayout .breadcrumbs-link:hover {
 /** Container **/
 .layout-pf.layout-pf-fixed .container-pf-nav-pf-vertical.nav-pf-vertical-with-badges {
 	margin-left: 215px;
+	margin-top: 0px;
+	height: calc(100vh - 103px);
+	background-color: #f5f5f5;
 }
 
 .layout-pf.layout-pf-fixed .container-pf-nav-pf-vertical.nav-pf-vertical-with-badges.hidden-nav {
@@ -90,4 +96,9 @@ div#verticalNavLayout .breadcrumbs-link:hover {
 	margin-top: 20.5%;
 	text-align: center;
 	font-size: 15px;
+}
+
+.project-container {
+	padding-left: 5px;
+	padding-right: 5px;
 }

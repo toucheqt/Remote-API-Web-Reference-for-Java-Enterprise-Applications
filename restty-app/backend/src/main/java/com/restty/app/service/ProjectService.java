@@ -16,9 +16,9 @@ public interface ProjectService {
      * 
      * @param projectDto
      *            {@link ProjectDto}
-     * @return {@link Project}
+     * @return {@link ProjectDto}
      */
-    Project createProject(ProjectDto projectDto);
+    ProjectDto createProject(ProjectDto projectDto);
 
     /**
      * Renames project.

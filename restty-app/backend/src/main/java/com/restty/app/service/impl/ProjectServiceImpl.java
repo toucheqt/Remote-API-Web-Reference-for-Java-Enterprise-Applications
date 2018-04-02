@@ -21,14 +21,14 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
 
     @Override
-    public Project createProject(ProjectDto projectDto) {
+    public ProjectDto createProject(ProjectDto projectDto) {
         Project project = new Project();
         project.setName(projectDto.getName());
         project.setSource(projectDto.getSource());
 
         // TODO nacist informace o endpointech atd ze source
 
-        return projectRepository.save(project);
+        return new ProjectDto(projectRepository.save(project));
     }
 
     @Override

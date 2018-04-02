@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.collect.Lists;
 import com.restty.app.controllers.validators.ProjectValidator;
 import com.restty.app.dto.ProjectDto;
 import com.restty.app.entities.Project;
@@ -35,8 +34,8 @@ import com.restty.app.service.ProjectService;
 @RestController
 public class ProjectController {
 
-    private static final String PROJECTS_PATH = REST_API_PREFIX + "/projects";
-    private static final String PROJECT_PATH = PROJECTS_PATH + "/{projectId}";
+    public static final String PROJECTS_PATH = REST_API_PREFIX + "/projects";
+    public static final String PROJECT_PATH = PROJECTS_PATH + "/{projectId}";
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -54,8 +53,8 @@ public class ProjectController {
      */
     @GetMapping(PROJECTS_PATH)
     @Transactional(readOnly = true)
-    public List<Project> findProjects() {
-        return Lists.newArrayList(projectRepository.findAll());
+    public List<ProjectDto> findProjects() {
+        return projectRepository.findAllWithStats();
     }
 
     /**
@@ -92,7 +91,7 @@ public class ProjectController {
      * @return {@link Project} and {@link HttpStatus#CREATED}
      */
     @PostMapping(PROJECTS_PATH)
-    public ResponseEntity<Project> createProject(@RequestBody @Validated ProjectDto projectDto) {
+    public ResponseEntity<ProjectDto> createProject(@RequestBody @Validated ProjectDto projectDto) {
         projectValidator.validateName(projectDto.getName(), Optional.empty());
         return new ResponseEntity<>(projectService.createProject(projectDto), HttpStatus.CREATED);
     }

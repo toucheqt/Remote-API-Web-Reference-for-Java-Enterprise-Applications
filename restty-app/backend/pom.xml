@@ -45,17 +45,24 @@
           <scope>runtime</scope>
         </dependency>
         
+        <!-- Utilities -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>24.0-jre</version>
         </dependency>
         
-        <!-- Utilities -->
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
         </dependency>
+        
 	</dependencies>
 
 	<build>

@@ -1,7 +1,7 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NotificationModule, PatternFlyNgModule } from 'patternfly-ng';
+import { NotificationModule, PatternFlyNgModule, ChartModule } from 'patternfly-ng';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectService } from './services/project.service';
 import { NgxPopperModule } from 'ngx-popper';
@@ -21,6 +21,8 @@ import { SettingsComponent } from './page-details/settings/settings.component';
 import { ProjectDetailsComponent } from './page-details/project-details/project-details.component';
 import { EditProjectComponent } from './components/modals/edit-project/edit-project.component';
 import { DeleteProjectComponent } from './components/modals/delete-project/delete-project.component';
+import { EndpointService } from './services/endpoint.service';
+import { TestCaseService } from './services/test-case.service';
 
 @NgModule({
   declarations: [
@@ -45,10 +47,13 @@ import { DeleteProjectComponent } from './components/modals/delete-project/delet
     FormsModule,
     ReactiveFormsModule,
     PatternFlyNgModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartModule
   ],
   providers: [
-    ProjectService
+    ProjectService,
+    EndpointService,
+    TestCaseService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,13 @@
+h2 {
+	font-size: 18px;
+}
+
+.page-header {
+	border-color: #e4e4e4;
+    padding: 18px 20px 9px;
+    margin: -20px -25px;
+}
+
+.content {
+	margin-top: 20px;
+}

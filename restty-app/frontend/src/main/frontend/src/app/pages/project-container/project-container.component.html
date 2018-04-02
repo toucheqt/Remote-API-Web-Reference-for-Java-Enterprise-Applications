@@ -26,7 +26,13 @@
 		  </div>
 		</pfng-vertical-navigation>
 		<div #contentContainer class="container-fluid container-cards-pf container-pf-nav-pf-vertical nav-pf-vertical-with-badges">
-			<router-outlet></router-outlet>
+			<div class="container-fluid project-container">
+				<div class="row">
+					<div class="col-xs-12">
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </ng-template>

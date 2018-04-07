@@ -21,9 +21,10 @@ public interface EndpointRepository extends CrudRepository<Endpoint, Long> {
      * @return {@link StatsDto}
      */
     @Query("SELECT new com.restty.app.dto.StatsDto("
-            + " sum(CASE WHEN lastRunSuccess IS NULL THEN 1 END), "
-            + " sum(CASE WHEN lastRunSuccess = true THEN 1 END), "
-            + " sum(CASE WHEN lastRunSuccess = false THEN 1 END) "
-            + ") FROM #{#entityName}")
+            + " sum(CASE WHEN e.lastRunSuccess IS NULL THEN 1 END), "
+            + " sum(CASE WHEN e.lastRunSuccess = true THEN 1 END), "
+            + " sum(CASE WHEN e.lastRunSuccess = false THEN 1 END) "
+            + ") FROM #{#entityName} e "
+            + " WHERE e.project.id = ?1")
     StatsDto getStatsByProject(Long projectId);
 }

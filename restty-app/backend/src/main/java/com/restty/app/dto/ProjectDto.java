@@ -22,8 +22,8 @@ public class ProjectDto {
     @NotNull
     private String source;
 
-    private long tests;
-    private long endpoints;
+    private Long tests;
+    private Long endpoints;
 
     public ProjectDto() {}
 
@@ -35,15 +35,15 @@ public class ProjectDto {
             this.endpoints = project.getEndpoints().stream().count();
         }
 
-        this.tests = 0; // TODO
+        this.tests = 0l; // TODO
     }
 
     // constructor is used by reflection in ProjectRepository
-    public ProjectDto(Long id, String name, String source, long endpoints, int tests) {
+    public ProjectDto(Long id, String name, String source, Long endpoints, Integer tests) {
         this.id = id;
         this.name = name;
         this.source = source;
-        this.tests = tests;
+        this.tests = tests.longValue();
         this.endpoints = endpoints;
     }
 
@@ -71,19 +71,19 @@ public class ProjectDto {
         this.source = source;
     }
 
-    public long getTests() {
+    public Long getTests() {
         return tests;
     }
 
-    public void setTests(long tests) {
+    public void setTests(Long tests) {
         this.tests = tests;
     }
 
-    public long getEndpoints() {
+    public Long getEndpoints() {
         return endpoints;
     }
 
-    public void setEndpoints(long endpoints) {
+    public void setEndpoints(Long endpoints) {
         this.endpoints = endpoints;
     }
 

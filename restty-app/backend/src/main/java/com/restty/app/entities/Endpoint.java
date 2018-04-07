@@ -7,12 +7,20 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.http.HttpMethod;
 
 /**
  * Entity that contains information about project's endpoints.
@@ -28,10 +36,13 @@ public class Endpoint {
     private Long id;
 
     private String path;
-    private String method;
+    private HttpMethod method;
+    private String description;
 
     private LocalDateTime lastRun;
     private Boolean lastRunSuccess;
+
+    private Project project;
 
     @Id
     @Column(name = "id")
@@ -55,13 +66,23 @@ public class Endpoint {
     }
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "method", nullable = false)
-    public String getMethod() {
+    public HttpMethod getMethod() {
         return method;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(HttpMethod method) {
         this.method = method;
+    }
+
+    @Column(name = "description", columnDefinition = "text")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Column(name = "last_run")
@@ -80,6 +101,16 @@ public class Endpoint {
 
     public void setLastRunSuccess(Boolean lastRunSuccess) {
         this.lastRunSuccess = lastRunSuccess;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
 }

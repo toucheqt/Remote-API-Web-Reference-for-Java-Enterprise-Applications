@@ -8,38 +8,38 @@ package com.restty.app.dto;
  */
 public class StatsDto {
 
-    private long untested;
-    private long successes;
-    private long failures;
+    private Long untested;
+    private Long successes;
+    private Long failures;
 
     // the constructor is used by reflection in EndpointRepository
-    public StatsDto(long untested, long successes, long failures) {
+    public StatsDto(Long untested, Long successes, Long failures) {
         this.untested = untested;
         this.successes = successes;
         this.failures = failures;
     }
 
-    public long getUntested() {
+    public Long getUntested() {
         return untested;
     }
 
-    public void setUntested(long untested) {
+    public void setUntested(Long untested) {
         this.untested = untested;
     }
 
-    public long getSuccesses() {
+    public Long getSuccesses() {
         return successes;
     }
 
-    public void setSuccesses(long successes) {
+    public void setSuccesses(Long successes) {
         this.successes = successes;
     }
 
-    public long getFailures() {
+    public Long getFailures() {
         return failures;
     }
 
-    public void setFailures(long failures) {
+    public void setFailures(Long failures) {
         this.failures = failures;
     }
 

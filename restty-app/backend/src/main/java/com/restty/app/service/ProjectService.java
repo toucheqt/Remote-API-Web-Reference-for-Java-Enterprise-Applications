@@ -1,5 +1,9 @@
 package com.restty.app.service;
 
+import java.io.IOException;
+
+import org.springframework.web.client.RestClientException;
+
 import com.restty.app.dto.ProjectDto;
 import com.restty.app.entities.Project;
 
@@ -18,7 +22,8 @@ public interface ProjectService {
      *            {@link ProjectDto}
      * @return {@link ProjectDto}
      */
-    ProjectDto createProject(ProjectDto projectDto);
+    // TODO exceptions commentare a handle
+    ProjectDto createProject(ProjectDto projectDto) throws RestClientException, IOException;
 
     /**
      * Renames project.

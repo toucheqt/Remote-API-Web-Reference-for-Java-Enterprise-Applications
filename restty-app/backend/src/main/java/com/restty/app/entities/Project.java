@@ -3,21 +3,23 @@ package com.restty.app.entities;
 import static com.restty.app.constants.DbConstants.PROJECT_SEQUENCE;
 import static com.restty.app.constants.DbConstants.PROJECT_TABLE;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Entity that contains information about project.
@@ -35,7 +37,9 @@ public class Project {
     private String name;
     private String source;
 
-    private Set<Endpoint> endpoints;
+    private String path;
+
+    private Set<Endpoint> endpoints = new HashSet<Endpoint>();
 
     @Id
     @Column(name = "id")
@@ -68,14 +72,29 @@ public class Project {
         this.source = source;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
+    @NotNull
+    @Column(name = "path", nullable = false)
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
     public Set<Endpoint> getEndpoints() {
         return endpoints;
     }
 
     public void setEndpoints(Set<Endpoint> endpoints) {
         this.endpoints = endpoints;
+    }
+
+    @Transient
+    public void addEndpoint(Endpoint endpoint) {
+        endpoints.add(endpoint);
     }
 
 }

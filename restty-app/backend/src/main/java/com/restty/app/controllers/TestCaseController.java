@@ -1,4 +1,4 @@
-package com.restty.app.service.impl;
+package com.restty.app.controllers;
 
 import static com.restty.app.controllers.ProjectController.PROJECT_PATH;
 
@@ -32,7 +32,7 @@ public class TestCaseController {
     @Transactional(readOnly = true)
     @GetMapping(TEST_CASES_STATS_PATH)
     public StatsDto getStatsByProject(@PathVariable Long projectId) {
-        return new StatsDto(0, 0, 0);
+        return new StatsDto(0l, 0l, 0l);
     }
 
 }

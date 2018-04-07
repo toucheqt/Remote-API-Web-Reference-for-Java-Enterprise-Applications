@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restty.app.controllers.validators.ProjectValidator;
 import com.restty.app.dto.StatsDto;
 import com.restty.app.repositories.EndpointRepository;
 
@@ -27,6 +28,9 @@ public class EndpointController {
     @Autowired
     private EndpointRepository endpointRepository;
 
+    @Autowired
+    private ProjectValidator projectValidator;
+
     /**
      * Finds endpoints statistics for given project.
      * 
@@ -37,6 +41,7 @@ public class EndpointController {
     @Transactional(readOnly = true)
     @GetMapping(ENDPOINTS_STATS_PATH)
     public StatsDto getStatsByProject(@PathVariable Long projectId) {
+        projectValidator.validate(projectId);
         return endpointRepository.getStatsByProject(projectId);
     }
 

@@ -23,6 +23,7 @@ import { EditProjectComponent } from './components/modals/edit-project/edit-proj
 import { DeleteProjectComponent } from './components/modals/delete-project/delete-project.component';
 import { EndpointService } from './services/endpoint.service';
 import { TestCaseService } from './services/test-case.service';
+import { NoTestCasesComponent } from './page-details/test-cases/no-test-cases/no-test-cases.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TestCaseService } from './services/test-case.service';
     SettingsComponent,
     ProjectDetailsComponent,
     EditProjectComponent,
-    DeleteProjectComponent
+    DeleteProjectComponent,
+    NoTestCasesComponent
   ],
   imports: [
     BrowserModule,

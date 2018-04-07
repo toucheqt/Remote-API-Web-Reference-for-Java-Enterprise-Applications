@@ -2,6 +2,7 @@ package com.restty.app.controllers;
 
 import static com.restty.app.constants.AppConstants.REST_API_PREFIX;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 
 import com.restty.app.controllers.validators.ProjectValidator;
 import com.restty.app.dto.ProjectDto;
@@ -53,7 +55,7 @@ public class ProjectController {
      */
     @GetMapping(PROJECTS_PATH)
     @Transactional(readOnly = true)
-    public List<ProjectDto> findProjects() {
+    public List<ProjectDto> findProjects() throws IOException {
         return projectRepository.findAllWithStats();
     }
 
@@ -90,8 +92,9 @@ public class ProjectController {
      *            {@link ProjectDto} that contains information about new project.
      * @return {@link Project} and {@link HttpStatus#CREATED}
      */
+    // TODO comments exception
     @PostMapping(PROJECTS_PATH)
-    public ResponseEntity<ProjectDto> createProject(@RequestBody @Validated ProjectDto projectDto) {
+    public ResponseEntity<ProjectDto> createProject(@RequestBody @Validated ProjectDto projectDto) throws RestClientException, IOException {
         projectValidator.validateName(projectDto.getName(), Optional.empty());
         return new ResponseEntity<>(projectService.createProject(projectDto), HttpStatus.CREATED);
     }

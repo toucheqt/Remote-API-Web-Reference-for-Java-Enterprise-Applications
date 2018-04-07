@@ -43,7 +43,7 @@ export class ProjectDetailsComponent implements OnInit {
           chartId: 'endpointsDonut',
           colors: {
             New: '#d1d1d1', // gray
-            Successful: '#3f9c35', // green
+            Successful: '#39a5dc', // blue
             Failed: '#cc0000' // red
           },
           donut: {
@@ -72,7 +72,7 @@ export class ProjectDetailsComponent implements OnInit {
           chartId: 'testCasesDonut',
           colors: {
             New: '#d1d1d1', // gray
-            Successful: '#3f9c35', // green
+            Successful: '#39a5dc', // blue
             Failed: '#cc0000' // red
           },
           donut: {

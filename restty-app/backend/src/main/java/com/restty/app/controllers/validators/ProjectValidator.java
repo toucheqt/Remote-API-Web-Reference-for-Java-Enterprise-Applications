@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.restty.app.entities.Project;
+import com.restty.app.exceptions.ResourceNotFoundException;
 import com.restty.app.repositories.ProjectRepository;
 
 /**
@@ -20,6 +21,18 @@ public class ProjectValidator {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    /**
+     * Finds project by given ID.
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @return {@link Project}
+     */
+    public Project validate(Long projectId) {
+        return projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Project [ID=%d] does not exist.", projectId)));
+    }
 
     /**
      * Validates that project's name does not already exist.

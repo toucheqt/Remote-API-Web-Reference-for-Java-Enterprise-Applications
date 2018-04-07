@@ -9,7 +9,7 @@
 	<description>The Restty backend project</description>
 
 	<parent>
-    <groupId>com.restty</groupId>
+    <groupId>cz.restty</groupId>
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -39,7 +39,7 @@
 
         <!-- Frontend application -->
         <dependency>
-          <groupId>com.restty</groupId>
+          <groupId>cz.restty</groupId>
           <artifactId>frontend</artifactId>
           <version>${project.version}</version>
           <scope>runtime</scope>

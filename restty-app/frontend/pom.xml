@@ -9,7 +9,7 @@
 	<description>The Restty frontend project</description>
 
 	<parent>
-    <groupId>com.restty</groupId>
+    <groupId>cz.restty</groupId>
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>

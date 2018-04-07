@@ -41,7 +41,7 @@ export class DeleteProjectComponent implements OnInit {
     this.nameForm.reset();
   }
 
-  onSubmit = (event: any) => {
+  onSubmit = () => {
     this.projectService.deleteProject(this.project.id);
     this.projectDeleteEvent.emit(this.project.id);
     this.onCancel();

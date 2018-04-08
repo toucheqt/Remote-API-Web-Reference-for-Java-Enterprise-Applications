@@ -85,12 +85,12 @@ export class HeadersTableComponent implements OnInit {
       fields: [{
         id: 'header',
         title: 'Header',
-        placeholder: 'Filter by Header...',
+        placeholder: 'Filter by header',
         type: FilterType.TEXT
       }, {
         id: 'value',
         title: 'Value',
-        placeholder: 'Filter by Value...',
+        placeholder: 'Filter by value',
         type: FilterType.TEXT
       }] as FilterField[],
       appliedFilters: [],
@@ -136,7 +136,7 @@ export class HeadersTableComponent implements OnInit {
 
   optionSelected(option: number): void {
   }
-  
+
   // Filter
   applyFilters(filters: Filter[]): void {
     this.filteredRows = [];
@@ -169,7 +169,7 @@ export class HeadersTableComponent implements OnInit {
       match = item.header.match(filter.value) !== null;
     } else if (filter.field.id === 'value') {
       match = item.value.match(filter.value) !== null;
-    } 
+    }
     return match;
   }
 
@@ -187,9 +187,8 @@ export class HeadersTableComponent implements OnInit {
   // Filter queries for type ahead
   filterQueries($event: FilterEvent) {
     const index = (this.filterConfig.fields as any).findIndex((i: any) => i.id === $event.field.id);
-    let val = $event.value.trim();
   }
-  
+
    // Pagination
   handlePageSize($event: PaginationEvent): void {
     this.updateRows();
@@ -204,7 +203,7 @@ export class HeadersTableComponent implements OnInit {
     this.rows = this.filteredRows.slice((this.paginationConfig.pageNumber - 1) * this.paginationConfig.pageSize,
       this.paginationConfig.totalItems).slice(0, this.paginationConfig.pageSize);
   }
-  
+
   // Sort
   compare(item1: any, item2: any): number {
     let compValue = 0;
@@ -212,14 +211,14 @@ export class HeadersTableComponent implements OnInit {
       compValue = item1.header.localeCompare(item2.header);
     } else if (this.currentSortField.id === 'value') {
       compValue = item1.value.localeCompare(item2.value);
-    } 
+    }
 
     if (!this.isAscendingSort) {
       compValue = compValue * -1;
     }
     return compValue;
   }
-  
+
   // Handle sort changes
   handleSortChanged($event: SortEvent): void {
     this.currentSortField = $event.field;
@@ -227,7 +226,7 @@ export class HeadersTableComponent implements OnInit {
     this.allRows.sort((item1: any, item2: any) => this.compare(item1, item2));
     this.applyFilters(this.filterConfig.appliedFilters || []);
   }
-  
+
   // Selection
   handleSelectionChange($event: TableEvent): void {
     this.toolbarConfig.filterConfig.selectedCount = $event.selectedRows.length;

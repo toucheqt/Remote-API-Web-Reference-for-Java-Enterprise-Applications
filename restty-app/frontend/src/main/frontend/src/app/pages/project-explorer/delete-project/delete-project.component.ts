@@ -5,7 +5,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-delete-project',
-  templateUrl: './delete-project.component.html'
+  templateUrl: './delete-project.component.html',
+  styles: ['./delete-project.component.css']
 })
 export class DeleteProjectComponent implements OnInit {
 

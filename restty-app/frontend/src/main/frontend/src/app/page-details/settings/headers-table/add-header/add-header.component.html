@@ -1,0 +1,43 @@
+<div class="modal fade" id="addHeaderModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span class="pficon pficon-close" (click)="onCancel()"></span>
+				</button>
+				<h4 class="modal-title">Add Global Header</h4>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="headerForm" #formDir="ngForm" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label required" for="header">*&nbsp;Header</label>
+						<div class="col-sm-9">
+							<input id="header" class="form-control" formControlName="header" required minlength=1>
+							<div *ngIf="header.invalid && (header.dirty || header.touched)">
+								<div *ngIf="header.errors.required" class="has-error">
+									<span class="help-block ng-scope">Header is required.</span>
+								</div>
+							</div>
+							<div *ngIf="!unique" class="has-error">
+								<span class="help-block ng-scope">This header already exist.</span>
+							</div>
+						</div>
+						<label class="margin-top-10 col-sm-3 control-label required" for="value">*&nbsp;Value</label>
+						<div class="margin-top-10 col-sm-9">
+							<input id="value" class="form-control" formControlName="value" required minlength=1>
+							<div *ngIf="value.invalid && (value.dirty || value.touched)">
+								<div *ngIf="value.errors.required" class="has-error">
+									<span class="help-block ng-scope">Value is required.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+        		<button type="button" class="btn btn-primary" data-dismiss="modal" [disabled] = "!unique" (click)="onSubmit()" [disabled]="headerForm.invalid">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

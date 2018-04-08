@@ -1,6 +1,7 @@
 package cz.restty.app.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +32,18 @@ public interface HeaderRepository extends CrudRepository<Header, Long> {
     List<HeaderDto> findAllGlobalByProject(Project project);
 
     /**
+     * Finds {@link Header} for given project by given name.
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @param headerName
+     *            Header name to search by
+     * @return {@link Header}
+     */
+    @Query("FROM #{#entityName} WHERE project.id = ?1 AND lower(header) = lower(?2)")
+    Optional<Header> findByHeaderName(Long projectId, String headerName);
+
+    /**
      * Deletes all headers for given projects. Deletes both global and endpoint specific headers.
      * 
      * @param project
@@ -39,5 +52,17 @@ public interface HeaderRepository extends CrudRepository<Header, Long> {
     @Modifying
     @Query("DELETE FROM #{#entityName} WHERE project = ?1")
     void deleteAllByProject(Project project);
+
+    /**
+     * Deletes headers with given ids from given project.
+     * 
+     * @param projectId
+     *            ID of project
+     * @param headerIds
+     *            IDs of headers to delete
+     */
+    @Modifying
+    @Query("DELETE FROM #{#entityName} WHERE project.id = ?1 AND id IN (?2)")
+    void deleteByIds(Long projectId, List<Long> headerIds);
 
 }

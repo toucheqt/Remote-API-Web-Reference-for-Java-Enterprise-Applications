@@ -1,4 +1,4 @@
-import { SettingsService } from '../../services/headers.service';
+import { SettingsService } from '../../services/settings.service';
 import { Component, OnInit, ViewChild, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,7 +12,7 @@ export class SettingsComponent {
   projectId: number;
 
   constructor(private route: ActivatedRoute) {
-    this.route.params.subscribe(pathVariable => this.projectId = pathVariable.id);
+    this.route.parent.params.subscribe(pathVariable => this.projectId = pathVariable.id);
   }
 
 }

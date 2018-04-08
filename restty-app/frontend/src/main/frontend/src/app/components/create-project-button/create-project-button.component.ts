@@ -58,11 +58,13 @@ export class CreateProjectButtonComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.project.name = this.projectForm.get('name').value;
-    this.project.source = this.projectForm.get('source').value;
-    this.projectService.createProject(this.project).subscribe(project => {
-      this.router.navigate([`projects/${project.id}`]);
-    });
+    if (this.projectForm.valid) {
+      this.project.name = this.projectForm.get('name').value;
+      this.project.source = this.projectForm.get('source').value;
+      this.projectService.createProject(this.project).subscribe(project => {
+        this.router.navigate([`projects/${project.id}`]);
+      });
+    }
   }
 
   get name() {

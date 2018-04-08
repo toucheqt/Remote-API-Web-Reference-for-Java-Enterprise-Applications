@@ -57,6 +57,11 @@
 	width: 100% !important;
 }
 
+.ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(2),
+.ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(3) {
+	padding-top: 10px;
+}
+
 table-view-example {
   .toolbar-pf {
     border-bottom: none;

@@ -1,8 +1,11 @@
-import { SettingsService } from '../../../services/headers.service';
+import { Header } from '../../../model/header';
+import { SettingsService } from '../../../services/settings.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation, TemplateRef, Input } from '@angular/core';
 import { SortField, FilterConfig, PaginationConfig, SortConfig, TableConfig,
   ToolbarConfig, FilterType, FilterField, Action, FilterEvent, Filter,
-  PaginationEvent, SortEvent, ToolbarView, TableEvent } from 'patternfly-ng';
+  PaginationEvent, SortEvent, ToolbarView, TableEvent, EmptyStateConfig, ActionConfig } from 'patternfly-ng';
+
+declare var $: any;
 
 @Component({
   selector: 'app-headers-table',
@@ -24,13 +27,14 @@ export class HeadersTableComponent implements OnInit {
   // Table Configuration
   currentSortField: SortField;
   paginationConfig: PaginationConfig;
+  emptyStateConfig: EmptyStateConfig;
   tableConfig: TableConfig;
 
-  loading = false; // FIXME
+  loading = true;
 
   allRows: any[];
   rows: any[];
-  rowsAvailable = true;
+  selectedRows: any[];
   columns: any[];
   filteredRows: any[];
   filtersText = '';
@@ -40,26 +44,20 @@ export class HeadersTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.initTable();
-    this.allRows = [{
-      header: 'application/json',
-      value: 'muj json',
-    }, {
-      header: 'application/xml',
-      value: 'moje xml',
-    }, {
-      header: 'Authorization',
-      value: 'Bearer faskjasugvpnbsdg4s5g4sd23gs489dg74sdg4sd56g4s654g56ds4g56sdg',
-    }, {
-      header: 'Content-Type',
-      value: 'application/json',
-    }, {
-      header: 'Content-Length',
-      value: '42',
-    }];
+    this.settingsService.findGlobalHeaders(this.projectId).subscribe(headers => {
+      this.allRows = headers.map(headerEntity => {
+        return {
+          header: headerEntity.header,
+          value: headerEntity.value,
+          id: headerEntity.id
+        };
+      });
 
-    this.filteredRows = this.allRows;
-    this.initConfigurations();
-    this.updateRows(); // Need to initialize for results/total counts
+      this.filteredRows = this.allRows;
+      this.initConfigurations();
+      this.updateRows(); // Need to initialize for results/total counts
+      this.loading = false;
+    });
   }
 
   initTable() {
@@ -116,25 +114,50 @@ export class HeadersTableComponent implements OnInit {
 
     this.paginationConfig = {
       pageNumber: 1,
-      pageSize: 5,
+      pageSize: 10,
       pageSizeIncrements: [5, 10, 25],
       totalItems: this.filteredRows.length
     } as PaginationConfig;
 
+    this.emptyStateConfig = {
+      iconStyleClass: 'pficon-warning-triangle-o',
+      title: 'No Global Headers Available',
+      info: 'Global headers are HTTP headers that are injected to every API and Test Case call. Start by creating a global header.'
+    } as EmptyStateConfig;
+
     this.tableConfig = {
+      emptyStateConfig: this.emptyStateConfig,
       paginationConfig: this.paginationConfig,
       showCheckbox: true,
     } as TableConfig;
   }
 
-   // Actions
-  addHeader(): void {
+  // Actions
+  createHeaderModal($event) {
+    if ($event.screenX !== 0) {
+      $('#addHeaderModal').modal('show');
+    }
   }
 
-  handleAction(action: Action): void {
-  }
+  deleteHeaders() {
+    if (this.selectedRows) {
+      this.settingsService.deleteHeaders(this.projectId, this.selectedRows.map(header => header.id)).subscribe(result => {
+        this.settingsService.findGlobalHeaders(this.projectId).subscribe(headers => {
+          this.allRows = headers.map(headerEntity => {
+            return {
+              header: headerEntity.header,
+              value: headerEntity.value,
+              id: headerEntity.id
+            };
+          });
 
-  optionSelected(option: number): void {
+          this.filteredRows = this.allRows;
+          this.updateRows();
+          this.applyFilters(this.filterConfig.appliedFilters || []);
+          this.selectedRows = null;
+        });
+      });
+    }
   }
 
   // Filter
@@ -149,6 +172,7 @@ export class HeadersTableComponent implements OnInit {
     } else {
       this.filteredRows = this.allRows;
     }
+
     this.tableConfig.appliedFilters = filters; // Need to update appliedFilters to show filter empty state
     this.toolbarConfig.filterConfig.resultsCount = this.filteredRows.length;
     this.updateRows();
@@ -160,27 +184,32 @@ export class HeadersTableComponent implements OnInit {
     $event.appliedFilters.forEach((filter) => {
       this.filtersText += filter.field.title + ' : ' + filter.value + '\n';
     });
+
     this.applyFilters($event.appliedFilters);
   }
 
   matchesFilter(item: any, filter: Filter): boolean {
     let match = true;
+
     if (filter.field.id === 'header') {
       match = item.header.match(filter.value) !== null;
     } else if (filter.field.id === 'value') {
       match = item.value.match(filter.value) !== null;
     }
+
     return match;
   }
 
   matchesFilters(item: any, filters: Filter[]): boolean {
     let matches = true;
+
     filters.forEach((filter) => {
       if (!this.matchesFilter(item, filter)) {
         matches = false;
         return matches;
       }
     });
+
     return matches;
   }
 
@@ -216,6 +245,7 @@ export class HeadersTableComponent implements OnInit {
     if (!this.isAscendingSort) {
       compValue = compValue * -1;
     }
+
     return compValue;
   }
 
@@ -229,22 +259,18 @@ export class HeadersTableComponent implements OnInit {
 
   // Selection
   handleSelectionChange($event: TableEvent): void {
-    this.toolbarConfig.filterConfig.selectedCount = $event.selectedRows.length;
+    this.selectedRows = $event.selectedRows;
   }
 
-  updateItemsAvailable(): void {
-    if (this.rowsAvailable) {
-      this.toolbarConfig.disabled = false;
-      this.toolbarConfig.filterConfig.totalCount = this.allRows.length;
-      this.filteredRows = this.allRows;
-      this.updateRows();
-    } else {
-      // Clear previously applied properties to simulate no rows available
-      this.toolbarConfig.disabled = true;
-      this.toolbarConfig.filterConfig.totalCount = 0;
-      this.filterConfig.appliedFilters = [];
-      this.rows = [];
-    }
+  refreshOnCreate(headerEntity: Header): void {
+    this.allRows.push({
+      header: headerEntity.header,
+      value: headerEntity.value,
+      id: headerEntity.id
+    });
+
+    this.updateRows();
+    this.applyFilters(this.filterConfig.appliedFilters || []);
   }
 
 }

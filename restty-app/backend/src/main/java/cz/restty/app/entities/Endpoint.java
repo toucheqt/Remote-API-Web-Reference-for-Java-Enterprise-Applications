@@ -103,6 +103,7 @@ public class Endpoint {
         this.lastRunSuccess = lastRunSuccess;
     }
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
     public Project getProject() {

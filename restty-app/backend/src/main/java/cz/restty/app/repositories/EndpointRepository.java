@@ -1,5 +1,6 @@
 package cz.restty.app.repositories;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -21,7 +22,7 @@ public interface EndpointRepository extends CrudRepository<Endpoint, Long> {
      *            ID of project to search by
      * @return {@link StatsDto}
      */
-    @Query("SELECT new cz.restty.app.dto.StatsDto("
+    @Query("SELECT new cz.restty.app.rest.dto.StatsDto("
             + " sum(CASE WHEN e.lastRunSuccess IS NULL THEN 1 END), "
             + " sum(CASE WHEN e.lastRunSuccess = true THEN 1 END), "
             + " sum(CASE WHEN e.lastRunSuccess = false THEN 1 END) "
@@ -35,6 +36,7 @@ public interface EndpointRepository extends CrudRepository<Endpoint, Long> {
      * @param project
      *            {@link Project} to delete endpoints for.
      */
+    @Modifying
     @Query("DELETE FROM #{#entityName} WHERE project = ?1")
     void deleteAllByProject(Project project);
 }

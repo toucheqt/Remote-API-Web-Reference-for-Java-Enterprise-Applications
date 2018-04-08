@@ -24,6 +24,9 @@ import { DeleteProjectComponent } from './components/modals/delete-project/delet
 import { EndpointService } from './services/endpoint.service';
 import { TestCaseService } from './services/test-case.service';
 import { NoTestCasesComponent } from './page-details/test-cases/no-test-cases/no-test-cases.component';
+import { NoSettingsComponent } from './page-details/settings/no-settings/no-settings.component';
+import { SettingsService } from './services/headers.service';
+import { HeadersTableComponent } from './page-details/settings/headers-table/headers-table.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,9 @@ import { NoTestCasesComponent } from './page-details/test-cases/no-test-cases/no
     ProjectDetailsComponent,
     EditProjectComponent,
     DeleteProjectComponent,
-    NoTestCasesComponent
+    NoTestCasesComponent,
+    NoSettingsComponent,
+    HeadersTableComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,8 @@ import { NoTestCasesComponent } from './page-details/test-cases/no-test-cases/no
   providers: [
     ProjectService,
     EndpointService,
-    TestCaseService
+    TestCaseService,
+    SettingsService
   ],
   bootstrap: [AppComponent]
 })

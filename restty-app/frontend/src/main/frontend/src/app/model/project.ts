@@ -1,5 +1,7 @@
 /**
  * Entity that contains information about projects
+ *
+ * @author Ondrej Krpec
  */
 export class Project {
   id: number;

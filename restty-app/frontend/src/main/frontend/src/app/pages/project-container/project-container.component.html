@@ -19,11 +19,20 @@
 	      [showIcons]="true"
 	      [updateActiveItemsOnClick]="true"
 	      (onItemClickEvent)="onItemClicked($event)">
-	      <div class="breadcrumbs">
-		      <span [routerLink]="['/projects']" class="breadcrumbs-link right">Projects</span>
-		      <span class="fa fa-angle-double-right"></span>
-		      <span [routerLink]="['/projects', project.id]" class="breadcrumbs-link left">{{project.name}}</span>
-		  </div>
+	    	<div class="breadcrumbs">
+		    	<span [routerLink]="['/projects']" class="breadcrumbs-link right">Projects</span>
+		      	<span class="fa fa-angle-double-right"></span>
+		      	<div *ngIf="contentView; else default" class="breadcrumbs-content">
+		      		<span [routerLink]="['/projects', project.id]" class="breadcrumbs-link left right">{{project.name}}</span>
+		      		<span class="fa fa-angle-double-right"></span>
+		      		<span *ngIf="contentView == 'API'" [routerLink]="['/projects', project.id, 'api']" class="breadcrumbs-link left">API</span>
+		      		<span *ngIf="contentView == 'Test cases'" [routerLink]="['/projects', project.id, 'test-cases']" class="breadcrumbs-link left">Test Cases</span>
+		      		<span *ngIf="contentView == 'Settings'" [routerLink]="['/projects', project.id, 'settings']" class="breadcrumbs-link left">Settings</span>
+		      	</div>
+			  	<ng-template #default>
+			  		<span [routerLink]="['/projects', project.id]" class="breadcrumbs-link left">{{project.name}}</span>
+				</ng-template>
+		  	</div>
 		</pfng-vertical-navigation>
 		<div #contentContainer class="container-fluid container-cards-pf container-pf-nav-pf-vertical nav-pf-vertical-with-badges">
 			<div class="container-fluid project-container">

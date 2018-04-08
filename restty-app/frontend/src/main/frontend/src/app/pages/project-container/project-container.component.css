@@ -31,14 +31,14 @@ div#verticalNavLayout .breadcrumbs {
 	border: none;
 	box-shadow: unset;
 	height: 40px;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: lighter;
 	margin-left: 70px;
-	padding-top: 7px;
+	padding-top: 8px;
 }
 
 div#verticalNavLayout .breadcrumbs-link.left {
-	margin-left: 5px;	
+	margin-left: 3px;	
 }
 
 div#verticalNavLayout .breadcrumbs-link.right {
@@ -50,6 +50,9 @@ div#verticalNavLayout .breadcrumbs-link:hover {
 	color: #39a5dc;
 }
 
+.breadcrumbs-content {
+	display: inline-block;
+}
 
 /* Vertical menu */ 
 .nav-pf-vertical { 

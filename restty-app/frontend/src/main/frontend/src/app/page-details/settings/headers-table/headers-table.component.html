@@ -1,0 +1,48 @@
+<div *ngIf="loading; else pageLoaded" class="loading">
+	<div class="spinner spinner-lg"></div>
+	<span>Loading</span>
+</div>
+<ng-template #pageLoaded>
+	<div id="headers-table" class="padding-top-20">
+		<div class="row">
+			<div class="col-sm-12">
+				<pfng-toolbar [config]="toolbarConfig"
+					[actionTemplate]="actionTemplate"
+					(onActionSelect)="handleAction($event)"
+		            (onFilterChange)="filterChanged($event)"
+		            (onFilterTypeAhead)="filterQueries($event)"
+		            (onSelectionChange)="handleSelectionChange($event)"
+		            (onSortChange)="handleSortChanged($event)">
+		      	</pfng-toolbar>
+		      	<ng-template #actionTemplate>
+		            <div class="pull-right">
+						<button class="btn btn-default hidden-xs" (click)="addHeader()">Add Header</button>	
+						<button class="btn btn-default hidden-xs">Remove Headers</button>
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	  	<div class="row">
+	  		<div class="col-sm-12">
+	  			<div class="margin-top-10">
+	  				<pfng-table [columns]="columns"
+	  					[config]="tableConfig"
+	            		[rows]="rows"
+	            		(onActionSelect)="handleAction($event)"
+	            		(onFilterTypeAhead)="filterQueries($event)"
+	            		(onPageNumberChange)="handlePageNumber($event)"
+	            		(onPageSizeChange)="handlePageSize($event)"
+	            		(onSelectionChange)="handleSelectionChange($event)">
+	            	</pfng-table>
+	            	<ng-template #headerTemplate let-row="row">
+	            		<span>{{row.header}}</span>
+	            	</ng-template>
+	            	<ng-template #valueTemplate let-row="row">
+	            		<span>{{row.value}}</span>
+	            	</ng-template>
+	  			</div>
+	  		</div>
+	  	</div>
+	</div>
+<!-- 	<app-no-settings></app-no-settings> -->
+</ng-template>

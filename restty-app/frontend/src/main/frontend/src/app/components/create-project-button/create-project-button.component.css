@@ -26,8 +26,11 @@
 }
 
 .pficon-close {
-	margin-left: 250px;
 	cursor: pointer;
+}
+
+.popup .pficon-close {
+	margin-left: 250px;
 }
 
 .popup-body {

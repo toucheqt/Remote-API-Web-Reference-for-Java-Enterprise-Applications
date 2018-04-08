@@ -32,7 +32,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
      * 
      * @return list of {@link ProjectDto}
      */
-    @Query("SELECT new cz.restty.app.dto.ProjectDto("
+    @Query("SELECT new cz.restty.app.rest.dto.ProjectDto("
             + "  p.id, p.name, p.source, count(e.id), 0" 
             + " ) " 
             + " FROM #{#entityName} p "

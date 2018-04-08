@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../services/headers.service';
+import { Component, OnInit, ViewChild, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  templateUrl: './settings.component.html'
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
 
-  constructor() { }
+  projectId: number;
 
-  ngOnInit() {
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe(pathVariable => this.projectId = pathVariable.id);
   }
 
 }

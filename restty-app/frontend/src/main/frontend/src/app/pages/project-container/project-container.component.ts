@@ -12,6 +12,8 @@ import { NavigationItemConfig } from 'patternfly-ng';
 })
 export class ProjectContainerComponent implements OnInit {
 
+  contentView = null;
+
   project: Project;
   loading = true;
 
@@ -57,7 +59,9 @@ export class ProjectContainerComponent implements OnInit {
   }
 
   onItemClicked($event: NavigationItemConfig): void {
+    this.contentView = $event.title;
     if ($event.title === 'Dashboard') {
+      this.contentView = null;
       this.router.navigate(['projects', this.project.id]);
     } else if ($event.title === 'API') {
       this.router.navigate(['projects', this.project.id, 'api']);

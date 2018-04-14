@@ -3,6 +3,7 @@ package cz.restty.app.entities;
 import static cz.restty.app.constants.DbConstants.HEADER_SEQUENCE;
 import static cz.restty.app.constants.DbConstants.HEADER_TABLE;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,7 +68,7 @@ public class Header {
     }
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
     public Project getProject() {
         return project;
@@ -77,7 +78,7 @@ public class Header {
         this.project = project;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endpoint", foreignKey = @ForeignKey(name = "id_endpoint_fkey"))
     public Endpoint getEndpoint() {
         return endpoint;

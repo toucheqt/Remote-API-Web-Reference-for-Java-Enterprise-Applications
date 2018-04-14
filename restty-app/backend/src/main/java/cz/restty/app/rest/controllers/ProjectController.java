@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cz.restty.app.entities.Project;
 import cz.restty.app.repositories.ProjectRepository;
 import cz.restty.app.rest.controllers.validators.ProjectValidator;
+import cz.restty.app.rest.dto.LastRunsDto;
 import cz.restty.app.rest.dto.ProjectDto;
 import cz.restty.app.service.ProjectService;
 
@@ -37,6 +38,8 @@ public class ProjectController {
 
     public static final String PROJECTS_PATH = REST_API_PREFIX + "/projects";
     public static final String PROJECT_PATH = PROJECTS_PATH + "/{projectId}";
+    public static final String PROJECT_FAILURES_PATH = PROJECT_PATH + "/failures";
+    public static final String PROJECT_RECENT_PATH = PROJECT_PATH + "/recent";
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -56,6 +59,34 @@ public class ProjectController {
     @Transactional(readOnly = true)
     public List<ProjectDto> findProjects() throws IOException {
         return projectRepository.findAllWithStats();
+    }
+
+    /**
+     * Finds last 5 api or test case calls that were unsuccessful.
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @return List of five {@link LastRunsDto}
+     */
+    @GetMapping(PROJECT_FAILURES_PATH)
+    @Transactional(readOnly = true)
+    public List<LastRunsDto> findLastRunFailures(@PathVariable Long projectId) {
+        projectValidator.validate(projectId);
+        return projectRepository.findLastRunFailures(projectId);
+    }
+
+    /**
+     * Finds five most recently called apis or test cases.
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @return List of five {@link LastRunsDto}
+     */
+    @GetMapping(PROJECT_RECENT_PATH)
+    @Transactional(readOnly = true)
+    public List<LastRunsDto> findRecentRuns(@PathVariable Long projectId) {
+        projectValidator.validate(projectId);
+        return projectRepository.findRecentRuns(projectId);
     }
 
     /**

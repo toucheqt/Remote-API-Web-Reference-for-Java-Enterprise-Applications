@@ -27,6 +27,11 @@ import { NoTestCasesComponent } from './page-details/test-cases/no-test-cases/no
 import { SettingsService } from './services/settings.service';
 import { HeadersTableComponent } from './page-details/settings/headers-table/headers-table.component';
 import { AddHeaderComponent } from './page-details/settings/headers-table/add-header/add-header.component';
+import { FailuresTableComponent } from './page-details/project-details/failures-table/failures-table.component';
+import { ApiDetailComponent } from './page-details/api-detail/api-detail.component';
+import { RecentTableComponent } from './page-details/project-details/recent-table/recent-table.component';
+import { TestCaseDetailComponent } from './page-details/test-case-detail/test-case-detail.component';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,12 @@ import { AddHeaderComponent } from './page-details/settings/headers-table/add-he
     DeleteProjectComponent,
     NoTestCasesComponent,
     HeadersTableComponent,
-    AddHeaderComponent
+    AddHeaderComponent,
+    FailuresTableComponent,
+    ApiDetailComponent,
+    RecentTableComponent,
+    TestCaseDetailComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,

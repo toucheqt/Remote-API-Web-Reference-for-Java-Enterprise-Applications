@@ -15,6 +15,7 @@ import cz.restty.app.entities.Project;
 import cz.restty.app.repositories.EndpointRepository;
 import cz.restty.app.repositories.HeaderRepository;
 import cz.restty.app.repositories.ProjectRepository;
+import cz.restty.app.repositories.TestCaseRepository;
 import cz.restty.app.rest.dto.ProjectDto;
 import cz.restty.app.rest.exceptions.SwaggerFileUnavailableException;
 import cz.restty.app.rest.exceptions.ValidationException;
@@ -39,6 +40,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private EndpointRepository endpointRepository;
+
+    @Autowired
+    private TestCaseRepository testCaseRepository;
 
     @Autowired
     private HeaderRepository headerRepository;
@@ -69,6 +73,7 @@ public class ProjectServiceImpl implements ProjectService {
     public void deleteProject(Project project) {
         headerRepository.deleteAllByProject(project);
         endpointRepository.deleteAllByProject(project);
+        testCaseRepository.deleteAllByProject(project);
         projectRepository.delete(project);
     }
 

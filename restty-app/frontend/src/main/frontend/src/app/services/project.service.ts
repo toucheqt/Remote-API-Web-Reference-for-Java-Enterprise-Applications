@@ -1,3 +1,4 @@
+import { LastRun } from '../model/last-run';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -17,6 +18,24 @@ export class ProjectService {
    */
   findProjects() {
     return this.http.get<Project[]>('/api/projects');
+  }
+
+  /*
+   * Finds last five api or test cases that were unsucessful
+   * @param projectId ID of project to search by
+   * @return last five of LastRun
+   */
+  findLastRunFailures(projectId) {
+    return this.http.get<LastRun[]>(`/api/projects/${projectId}/failures`);
+  }
+
+  /*
+   * Finds five most recently called apis or test cases.
+   * @param projectId ID of project to search by
+   * @return last five of LastRun
+   */
+  findRecentRuns(projectId) {
+    return this.http.get<LastRun[]>(`/api/projects/${projectId}/recent`);
   }
 
   /**

@@ -35,15 +35,17 @@ public class ProjectDto {
             this.endpoints = project.getEndpoints().stream().count();
         }
 
-        this.tests = 0l; // TODO testy
+        if (CollectionUtils.isNotEmpty(project.getTestCases())) {
+            this.tests = project.getTestCases().stream().count();
+        }
     }
 
     // constructor is used by reflection in ProjectRepository
-    public ProjectDto(Long id, String name, String source, Long endpoints, Integer tests) {
+    public ProjectDto(Long id, String name, String source, Long endpoints, Long tests) {
         this.id = id;
         this.name = name;
         this.source = source;
-        this.tests = tests.longValue();
+        this.tests = tests;
         this.endpoints = endpoints;
     }
 

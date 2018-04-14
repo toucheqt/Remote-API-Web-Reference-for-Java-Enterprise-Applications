@@ -16,7 +16,7 @@
 		      	<ng-template #actionTemplate>
 		            <div class="pull-right">
 						<button class="btn btn-default hidden-xs" (click)="createHeaderModal($event)">Add Header</button>	
-						<button class="btn btn-default hidden-xs" (click)="deleteHeaders()">Remove Headers</button>
+						<button class="btn btn-default hidden-xs" (click)="deleteHeaders()">Remove Header</button>
 					</div>
 				</ng-template>
 			</div>
@@ -24,20 +24,12 @@
 	  	<div class="row">
 	  		<div class="col-sm-12">
 	  			<div class="margin-top-10">
-	  				<pfng-table [columns]="columns"
-	  					[config]="tableConfig"
-	            		[rows]="rows"
+	  				<pfng-table [columns]="columns" [rows]="rows" [config]="tableConfig"
 	            		(onFilterTypeAhead)="filterQueries($event)"
 	            		(onPageNumberChange)="handlePageNumber($event)"
 	            		(onPageSizeChange)="handlePageSize($event)"
 	            		(onSelectionChange)="handleSelectionChange($event)">
 	            	</pfng-table>
-	            	<ng-template #headerTemplate let-row="row">
-	            		<span>{{row.header}}</span>
-	            	</ng-template>
-	            	<ng-template #valueTemplate let-row="row">
-	            		<span>{{row.value}}</span>
-	            	</ng-template>
 	  			</div>
 	  		</div>
 	  	</div>

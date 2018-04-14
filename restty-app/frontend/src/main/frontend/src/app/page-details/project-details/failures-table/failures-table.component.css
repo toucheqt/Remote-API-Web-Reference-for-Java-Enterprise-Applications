@@ -1,0 +1,58 @@
+/* Table */
+#failuresTable {
+	margin-top: -30px;
+	margin-bottom: 50px;
+}
+
+#failuresTable .ngx-datatable.patternfly .datatable-header-cell,
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell {
+	padding: 7px 10px 7px;
+}
+
+#failuresTable .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(1),
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(1) {
+	width: 140% !important;
+	border-right: none;
+}
+
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(1) span {
+	color: #0088ce;
+	cursor: pointer;
+}
+
+#failuresTable .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(2),
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(2),
+#failuresTable .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(3),
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(3) {
+	width: 50% !important;
+	border-right: none;
+}
+
+#failuresTable .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(4),
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(4) {
+	width: 50% !important;
+}
+
+#failuresTable .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell {
+	padding-top: 10px;
+}
+
+#failuresTable table-view-example {
+  .toolbar-pf {
+    border-bottom: none;
+    box-shadow: none;
+  }
+}
+
+#failuresTable .table {
+	padding-top: 5px;
+}
+
+#failuresTable input[type=checkbox], input[type=radio] {
+	margin: 7px 0 0 !important;
+}
+
+#failuresTable .datatable-body-cell-label span {
+	display: inline-block;
+}
+

@@ -28,12 +28,13 @@ export class ProjectDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private endpointsService: EndpointService,
-    private testCasesService: TestCaseService
+    private testCasesService: TestCaseService,
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(pathVariable => {
-      this.endpointsService.findStatsByProject(pathVariable.id).subscribe(stats => {
+    this.route.parent.params.subscribe(pathVariable => {
+      this.projectId = pathVariable.id;
+      this.endpointsService.findStatsByProject(this.projectId).subscribe(stats => {
         this.endpointsData = [
           ['New', stats.untested],
           ['Successful', stats.successes],
@@ -89,7 +90,6 @@ export class ProjectDetailsComponent implements OnInit {
         }
       });
     });
-
   }
 
 }

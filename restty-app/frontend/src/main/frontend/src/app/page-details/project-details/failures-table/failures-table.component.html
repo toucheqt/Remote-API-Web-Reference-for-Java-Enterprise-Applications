@@ -1,0 +1,15 @@
+<div *ngIf="loading; else pageLoaded"></div>
+<ng-template #pageLoaded>
+	<div id="failuresTable">
+		<app-add-header></app-add-header>
+		<div id="headers-table" class="padding-top-20">
+		  	<div class="row">
+		  		<div class="col-sm-12">
+		  			<div class="margin-top-10">
+		  				<pfng-table [columns]="columns" [rows]="allRows" [config]="tableConfig" (onActivate)="handleOnActivate($event)"></pfng-table>
+		  			</div>
+		  		</div>
+		  	</div>
+		</div>
+	</div>
+</ng-template>

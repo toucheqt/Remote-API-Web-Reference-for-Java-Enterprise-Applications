@@ -31,10 +31,18 @@
 			</div>
 		</div>
 		<div class="row padding-top-10">
-			<div class="col-sm-12">
-				<!-- TODO tady tabulka -->
-			</div>
+			
 		</div>	
 	</div>
 </ng-template>
+<h2>Recent</h2>
+<app-recent-table [projectId]="projectId"></app-recent-table>
+<div *ngIf="loadingCharts; else fails"></div>
+<ng-template #fails>
+	<div *ngIf="endpointsData[2][1] > 0 || testCasesData[2][1] > 0">
+		<h2>Failures</h2>
+		<app-failures-table [projectId]="projectId"></app-failures-table>
+	</div>
+</ng-template>
+
 	

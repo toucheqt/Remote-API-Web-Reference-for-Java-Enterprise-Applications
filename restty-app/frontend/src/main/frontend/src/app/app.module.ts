@@ -23,7 +23,6 @@ import { EditProjectComponent } from './pages/project-explorer/edit-project/edit
 import { DeleteProjectComponent } from './pages/project-explorer/delete-project/delete-project.component';
 import { EndpointService } from './services/endpoint.service';
 import { TestCaseService } from './services/test-case.service';
-import { NoTestCasesComponent } from './page-details/test-cases/no-test-cases/no-test-cases.component';
 import { SettingsService } from './services/settings.service';
 import { HeadersTableComponent } from './page-details/settings/headers-table/headers-table.component';
 import { AddHeaderComponent } from './page-details/settings/headers-table/add-header/add-header.component';
@@ -32,6 +31,8 @@ import { ApiDetailComponent } from './page-details/api-detail/api-detail.compone
 import { RecentTableComponent } from './page-details/project-details/recent-table/recent-table.component';
 import { TestCaseDetailComponent } from './page-details/test-case-detail/test-case-detail.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { TestCaseTableComponent } from './page-details/test-cases/test-case-table/test-case-table.component';
+import { AddTestCaseComponent } from './page-details/test-cases/add-test-case/add-test-case.component';
 
 @NgModule({
   declarations: [
@@ -47,14 +48,15 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     ProjectDetailsComponent,
     EditProjectComponent,
     DeleteProjectComponent,
-    NoTestCasesComponent,
     HeadersTableComponent,
     AddHeaderComponent,
     FailuresTableComponent,
     ApiDetailComponent,
     RecentTableComponent,
     TestCaseDetailComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    TestCaseTableComponent,
+    AddTestCaseComponent
   ],
   imports: [
     BrowserModule,

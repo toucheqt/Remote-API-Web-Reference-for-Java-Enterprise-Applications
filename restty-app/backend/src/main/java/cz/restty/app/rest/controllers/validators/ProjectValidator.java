@@ -46,7 +46,7 @@ public class ProjectValidator {
      *            ID of project to ignore when validating name (e.g. when renaming current project)
      */
     public void validateName(String name, Optional<Long> projectId) {
-        if (StringUtils.isBlank(name) || name.length() < 2) {
+        if (StringUtils.isBlank(name) || name.length() <= 2) {
             throw new ValidationException("Name must have at least two characters.", RestErrorCode.PROJECT_NAME_INVALID);
         }
 

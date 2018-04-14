@@ -41,7 +41,7 @@ export class RecentTableComponent implements OnInit {
           method: lastRun.method,
           testType: lastRun.testType,
           lastRun: new TimeAgoPipe(this.ref, this.ngZone).transform(lastRun.lastRun),
-          lastRunSuccess: lastRun.lastRunSuccess ? '<span class="fa fa-check hidden"></span>' : '<span class="pf pficon-close"></span>'
+          lastRunSuccess: lastRun.lastRunSuccess ? '<span class="fa fa-check"></span>' : '<span class="pf pficon-close"></span>'
         };
       });
 

@@ -11,6 +11,8 @@ public enum RestErrorCode {
 
     PROJECT_NOT_FOUND("project.notFound"),
     PROJECT_NAME_INVALID("project.name.invalid"),
+    TEST_CASE_NAME_INVALID("testCase.name.invalid"),
+
     SWAGGER_FILE_INVALID("swagger.invalid"),
     SWAGGER_FILE_UNAVAILABLE("swagger.unavailable"),
     GENERAL_SERVER_ERROR("error.server.general"),

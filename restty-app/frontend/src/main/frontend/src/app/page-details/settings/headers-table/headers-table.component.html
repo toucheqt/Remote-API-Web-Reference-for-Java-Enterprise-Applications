@@ -10,7 +10,6 @@
 				<pfng-toolbar [config]="toolbarConfig"
 					[actionTemplate]="actionTemplate"
 		            (onFilterChange)="filterChanged($event)"
-		            (onFilterTypeAhead)="filterQueries($event)"
 		            (onSortChange)="handleSortChanged($event)">
 		      	</pfng-toolbar>
 		      	<ng-template #actionTemplate>
@@ -25,7 +24,6 @@
 	  		<div class="col-sm-12">
 	  			<div class="margin-top-10">
 	  				<pfng-table [columns]="columns" [rows]="rows" [config]="tableConfig"
-	            		(onFilterTypeAhead)="filterQueries($event)"
 	            		(onPageNumberChange)="handlePageNumber($event)"
 	            		(onPageSizeChange)="handlePageSize($event)"
 	            		(onSelectionChange)="handleSelectionChange($event)">

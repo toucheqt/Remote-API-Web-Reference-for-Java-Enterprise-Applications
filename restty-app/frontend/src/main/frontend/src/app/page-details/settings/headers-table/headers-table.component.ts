@@ -16,8 +16,6 @@ declare var $: any;
 export class HeadersTableComponent implements OnInit {
 
   @Input() projectId: number;
-  @ViewChild('headerTemplate') headerTemplate: TemplateRef<any>;
-  @ViewChild('valueTemplate') valueTemplate: TemplateRef<any>;
 
   // Toolbar Configuration
   filterConfig: FilterConfig;
@@ -62,14 +60,12 @@ export class HeadersTableComponent implements OnInit {
 
   initTable() {
     this.columns = [{
-      cellTemplate: this.headerTemplate,
       draggable: false,
       prop: 'header',
       name: 'Header',
       resizeable: false,
       sortable: false
     }, {
-      cellTemplate: this.valueTemplate,
       draggable: false,
       prop: 'value',
       name: 'Value',
@@ -211,11 +207,6 @@ export class HeadersTableComponent implements OnInit {
     });
 
     return matches;
-  }
-
-  // Filter queries for type ahead
-  filterQueries($event: FilterEvent) {
-    const index = (this.filterConfig.fields as any).findIndex((i: any) => i.id === $event.field.id);
   }
 
    // Pagination

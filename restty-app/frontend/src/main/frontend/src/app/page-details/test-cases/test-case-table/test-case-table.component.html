@@ -1,0 +1,43 @@
+<div id="test-case-table">
+	<div *ngIf="loading; else pageLoaded" class="loading">
+		<div class="spinner spinner-lg"></div>
+		<span>Loading</span>
+	</div>
+	<ng-template #pageLoaded>
+		<app-add-test-case (testCaseCreateEvent)="refreshOnCreate($event)"></app-add-test-case>
+		<div id="headers-table" class="padding-top-20">
+			<div class="row">
+				<div class="col-sm-12">
+					<pfng-toolbar [config]="toolbarConfig"
+						[actionTemplate]="actionTemplate"
+			            (onFilterChange)="filterChanged($event)"
+			            (onFilterTypeAhead)="filterQueries($event)"
+			            (onSortChange)="handleSortChanged($event)">
+			      	</pfng-toolbar>
+			      	<ng-template #actionTemplate>
+			            <div class="pull-right">
+							<button class="btn btn-default hidden-xs" (click)="createAddTestCaseModal($event)">Add Test</button>	
+							<button class="btn btn-default hidden-xs" (click)="createAddTestCaseModal($event)">Run Test</button>
+							<button class="btn btn-default hidden-xs" (click)="createAddTestCaseModal($event)">Run All</button>
+							<button class="btn btn-default hidden-xs" (click)="deleteTestCases()">Remove Test</button>
+						</div>
+					</ng-template>
+				</div>
+			</div>
+		  	<div class="row">
+		  		<div class="col-sm-12">
+		  			<div class="margin-top-10">
+		  				<pfng-table [columns]="columns" [rows]="rows" [config]="tableConfig"
+		            		(onFilterTypeAhead)="filterQueries($event)"
+		            		(onPageNumberChange)="handlePageNumber($event)"
+		            		(onPageSizeChange)="handlePageSize($event)"
+		            		(onSelectionChange)="handleSelectionChange($event)"
+		            		(onActivate)="handleOnActivate($event)"
+                     		(onTypeAhead)="filterQueries($event)">
+		            	</pfng-table>
+		  			</div>
+		  		</div>
+		  	</div>
+		</div>
+	</ng-template>
+</div>

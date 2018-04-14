@@ -1,0 +1,105 @@
+/* Misc */
+#test-case-table .loading {
+	margin-top: 20.5%;
+	text-align: center;
+	font-size: 15px;
+}
+
+/* Toolbar */
+#test-case-table .toolbar-pf {
+	background-color: #f5f5f5 !important;
+	border-bottom: 1px solid #f1f1f1 !important;	
+}
+
+#test-case-table .toolbar-pf .form-group:nth-child(2),
+#test-case-table .toolbar-pf .form-group:nth-child(3) {
+	border-right: none;
+}
+
+#test-case-table .list-inline>li:first-child {
+	margin-left: 9px;
+}
+
+#test-case-table .pull-right {
+	position: absolute;
+	right: 20px;
+}
+
+@media (max-width: 785px) {
+	#test-case-table .pull-right {
+		display: none;
+	}
+}
+
+/* Table */
+#test-case-table .ngx-datatable.patternfly .datatable-header-cell,
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell {
+	padding: 7px 10px 7px;
+}
+
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(2) span {
+	color: #0088ce;
+	cursor: pointer;
+}
+
+#test-case-table .ngx-datatable.patternfly .datatable-body-row.active .datatable-body-cell:nth-child(2) span {
+	color: #fff;
+}
+
+#test-case-table .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(1),
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(1) {
+	width: 39px !important;
+	border-right: none;
+}
+
+#test-case-table .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(2),
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(2) {
+	width: 72.5% !important;
+	border-right: none;
+}
+
+#test-case-table .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(3),
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(3) {
+	width: 17.5% !important;
+	border-right: none;	
+}
+
+#test-case-table .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell:nth-child(4),
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(4) {
+	width: 10% !important;
+}
+
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(2),
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(3),
+#test-case-table .ngx-datatable.patternfly .datatable-body-row .datatable-body-cell:nth-child(3) {
+	padding-top: 10px;
+}
+
+#test-case-table table-view-example {
+  .toolbar-pf {
+    border-bottom: none;
+    box-shadow: none;
+  }
+}
+
+#test-case-table .table {
+	padding-top: 5px;
+}
+
+#test-case-table input[type=checkbox], input[type=radio] {
+	margin: 7px 0 0 !important;
+}
+
+#test-case-table .fa-check {
+	color: #3f9c35;
+	padding-left: 16px;
+	font-size: 15px;
+}
+
+#test-case-table .unsuccessful {
+	color: #cc0000;
+	padding-left: 16px;
+	font-size: 15px;
+	cursor: default;
+}
+

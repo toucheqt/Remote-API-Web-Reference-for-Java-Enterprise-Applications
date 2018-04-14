@@ -57,10 +57,6 @@
 	display: inline-block;
 }
 
-.hidden {
- display: none;	
-}
-
 #recentTable .datatable-body-cell-label span {
 	display: inline-block !important;
 }
@@ -75,6 +71,7 @@
 	color: #cc0000;
 	padding-left: 16px;
 	font-size: 15px;
+	cursor: default;
 }
 
 

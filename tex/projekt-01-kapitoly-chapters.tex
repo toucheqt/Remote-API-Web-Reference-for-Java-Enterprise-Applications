@@ -1,42 +1,44 @@
 
 % =============================================================================
 
-% TODO predelat Introduction
+
+
 \chapter{Introduction}
 In~the~software industry, the~accessible and~testable code is crucial for~modern
-businesses, and~the~best way for~developers to~access or~test it is
-through APIs\footnote{API is an~abbreviation for~an~Application Programming Interface which is a~set
-of~protocols and~tools for~building application software.}. APIs are~supposed
-to~connect engineers, let companies add value to~the~products and~create
-an~ecosystem of~shared knowledge that allows other developers to~use the~code
-provided by~the~APIs. To~fulfill these tasks, APIs have to~be clear, accessible
-and~most importantly human and~machine readable. However, despite their
-importance, there hasn't been an~industry standard for~documentating nor~testing
-them.
+businesses, and~the~best way for~developers to~access or~test it is through
+APIs\footnote{API is an~abbreviation for~an~Application Programming Interface
+which is a~set of~protocols and~tools for~building application software.}. APIs
+are supposed to~connect engineers, let companies add value to~their~products
+and~create an~ecosystem of~shared knowledge that allows other developers to~use
+the~functions provided by~the~interfaces. To~fulfill these tasks, the~interfaces
+have to~be clear, accessible and~most importantly human and~machine readable. 
+However, despite their importance, there hasn't been an~industry standard
+for~documentating nor~testing them.
 
-This thesis aims to~solve the~problem of~documentating and~testing the~APIs.
-The~goal is to~design and~develop an~application having an~innovative user
-interface with~regard to~clarity and~simple use, aimed to~developers, even
-in~case of~large interfaces. The~application will be based on~Swagger framework
-that provides a~way to~automate API generation. The~application will provide
-not~only an~API reference, but mainly the~functionality to~create extensive test
-cases from~the~listed web services.
+The~thesis aims to~solve the~problem of~testing the~applications interfaces.
+The~goal is to~develop an~application having an~innovative user interface
+with~regard to~clarity and~simple use, aimed to~developers, even in~case
+of~large interfaces. The~application will be based on~Swagger framework, which
+provides a~way to~automate API reference generation. The~resulting application,
+called Restty, will provide not~only way to~test single API endpoints, but
+mainly the~functionality to~create extensive test cases from~the~listed web
+services.
 
-% TODO
-% DP - Pridat do designu vetu o - based on~live mockups.. and~later
-%      on~PatternFly Framework.
-
-The~thesis is organizes as~follows. Chapter~\ref{Preliminaries} gives
+The~thesis is organized as~follows. Chapter~\ref{Preliminaries} gives
 definitions needed to~follow the~thesis and~explains web services and~RESTful
-APIs in~detail. Chapter~\ref{Technologies} focuses on~technologies that are
-going to~be used for~implementation of~the~application. Chapter~\ref{Design}
-describes the~application designs, wireframes and~mockups which can help reveal
-any clashing visual elements before writing the~code. The~last Chapter contains
-an~overall summary of~the~designed solution and~final thoughts on~the~work done
-within the~thesis.
+APIs in~detail. Chapter~\ref{Technologies} focuses on~technologies that were
+used for~development of~the~Restty application. Chapter~\ref{Design} describes
+the~application's designs and~mockups, which were used to~reveal any clashing
+visual elements before writing the~code. The~second to~last
+Chapter covers the~development of~Restty using the~technologies listed
+in~previous sections and~testing the~application using the~API from~the~Red Hat
+JBoss BPM Suite application. The~last Chapter contains an~overall summary
+of~the~developed solution and~final thoughts on~the~work done within the~thesis.
+
 
 
 % =============================================================================
+
 
 
 \chapter{Preliminaries and Definitions}
@@ -46,6 +48,7 @@ In~the~first section is introduced basic terminology and~established notion
 of~remote interfaces and~web services. In~the~next section is provided
 an~explanation of~what APIs are and~the~last section covers the~importance
 of~theirs testing.
+
 
 
 \section{Understanding the Web Services}
@@ -68,6 +71,7 @@ the~primary purpose of~the~web service is to~manipulate XML or~JSON
 representations of~web resources using a~uniform set of~stateless operations.
 
 
+
 \subsection{Introduction to RESTful Web Services}
 The~REST, abbreviation of~Representationl State Transfer, is an~architectural
 style for~networked hypermedia applications, primarily used to~build web
@@ -85,6 +89,7 @@ the~resource using unique URI, a~representation of~the~resource is returned.
 With~each new resource representation, the~client is said to~transfer state.
 The~resources are typically represented by~text, JSON or~XML, while JSON being
 currently the~most popular format being used.
+
 
 
 \subsection{Messaging}
@@ -190,7 +195,6 @@ Content-Language: cs
 
 
 
-
 \subsection{Addressing the Resources}
 \label{sec-addressing}
 If the~client wants to~get a~resource from~the~server, it needs to~know, how
@@ -223,6 +227,7 @@ designing URIs there are other practices that should be considered as~well.
   \item Avoid verbs for~the~resource name until the~resource is actually
   an~operation or~a~process.
 \end{enumerate}
+
 
 
 \subsection{HTTP Verbs}
@@ -265,6 +270,7 @@ about the~method's idempotence. Calling it on~the~resource a~second time will
 result in~404 response code since the~resource was already removed and~therefore
 is no longer findable. It makes the~operation in~fact no longer idempotent,
 however, the~\uv{end-state} of~the~resource is the~same.
+
 
 
 \subsection{Representation of the Resources}
@@ -312,6 +318,7 @@ For~instance, both the~server and~the~client should be able to~understand said
 format. Moreover the~format should be able to~represent the~resource completely.
 
 
+
 \section{Introduction to~Application Programming Interfaces}
 In~computer programming an~application programming interface is the~defined
 interface through which interactions happen between an~enterprise and~users
@@ -346,6 +353,7 @@ of~providing APIs leads to~the~following benefits:
 \end{enumerate}
 
 
+
 \subsection{When is API RESTful?}
 The~previous sections explained the~principles of~RESTful web services
 and~introduced the~term Application Programming Interface. However, it is
@@ -357,33 +365,34 @@ desirable \uv{non-functional} properties, such~as~performance, scalability,
 portability and~reliability. These formal constraints are as~follows:
 
 \begin{enumerate}
-  \item \textbf{\uv{Client-Server}.} The~constraint is based
+  \item \textbf{\uv{Client-Server}} -- the~constraint is based
   on~the~separation of~concerns principle. Separating the~user interface
   concerns from the~data storage concerns improves the~portability of~the~user
   interface across multiple platforms.
-  \item \textbf{Stateless.} Communication between client and~server have~to be
+  \item \textbf{Stateless} -- communication between client and~server have~to be
   stateless. It means that each request from~client to~server must contain all
   the~necessary information to~complete the~transaction. The~main advantage
   of~this approach is that the~system is able to~scale better because the~server
   does not have to~store client state between requests.
-  \item \textbf{Cacheable.} The~constraint ensures that the~clients can cache
+  \item \textbf{Cacheable} -- the~constraint ensures that the~clients can cache
   response to~improve performance. \uv{Well-managed} caching partially
   or~completely eliminates some \uv{client-server} interactions, further
   improving scalability and~performance.
-  \item \textbf{Uniform Interface.} In~order to~have efficient caching
+  \item \textbf{Uniform Interface} -- in~order to~have efficient caching
   in~a~network, components have~to be able to~communicate via a~uniform
   interface.
   The~definition of~uniform interface consists of~four other constraints,
   however most of~them can be found implemented in~the~HTTP protocol.
-  \item \textbf{Layered System.} In~a~layered system, intermediaries, such
+  \item \textbf{Layered System} -- in~a~layered system, intermediaries, such
   as~proxies can be placed between client and~server utilising the~web's uniform
   interface. The~main advantage is that intermediaries can then intercept
   \uv{client-server} traffic for~a~specific purposes; for~example caching.
-  \item \textbf{Code On Demand.} It is an~optional constraint and~it allows
+  \item \textbf{Code On Demand} -- it is an~optional constraint and~it allows
   clients to~download programs for~\uv{client-side} execution. The~best examples
   for this are compiled components such~as~Java applets or~\uv{client-side}
   scripts such~as~JavaScript.
 \end{enumerate}
+
 
 
 \section{The~Importance of~API Testing}
@@ -412,6 +421,7 @@ completely unpredicted can occur.
 Overall, it's very clear that the~risk of~putting a~bad and~especially insecure
 product on~the~market is greater than the~cost to~test it which is why the~API
 testing is crucial part of~the~application development process.
+
 
 
 \subsection{Beginning with cURL}
@@ -455,6 +465,7 @@ a~simple curl request may look like in~the~listing~\ref{lst-cURL-POST}.
 Therefore, other frameworks and~applications, such as~Postman, were developed.
 
 
+
 \subsection{Continuous Testing with Postman}
 Postman is a~useful tool for~testing the~functionality of~API endpoints. It has
 a~nice UI, which makes it easy to~add or~remove parameters, define headers,
@@ -485,15 +496,303 @@ similar application does not allow to~use request's response as~an~input
 of~another request.
 
 
+
+% =============================================================================
+
+
+
 \chapter{Technologies and Frameworks}
 \label{Technologies}
-In~this chapter will be discussed the~details of~technologies and~frameworks
-that will be used during the~development of~the~application. At~first
-the~Swagger framework will be introduced. In~the~next sections
-the~\uv{front-end} web application framework Angular along with~the~superset
-of~EcmaScript~6 --~the~TypeScript language will be presented. Following
-the~thesis the~web framework PatternFly and~its key features will be introduced.
+In~this chapter are discussed the~details of~technologies and~frameworks that
+were used for~the~development of~the~Restty aplication. In~the first sections is
+introduced the~Java language and~the~Spring and~Hibernate frameworks that were
+used for~building the~backend of~the~application. Following the~thesis
+the~frontend web application framework Angular along with~the~superset
+of~EcmaScript~6 --~the~TypeScript language is presented, as~well~as~the~web
+framework PatternFly and~its key features. Finally, the~last section covers
+the~Swagger framework and~its usage within the~Restty application.
 
+
+
+\section{Introduction to Java}
+The~Java language project was initiated in~June 1991 by~J.~Gosling~\cite{Java}
+for~use in~one of~his \uv{set-top} box projects. The~language, initially called
+\textit{Oak}, ended up later being renamed as~Java when it was first publicly
+released by~Sun Microsystems in~1995. The~language promised \uv{Write Once, Run
+Anywhere} (WORA), meaning that compiled Java code can run on~all platforms that
+support Java without the~need for~recompilations.
+
+The~WORA is achieved by~compiling the~Java language code to~an~intermediate
+representation called Java bytecode, instead of~compiling the~code directly
+to~architecture specific machine code. When compiled, the~bytecode is executed
+by~a~Java Virtual Machine, which is a~separate program that is optimized
+for~the~specific platform on~which the~Java code is run.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.7]{./figures/java-jvm.pdf}
+	\caption{Illustration how Java ensures the~\uv{Write Once, Run Anywhere}
+	property.}
+\end{figure}
+
+\subsection{Java's Syntax}
+The~syntax of~Java is largely influenced by~C++. Unlike C++, which combines
+the~syntax for~structured, generic, and~\uv{object-oriented} programming, Java
+was built almost exclusively as~an~\uv{object-oriented} language. All code is
+written inside classes, and~every data item is an~object, with~the~exception
+of~the~primitive data types, such~as~integers, floating point numbers,
+characters and~boolean values, which are not objects for~performance reasons.
+
+Following the~above, a~Java program can be defined as~a~collections of~objects
+that communicate via invoking each other's methods. To~clarify, object is
+an~instance of~a class, which is a template that describes the~behavior
+and~state that the~object of~its type supports. The~behavior is described via
+methods, where the~logics are written, data is manipulated and~all the~actions
+are executed.
+
+To~clarify some of~the~basic Java syntax, consider following example,
+in~the~listing~\ref{lst-java} is defined a~simple Java code that will print
+the~words \uv{Hello World!} if executed.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=A~simple Java code that will print the~words
+\uv{Hello World!}., style=dp-default, language=Java, label=lst-java]
+public class HelloWorld {
+
+	/**
+	 * Prints "Hello World!"
+	 * @param args Program's arguments
+	 */
+	public static void main(String args[]) {
+		System.out.println("Hello World!)"; 
+	}
+
+}
+\end{lstlisting}
+
+From~the~listing~\ref{lst-java} is possible to~notice some of~the~basic Java
+syntax such~as:
+
+\begin{enumerate}
+  \item \textbf{Class names.} For~all class names, the~first letter should be
+  in~upper case. If several words are used to~form a~name of~the~class, each
+  inner word's first letter should be in~upper case.
+  \item \textbf{Method names.} All method names should start with a~lower case
+  letter. If several words are used to~form the~name of~the~method, then each
+  inner word's first letter should be in~upper case.
+  \item \textbf{Program file name.} Name of~the~program file should exactly
+  match the~class name. When saving the~file, it should have consists
+  of~the~class name and~the~\uv{.java} suffix. If the~file name and~the~class
+  name do not match, the~program will not compile.
+  \item \textbf{Entry point.} Java program processing starts
+  from~the~\textit{main()} method which is a~mandatory part of~every Java
+  program.
+\end{enumerate}
+
+Overall the~Java's syntax is quite extensive, starting with basics like
+identifiers, modifiers, variables, arrays, or~interfaces and~ending
+with~complex features like generics, annotations, lambda expressions,
+or~functional interfaces that were added to~the~language specification
+over~the~years. Unfortunately, these specifications are not the~subject
+of~the~thesis to~be explained in~detail.
+
+\section{Building a RESTful Web Service}
+Building a~backend of~an~enterprise application in~Java is no easy task.
+However, there are many libraries and~frameworks that provides a~way of~creating
+high performing, testable applications with~ease. One of~them being Spring
+framework~\ref{Spring} which is an~open source Java platform, initially released
+in~June 2003. Spring framework can be used in~developing any Java application,
+but is primarily used for~building web applications on~top of~the~Java~EE
+platform. Spring targets to~make J2EE development easier to~use and~promotes
+good programming practices by~enabling a \uv{POJO\footnote{In~software
+engineering, a~Plain Old Java Object (POJO) is an~ordinary Java object, not
+bound by~any special restriction and~not requiring any class path.}-based}
+programming model.
+
+\subsection{The~Advantages of Using Spring Framework}
+First and~foremoste, the~technology that Spring is most identified with~is
+the~Dependency Injection (DI) flavor of~Inversion of~Control (IoC). The~IoC is
+a~general concept, and~it can be expressed in~many different ways. Dependency
+Injection is merely one concrete example of~IoC.
+
+When writing a~complex Java application, application classes should be
+as~independent~as~possible of~other Java classes to~increase the~possibility
+to~reuse these classes and~to~test them independetly of~other classes while unit
+testing. Dependecy Injection helps in~gluing these classes together
+and~at~the~same time keeping them independent.
+
+To~clarify, consider an~application which has a~text editor component
+and~the~developer wants to~provide a~spell check to~said component. The~standard
+code would look something like in~the~listing~\ref{lst-spring-di-1}, creating
+a~dependency between \textit{TextEditor} and~the~\textit{SpellChecker} classes.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=The~standard way of~providing spell checking
+to~a~component., style=dp-default, language=Java, label=lst-spring-di-1] 
+public class TextEditor {
+	
+	private SpellChecker spellChecker;
+	
+	public TextEditor() {
+		this.spellChecker = new SpellChecker();
+	}
+	
+}
+\end{lstlisting}
+
+In~an~inverion of~control scenario, the~developer would create code
+like~in~the~listing~\ref{lst-spring-di-2}, in~which the~total control was
+removed from~the~\textit{TextEditor} and~the~dependency (i.e. class
+\textit{SpellChecker}) is being injected into the~class \textit{TextEditor}
+through a~class constructor. Thus the~flow of~control has been \uv{inverted}
+by~Dependency Injection because the~developer effectively delegated dependencies
+to~an~external system.
+
+\begin{lstlisting}[caption=The~Inversion of~Control scenario of~providing
+a~\textit{SpellChecker} to~the~\textit{TextEditor} component., style=dp-default,
+language=Java, label=lst-spring-di-2]
+public class TextEditor {
+	
+	private SpellChecker spellChecker;
+	
+	public TextEditor(SpellChecker spellChecker) {
+		this.spellChecker = spellChecker;
+	}
+	
+}
+\end{lstlisting}
+
+The~other key~component of~Spring framework is the~Aspect oriented programming
+(AOP) framework. \uv{Aspect-Oriented} Programming entails breaking down program
+logic into distinct parts called \uv{so-called} concerns. The~functions that
+span multiple points of~an~application are called \uv{cross-cutting} concerns
+and~are conceptually separate from~the~application's business logic. The~key
+unit of~modularity in~OOP is~the~class, whereas in~AOP the~unit of~modularity
+is the~aspect. As~DI helps decouple the~application objects from~each other, AOP
+helps decouple \uv{cross-cutting} concerns from~the~objects that they affect.
+
+In~Spring, the~AOP module provides interceptors to~intercept an~application.
+To~clarify, when a~method is executed, the~developers have the~option to~add
+an~extra functionality before of~after the~method execution using
+the~interceptors.
+
+\section{Persisting Data With Hibernate}
+Even thought the~Spring framework covers a~lot of~functionality needed to~build
+a~complex web application and~adds significant enhancements to~the~data access
+layer of~the~application it is still best to~use external
+ORM\footnote{\uv{Object-relational} mapping (ORM) is a~programming technique
+for~converting data between incompatible type systems using
+\uv{object-oriented} programming languages.} framework. For~the~development
+of~the~Restty application I've chosen to~use the~Hibernate
+framework\ref{Hibernate} on~top of~the~PostgreSQL database. 
+
+Hibernate is a~high performance ORM solution for~Java. It was created by~G.
+King in~2001. Hibernate maps Java classes to~database tables and~from Java data
+types to~SQL data types and~relieves the~developer from~most of~common data
+persistence related programming tasks. Hibernate consists of~layered
+architecture which helps the~developer to~operate without having to~know
+the~underlying APIs. It makes use of~the~database and~configuration data
+to~provide persistence services (and~persistent objects) to~the~application.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.8]{./figures/hibernate-architecture.pdf}
+	\caption{High level view of~the~Hibernate framework architecture.}
+\end{figure}
+
+The~entire concept of~Hibernate is to~take the~values from~Java class attributes
+and~persist them to~a~database table. These classes should follow these simple
+rules:
+
+\begin{enumerate}
+  \item A~class that will be persisted need a~default constructor.
+  \item Classes should contain an~ID in~order to~allow easy identification
+  of~the~objects within Hibernate and~the~database. The~ID property is mapped
+  to~the~primary key of~a~database table.
+  \item All attributes that will be persisted should be declared private
+  and~have appropriate getters and~setters defined in~the~JavaBean style.
+\end{enumerate}
+
+In~the~listing~\ref{lst-hibernate-entity} is, based on~the~rules mentioned
+above, declared a~class that is mapped to~the~database using Hibernate
+annotations on~the~entity. Hibernate's annotations are a~way of~providing
+the~metadata for~the~ORM mapping. All the~metadata is clubbed into~the~POJO java
+file along with~the~code, which helps the~developer to~understand the~table
+structure and~POJO simultaneously during the~development.
+
+\begin{lstlisting}[caption=POJO class that features the~advantages of~ORM.,
+style=dp-default, language=Java, label=lst-table]
+@Entity
+@Table("users")
+@SequenceGenerator(name = "users_id_sequence", allocationSize = 1)
+public class User {
+
+	private Long id;
+	private String name;
+	
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = SEQUENCE, generator = "users_id_sequence")
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	@Column(name = "name")
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}
+\end{lstlisting}
+
+When mapping the~entity, Hibernate detects the~annotations and~access
+the~properties through getter and~setter methods by~default. The~primary key is
+determined by~the~\textit{@Id} annotation, which by~default will automatically
+determine the~most appropriate primary key generation strategy to~be used.
+However the~default generation strategy can be overriden by~applying
+the~\uv{@GeneratedValue} annotation, which takes two parameters strategy
+and~generator.
+
+\begin{lstlisting}[caption=SQL code that is generated by~Hibernate when mapping
+the~class from~the~listing~\ref{lst-hibernate-entity}, style=dp-default,
+language=SQL, label=lst-table]
+CREATE TABLE public.users
+(
+	id bigint NOT NULL,
+	name character varying(255,
+	CONTRAINT users_peky PRIMARY KEY (id)
+)
+\end{lstlisting}
+
+
+The~second advantage of~using Hibernate is Hibernate Query Language (HQL) which
+is an~\uv{object-oriented} query language, similar to~SQL, but instead
+of~operating on~tables and~columns, HQL works with persistent objects and~their
+properties. The~queries are translated by~Hibernate into conventional SQL
+queries, which in turns perform an~action on~database.
+
+Although it is possible to~use SQL statements directly with Hibernate using
+Native SQL, it is not recommended to~use to~avoid database portability hassles,
+and~to~take advantage of~Hibernate's SQL generation and~caching strategies.
+
+\begin{lstlisting}[caption=An~example of~HQL query that selects users with~name
+\uv{John Doe}., style=dp-default, language=Java, label=lst-hql] 
+StringBuilder hql = new StringBuilder(" FROM ");
+hql.append(User.class.getName());
+hql.append(" WHERE name = :name ");
+
+Query query = session.createQuery(hql.toString());
+query.setString("name", name);
+return query.list();
+\end{lstlisting}
 
 \section{Introduction to Swagger Framework}
 Swagger~\cite{Swagger} is an~open source framework for~designing and~describing

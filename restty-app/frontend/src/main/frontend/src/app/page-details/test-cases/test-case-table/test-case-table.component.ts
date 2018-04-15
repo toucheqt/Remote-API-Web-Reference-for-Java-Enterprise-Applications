@@ -278,7 +278,7 @@ export class TestCaseTableComponent implements OnInit {
   updateRows(): void {
     this.paginationConfig.totalItems = this.filteredRows.length;
     this.rows = this.filteredRows.slice((this.paginationConfig.pageNumber - 1) * this.paginationConfig.pageSize,
-      this.paginationConfig.totalItems).slice(0, this.paginationConfig.pageSize);
+    this.paginationConfig.totalItems).slice(0, this.paginationConfig.pageSize);
   }
 
   // Sort

@@ -1,0 +1,60 @@
+#list-table {
+	padding-top: 19px !important;
+}
+
+#list-table .list-pf-item {
+	border-color: #e4e4e4;
+	border-left: none;
+	border-right: none;
+}
+
+#list-table .list-pf-additional-content {
+	flex-basis: 12.5%;
+}
+
+#list-table .main-info {
+	line-height: 1.4;
+}
+
+#list-table .sub-info {
+	color: #8b8d8f;
+	padding-left: 10px;
+	font-size: 11px;	
+}
+
+#list-table .fa-check {
+	color: #3f9c35;
+	padding-left: 23px;
+	font-size: 15px;
+}
+
+#list-table .unsuccessful {
+	color: #cc0000;
+	padding-left: 23px;
+	font-size: 15px;
+	cursor: default;
+}
+
+#list-table .link {
+	color: #0088ce;
+	cursor: pointer;
+}
+
+#list-table .content-view-pf-pagination {
+	border-color: #e4e4e4;
+	border-left: none;
+	border-right: none;
+}
+
+#list-table .list-inline>li:first-child {
+	margin-left: 9px;
+}
+
+#list-table .toolbar-pf-results {
+	border-color: #e4e4e4;
+}
+
+#list-table .filter-pf.filter-fields .form-group {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

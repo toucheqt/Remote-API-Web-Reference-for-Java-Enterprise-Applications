@@ -2,6 +2,9 @@ package cz.restty.app.rest.controllers;
 
 import static cz.restty.app.rest.controllers.ProjectController.PROJECT_PATH;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cz.restty.app.repositories.EndpointRepository;
 import cz.restty.app.rest.controllers.validators.ProjectValidator;
+import cz.restty.app.rest.dto.EndpointDto;
 import cz.restty.app.rest.dto.StatsDto;
 
 /**
@@ -30,6 +34,22 @@ public class EndpointController {
 
     @Autowired
     private ProjectValidator projectValidator;
+    
+    /**
+     * Finds all endpoints by given project ID.
+     * 
+     * @param projectId
+     *            ID of project to search by.
+     * @return List of {@link EndpointDto}
+     */
+    @Transactional(readOnly = true)
+    @GetMapping(ENDPOINTS_PATH)
+    public List<EndpointDto> findAllByProject(@PathVariable Long projectId) {
+        return endpointRepository.findAllByProject(projectValidator.validate(projectId))
+                .stream()
+                .map(endpoint -> new EndpointDto(endpoint))
+                .collect(Collectors.toList());
+    }
 
     /**
      * Finds endpoints statistics for given project.

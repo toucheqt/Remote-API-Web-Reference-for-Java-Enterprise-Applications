@@ -1,0 +1,56 @@
+<div id="list-table" class="padding-top-19">
+	<div *ngIf="loading; else pageLoaded" class="loading">
+		<div class="spinner spinner-lg"></div>
+		<span>Loading</span>
+	</div>
+	<ng-template #pageLoaded>
+  		<div class="row">
+    		<div class="col-sm-12">
+      			<div class="form-group">
+      				<pfng-filter [config]="filterConfig" (onChange)="filterChanged($event)"></pfng-filter>
+        			<pfng-list [config]="listConfig" 
+        				[actionTemplate]="actionTemplate"
+            			[expandTemplate]="expandTemplate"
+            			[items]="items"
+            			[itemTemplate]="itemTemplate"
+            			(onActionSelect)="handleAction($event, null)"
+            			(onClick)="handleClick($event)">
+          				<ng-template #itemTemplate let-item="item">
+            				<div class="list-pf-content-wrapper">
+            					<div class="list-pf-main-content">
+                					<div class="list-pf-title">
+                						<span class="method">{{item.method}}</span><br>
+                						<span class="link">{{item.path}}</span>
+                					</div>
+                				</div>
+              					<div class="list-pf-additional-content">
+									<div class="main-info">
+										<span>{{item.lastRun}}</span><br>
+										<span class="sub-info">Last run</span>
+									</div>
+            					</div>
+              					<div class="list-pf-additional-content">
+									<div class="main-info">
+										<span *ngIf="item.lastRunSuccess === 't'" class="fa fa-check"></span>
+										<span *ngIf="item.lastRunSuccess === 'f'" class="pf pficon-close unsuccessful"></span>
+										<br>
+										<span class="sub-info">Success</span>
+									</div>
+            					</div>
+            				</div>
+          				</ng-template>
+         				<ng-template #actionTemplate let-item="item" let-index="index">
+            				<pfng-action class="list-pf-actions" [config]="actionConfig" (onActionSelect)="handleAction($event, item)"></pfng-action>
+          				</ng-template>
+          				<ng-template #expandTemplate let-item="item" let-index="index">
+            				<app-basic-content [item]="item" *ngIf="item.expandId === undefined"></app-basic-content>
+          				</ng-template>
+        			</pfng-list>
+        			<pfng-pagination [config]="paginationConfig"
+                    	(onPageNumberChange)="handlePageNumber($event)"
+                         (onPageSizeChange)="handlePageSize($event)"></pfng-pagination>
+      			</div>
+    		</div>
+  		</div>
+  	</ng-template>
+</div>

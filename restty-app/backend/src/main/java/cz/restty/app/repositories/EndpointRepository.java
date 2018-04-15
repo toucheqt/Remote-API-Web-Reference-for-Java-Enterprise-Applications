@@ -1,5 +1,7 @@
 package cz.restty.app.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,6 +16,15 @@ import cz.restty.app.rest.dto.StatsDto;
  *
  */
 public interface EndpointRepository extends CrudRepository<Endpoint, Long> {
+
+    /**
+     * Finds all {@link Endpoint} for given project.
+     * 
+     * @param project
+     *            {@link Project} to search by.
+     * @return list of endpoints
+     */
+    List<Endpoint> findAllByProject(Project project);
 
     /**
      * Finds endpoints statistics for given project.

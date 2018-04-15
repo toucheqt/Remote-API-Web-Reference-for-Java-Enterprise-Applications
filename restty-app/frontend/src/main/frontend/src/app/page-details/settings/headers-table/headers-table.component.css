@@ -20,13 +20,13 @@
 	margin-left: 9px;
 }
 
-.pull-right {
+#headers-table .pull-right {
 	position: absolute;
 	right: 20px;
 }
 
 @media (max-width: 785px) {
-	.pull-right {
+	#headers-table .pull-right {
 		display: none;
 	}
 }

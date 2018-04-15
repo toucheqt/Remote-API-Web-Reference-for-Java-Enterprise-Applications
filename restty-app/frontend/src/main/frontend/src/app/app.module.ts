@@ -1,7 +1,7 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NotificationModule, PatternFlyNgModule, ChartModule } from 'patternfly-ng';
+import { NotificationModule, PatternFlyNgModule, ChartModule, ListModule } from 'patternfly-ng';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectService } from './services/project.service';
 import { NgxPopperModule } from 'ngx-popper';
@@ -33,6 +33,8 @@ import { TestCaseDetailComponent } from './page-details/test-case-detail/test-ca
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { TestCaseTableComponent } from './page-details/test-cases/test-case-table/test-case-table.component';
 import { AddTestCaseComponent } from './page-details/test-cases/add-test-case/add-test-case.component';
+import { ApiTableComponent } from './page-details/api/api-table/api-table.component';
+import { BasicContentComponent } from './page-details/api/api-table/basic-content/basic-content.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { AddTestCaseComponent } from './page-details/test-cases/add-test-case/ad
     TestCaseDetailComponent,
     TimeAgoPipe,
     TestCaseTableComponent,
-    AddTestCaseComponent
+    AddTestCaseComponent,
+    ApiTableComponent,
+    BasicContentComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,8 @@ import { AddTestCaseComponent } from './page-details/test-cases/add-test-case/ad
     ReactiveFormsModule,
     PatternFlyNgModule,
     AppRoutingModule,
-    ChartModule
+    ChartModule,
+    ListModule
   ],
   providers: [
     ProjectService,

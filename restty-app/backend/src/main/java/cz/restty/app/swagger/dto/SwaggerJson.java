@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,14 +30,18 @@ public class SwaggerJson {
     private String basePath;
     private Set<Path> paths = new HashSet<Path>();
 
-    public SwaggerJson(String json) throws IOException {
+    public SwaggerJson(String source, String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(json);
 
         String scheme = JsonUtils.getScheme(rootNode);
-        String host = JsonUtils.getPathValue(rootNode, HOST_PROPERTY, true);
+        String host = JsonUtils.getPathValue(rootNode, HOST_PROPERTY, false);
         String basePath = Objects.toString(JsonUtils.getPathValue(rootNode, BASE_PATH_PROPERTY, false), "");
-        this.basePath = scheme + host + basePath;
+        if (StringUtils.isBlank(scheme) || StringUtils.isBlank(host)) {
+            this.basePath = source.substring(0, source.lastIndexOf("/") + 1) + basePath;
+        } else {
+            this.basePath = scheme + host + basePath;
+        }
 
         ObjectNode pathsNode = JsonUtils.getObjectNode(rootNode, PATHS_PROPERTY, true);
         pathsNode.fields().forEachRemaining(pathNode -> {

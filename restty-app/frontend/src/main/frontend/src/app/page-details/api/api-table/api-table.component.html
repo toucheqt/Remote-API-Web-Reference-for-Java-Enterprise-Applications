@@ -8,6 +8,11 @@
     		<div class="col-sm-12">
       			<div class="form-group">
       				<pfng-filter [config]="filterConfig" (onChange)="filterChanged($event)"></pfng-filter>
+      					<div class="buttons">
+	      					<button class="btn btn-default hidden-xs" >Add Endpoint</button>	
+							<button class="btn btn-default hidden-xs" >Run All</button>
+							<button class="btn btn-default hidden-xs">Remove Endpoint</button>
+      					</div>
         			<pfng-list [config]="listConfig" 
         				[actionTemplate]="actionTemplate"
             			[expandTemplate]="expandTemplate"
@@ -25,12 +30,14 @@
                 				</div>
               					<div class="list-pf-additional-content">
 									<div class="main-info">
-										<span>{{item.lastRun}}</span><br>
-										<span class="sub-info">Last run</span>
+										<span *ngIf="item.lastRun === null" class="padding-left-25">--</span>
+										<span *ngIf="item.lastRun !== null">{{item.lastRun}}</span><br>
+										<span class="sub-info padding-left-13">Last run</span>
 									</div>
             					</div>
               					<div class="list-pf-additional-content">
 									<div class="main-info">
+										<span *ngIf="item.lastRunSuccess === null" class="padding-left-25">--</span>
 										<span *ngIf="item.lastRunSuccess === 't'" class="fa fa-check"></span>
 										<span *ngIf="item.lastRunSuccess === 'f'" class="pf pficon-close unsuccessful"></span>
 										<br>

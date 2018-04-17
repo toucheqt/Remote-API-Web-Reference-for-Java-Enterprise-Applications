@@ -39,7 +39,8 @@ export class FailuresTableComponent implements OnInit {
           name: lastRun.name,
           method: lastRun.method,
           testType: lastRun.testType,
-          lastRun: new TimeAgoPipe(this.ref, this.ngZone).transform(lastRun.lastRun),
+          lastRun: lastRun.lastRun === null
+            ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(lastRun.lastRun),
         };
       });
 

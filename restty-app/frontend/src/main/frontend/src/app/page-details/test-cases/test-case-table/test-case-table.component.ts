@@ -55,12 +55,15 @@ export class TestCaseTableComponent implements OnInit {
         return {
           id: testCase.id,
           name: testCase.name,
-          lastRun: testCase.lastRun === null ? '' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
+          lastRun: testCase.lastRun === null
+            ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
           lastRunVal: testCase.lastRun === null ? '' : testCase.lastRun,
-          lastRunSuccess: testCase.lastRunSuccess
-            ? '<span class="fa fa-check padding-top-10"></span>'
-            : '<span class="pf pficon-close unsuccessful padding-top-10"></span>',
-          lastRunSuccessVal: testCase.lastRunSuccess ? 't' : 'f'
+          lastRunSuccess: testCase.lastRunSuccess === null
+            ? '<span class="padding-left-17 padding-top-5">--</span>'
+            : testCase.lastRunSuccess
+              ? '<span class="fa fa-check padding-top-5"></span>'
+              : '<span class="pf pficon-close unsuccessful padding-top-5"></span>',
+          lastRunSuccessVal: testCase.lastRunSuccess === null ? null : testCase.lastRunSuccess ? 't' : 'f'
         };
       });
 
@@ -177,12 +180,15 @@ export class TestCaseTableComponent implements OnInit {
             return {
               id: testCase.id,
               name: testCase.name,
-              lastRun: testCase.lastRun === null ? '' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
+              lastRun: testCase.lastRun === null
+                ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
               lastRunVal: testCase.lastRun === null ? '' : testCase.lastRun,
-              lastRunSuccess: testCase.lastRunSuccess
-                ? '<span class="fa fa-check padding-top-10"></span>'
-                : '<span class="pf pficon-close unsuccessful padding-top-10"></span>',
-              lastRunSuccessVal: testCase.lastRunSuccess ? 't' : 'f'
+              lastRunSuccess: testCase.lastRunSuccess === null
+                ? '<span class="padding-left-17 padding-top-5">--</span>'
+                : testCase.lastRunSuccess
+                  ? '<span class="fa fa-check padding-top-5"></span>'
+                  : '<span class="pf pficon-close unsuccessful padding-top-5"></span>',
+              lastRunSuccessVal: testCase.lastRunSuccess === null ? null : testCase.lastRunSuccess ? 't' : 'f'
             };
           });
 
@@ -229,6 +235,10 @@ export class TestCaseTableComponent implements OnInit {
     if (filter.field.id === 'name') {
       match = item.name.match(filter.value) !== null;
     } else if (filter.field.id === 'lastRunSuccess') {
+      if (filter.value === null || item.lastRunSuccessVal === null) {
+        return false;
+      }
+
       match = item.lastRunSuccessVal.match(filter.value === 'True' ? 't' : 'f') !== null;
     }
 
@@ -316,12 +326,15 @@ export class TestCaseTableComponent implements OnInit {
     this.allRows.push({
       id: testCase.id,
       name: testCase.name,
-      lastRun: testCase.lastRun === null ? '' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
-      lastRunVal: testCase.lastRun === null ? '' : testCase.lastRun,
-      lastRunSuccess: testCase.lastRunSuccess
-        ? '<span class="fa fa-check padding-top-10"></span>'
-        : '<span class="pf pficon-close unsuccessful padding-top-10"></span>',
-      lastRunSuccessVal: testCase.lastRunSuccess ? 't' : 'f'
+      lastRun: testCase.lastRun === null
+            ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
+          lastRunVal: testCase.lastRun === null ? '' : testCase.lastRun,
+          lastRunSuccess: testCase.lastRunSuccess === null
+            ? '<span class="padding-left-17 padding-top-5">--</span>'
+            : testCase.lastRunSuccess
+              ? '<span class="fa fa-check padding-top-5"></span>'
+              : '<span class="pf pficon-close unsuccessful padding-top-5"></span>',
+          lastRunSuccessVal: testCase.lastRunSuccess === null ? null : testCase.lastRunSuccess ? 't' : 'f'
     });
 
     this.updateRows();

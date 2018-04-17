@@ -84,7 +84,7 @@ public class ProjectServiceImpl implements ProjectService {
             throw new SwaggerFileUnavailableException("Swagger file can not be obtained.");
         }
 
-        return new SwaggerJson(response.getBody());
+        return new SwaggerJson(source, response.getBody());
     }
 
 }

@@ -43,9 +43,9 @@ export class ApiTableComponent implements OnInit {
           path: endpoint.path,
           method: endpoint.method,
           description: endpoint.description,
-          lastRun: endpoint.lastRun === null ? '' : new TimeAgoPipe(this.ref, this.ngZone).transform(endpoint.lastRun),
-          lastRunVal: endpoint.lastRun === null ? '' : endpoint.lastRun,
-          lastRunSuccess: endpoint.lastRunSuccess ? 't' : 'f'
+          lastRun: endpoint.lastRun === null ? null : new TimeAgoPipe(this.ref, this.ngZone).transform(endpoint.lastRun),
+          lastRunVal: endpoint.lastRun === null ? '--' : endpoint.lastRun,
+          lastRunSuccess: endpoint.lastRunSuccess === null ? null : endpoint.lastRunSuccess ? 't' : 'f'
         };
       });
 

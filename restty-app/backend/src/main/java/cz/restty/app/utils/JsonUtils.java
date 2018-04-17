@@ -1,6 +1,7 @@
 package cz.restty.app.utils;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.util.CollectionUtils;
@@ -35,10 +36,9 @@ public class JsonUtils {
      *             If any other serialization problem occurs
      */
     public static String getScheme(JsonNode rootNode) throws InvalidSwaggerFileException, IOException {
-        Set<String> schemes = fromArrayNode(getArrayNode(rootNode, SCHEMES_PROPERTY, true));
+        Set<String> schemes = fromArrayNode(getArrayNode(rootNode, SCHEMES_PROPERTY, false));
         if (CollectionUtils.isEmpty(schemes)) {
-            throw new InvalidSwaggerFileException(
-                    String.format("Swagger file does not contain all required attributes, scheme is missing."));
+            return null;
         }
 
         if (schemes.contains("https")) {
@@ -143,7 +143,11 @@ public class JsonUtils {
      * @throws IOException
      *             If any other serialization problem occurs
      */
+    @SuppressWarnings("unchecked")
     public static Set<String> fromArrayNode(ArrayNode node) throws IOException {
+        if (node == null) {
+            return Collections.EMPTY_SET;
+        }
         return new ObjectMapper().readValue(node.traverse(), new TypeReference<Set<String>>() {});
     }
 

@@ -535,102 +535,103 @@ for~the~specific platform on~which the~Java code is run.
 	property.}
 \end{figure}
 
-\subsection{Java's Syntax}
-The~syntax of~Java is largely influenced by~C++. Unlike C++, which combines
-the~syntax for~structured, generic, and~\uv{object-oriented} programming, Java
-was built almost exclusively as~an~\uv{object-oriented} language. All code is
-written inside classes, and~every data item is an~object, with~the~exception
-of~the~primitive data types, such~as~integers, floating point numbers,
-characters and~boolean values, which are not objects for~performance reasons.
+However, the~Java's portability is not its only advantage over~other languages
+that can be used to~build backend of~a~web application. For~instance, among
+the~other benefits belongs the~automatic storage management, strong typing, 
+flexible namespace, or~standards for~connectivity to~relational databases.
 
-Following the~above, a~Java program can be defined as~a~collections of~objects
+To~clarify, automatic storage management means that the~JVM automatically
+performs all memory allocation and~deallocation while the~program is running.
+The~developers cannot explicitly allocate memory for~new objects or~free memory
+for~objects that are no longer referenced. Instead, they depend on~a~JVM
+to~perform these operations. The~process of~freeing memory is known as~garbage
+collection.
+
+In~addition, Java's flexible namespace makes it perfect for~writing complex
+applications. That is because Java defines classes and~places them within
+a~hierarchical structure that mirrors the~domain namespace of~the~Internet,
+which avoids name collisions and~allows Java applications to~be distributed. 
+
+
+
+\subsection{Basics of~Java's syntax}
+The~syntax of~Java is largely influenced by~C++. However, unlike C++, which
+combines the~syntax for~structured, generic, and~\uv{object-oriented}
+programming, Java was built almost exclusively as~an~\uv{object-oriented}
+language. All code is written inside classes, and~every data item is an~object,
+with~the~exception of~the~primitive data types such~as~integers, characters
+and~boolean values, which are not objects for~performance reasons.
+
+Following the~above, a~Java program can be defined as~a~collection of~objects
 that communicate via invoking each other's methods. To~clarify, object is
-an~instance of~a class, which is a template that describes the~behavior
+an~instance of~a~class, which is a~template that describes the~behavior
 and~state that the~object of~its type supports. The~behavior is described via
 methods, where the~logics are written, data is manipulated and~all the~actions
 are executed.
 
-To~clarify some of~the~basic Java syntax, consider following example,
-in~the~listing~\ref{lst-java} is defined a~simple Java code that will print
-the~words \uv{Hello World!} if executed.
-
-\vspace{1mm}
-\begin{lstlisting}[caption=A~simple Java code that will print the~words
-\uv{Hello World!}., style=dp-default, language=Java, label=lst-java]
-public class HelloWorld {
-
-	/**
-	 * Prints "Hello World!"
-	 * @param args Program's arguments
-	 */
-	public static void main(String args[]) {
-		System.out.println("Hello World!)"; 
-	}
-
-}
-\end{lstlisting}
-
-From~the~listing~\ref{lst-java} is possible to~notice some of~the~basic Java
-syntax such~as:
+Nevertheless, as~was mentioned above, Java was influenced by~C++ therefore it is
+not a~surprise that the~syntax is similar. However, there are some differences.
 
 \begin{enumerate}
-  \item \textbf{Class names.} For~all class names, the~first letter should be
-  in~upper case. If several words are used to~form a~name of~the~class, each
-  inner word's first letter should be in~upper case.
-  \item \textbf{Method names.} All method names should start with a~lower case
-  letter. If several words are used to~form the~name of~the~method, then each
-  inner word's first letter should be in~upper case.
-  \item \textbf{Program file name.} Name of~the~program file should exactly
-  match the~class name. When saving the~file, it should have consists
-  of~the~class name and~the~\uv{.java} suffix. If the~file name and~the~class
-  name do not match, the~program will not compile.
-  \item \textbf{Entry point.} Java program processing starts
-  from~the~\textit{main()} method which is a~mandatory part of~every Java
-  program.
+  \item Java is case sensitive, which means identifier \textit{Hello}
+  and~\textit{hello} would have different meaning in~Java.
+  \item For~all class names, the~first letter should be in~upper case. If
+  several words are used to~form a~name of~the~class, each inner word's first
+  letter should be in~upper case.
+  \item All method names should start with a~lower case letter. If several words
+  are used to~form the~name of~the~method, then each inner word's first letter
+  should be in~upper case.
+  \item Name of~the~class file should exactly match the~class names. That is
+  because if~the~file name and~the~class name do not match, the~program will not
+  compile.
 \end{enumerate}
 
-Overall the~Java's syntax is quite extensive, starting with basics like
-identifiers, modifiers, variables, arrays, or~interfaces and~ending
-with~complex features like generics, annotations, lambda expressions,
-or~functional interfaces that were added to~the~language specification
-over~the~years. Unfortunately, these specifications are not the~subject
-of~the~thesis to~be explained in~detail.
+Overall the~Java's syntax and~best practices are quite extensive, starting
+with~basics like identifiers, modifiers, arrays or~interfaces and~ending
+with~more advanced features like generics, annotations and~lambda expressions
+that were added to~the~language specification over~the~years. Unfortunately,
+these specifications are not the~subject of~the~thesis to~be explained
+in~detail.
+
+
 
 \section{Building a RESTful Web Service}
-Building a~backend of~an~enterprise application in~Java is no easy task.
-However, there are many libraries and~frameworks that provides a~way of~creating
-high performing, testable applications with~ease. One of~them being Spring
-framework~\ref{Spring} which is an~open source Java platform, initially released
-in~June 2003. Spring framework can be used in~developing any Java application,
-but is primarily used for~building web applications on~top of~the~Java~EE
-platform. Spring targets to~make J2EE development easier to~use and~promotes
-good programming practices by~enabling a \uv{POJO\footnote{In~software
-engineering, a~Plain Old Java Object (POJO) is an~ordinary Java object, not
-bound by~any special restriction and~not requiring any class path.}-based}
-programming model.
+Even though Java is powerful language, building a~backend of~an~enterprise
+application in~plain Java is no easy task. Fortunately, there are many libraries
+and~frameworks that provides a~way of~creating high performing, testable web
+applications with ease. One of~the~most popular is~the~Spring
+Framework~\cite{Spring}, which is an~open source Java platform, initially
+released in~June 2003. Spring can be used for~development of~any Java
+application, but shines when used for~building web applications on~top
+of~the~Java~EE platform. Spring targets to~make J2EE development easier to~use
+and~promotes good programming practices by~enabling
+a~\uv{POJO-based\footnote{In~software engineering, a~Plain Old Java Object
+(POJO) is an~ordinary Java object, not bound by~any special restriction and~not
+requiring any class path.}} programming model.
+
+
 
 \subsection{The~Advantages of Using Spring Framework}
-First and~foremoste, the~technology that Spring is most identified with~is
+First and~foremost, the~technology that Spring is most identified with~is
 the~Dependency Injection (DI) flavor of~Inversion of~Control (IoC). The~IoC is
 a~general concept, and~it can be expressed in~many different ways. Dependency
 Injection is merely one concrete example of~IoC.
 
-When writing a~complex Java application, application classes should be
-as~independent~as~possible of~other Java classes to~increase the~possibility
-to~reuse these classes and~to~test them independetly of~other classes while unit
-testing. Dependecy Injection helps in~gluing these classes together
-and~at~the~same time keeping them independent.
-
-To~clarify, consider an~application which has a~text editor component
-and~the~developer wants to~provide a~spell check to~said component. The~standard
-code would look something like in~the~listing~\ref{lst-spring-di-1}, creating
-a~dependency between \textit{TextEditor} and~the~\textit{SpellChecker} classes.
+When writing complicated Java application, the~application classes should be
+as~independent as~possible of~other Java classes to~increase the~possibility
+to~reuse these classes and~to~test them independently of~other classes while
+unit testing. Dependency Injection helps in~gluing these classes together
+and~at~the~same time keeping them independent. To~clarify, consider
+an~application which has a~text editor component and~the~developer wants
+to~provide a~spell check to~said component. The~standard code would look similar
+to~the~code in~the~listing~\ref{lst-spring-di-1}, creating a~dependency between
+\textit{TextEditor} and~the~\textit{SpellChecker} classes.
 
 \vspace{1mm}
 \begin{lstlisting}[caption=The~standard way of~providing spell checking
 to~a~component., style=dp-default, language=Java, label=lst-spring-di-1] 
 public class TextEditor {
-	
+
 	private SpellChecker spellChecker;
 	
 	public TextEditor() {
@@ -640,19 +641,20 @@ public class TextEditor {
 }
 \end{lstlisting}
 
-In~an~inverion of~control scenario, the~developer would create code
-like~in~the~listing~\ref{lst-spring-di-2}, in~which the~total control was
-removed from~the~\textit{TextEditor} and~the~dependency (i.e. class
-\textit{SpellChecker}) is being injected into the~class \textit{TextEditor}
-through a~class constructor. Thus the~flow of~control has been \uv{inverted}
-by~Dependency Injection because the~developer effectively delegated dependencies
-to~an~external system.
+As~can be seen in~the~listing~\ref{lst-spring-di-2}, in~an~inversion of~control
+scenario, the~developer would create code differently, in~this scenario
+the~total control was removed from~the~\textit{TextEditor} class
+and~the~dependency (i.e. \textit{SpellChecker} class) is being injected into
+the~\textit{TextEditor} through a~class constructor. Thus the~flow of~control
+has been \uv{inverted} by~Dependency Injection because the~developer effectively
+delegated dependencies to~an~external system.
 
+\pagebreak
 \begin{lstlisting}[caption=The~Inversion of~Control scenario of~providing
 a~\textit{SpellChecker} to~the~\textit{TextEditor} component., style=dp-default,
 language=Java, label=lst-spring-di-2]
 public class TextEditor {
-	
+
 	private SpellChecker spellChecker;
 	
 	public TextEditor(SpellChecker spellChecker) {
@@ -662,37 +664,50 @@ public class TextEditor {
 }
 \end{lstlisting}
 
-The~other key~component of~Spring framework is the~Aspect oriented programming
-(AOP) framework. \uv{Aspect-Oriented} Programming entails breaking down program
-logic into distinct parts called \uv{so-called} concerns. The~functions that
-span multiple points of~an~application are called \uv{cross-cutting} concerns
-and~are conceptually separate from~the~application's business logic. The~key
-unit of~modularity in~OOP is~the~class, whereas in~AOP the~unit of~modularity
-is the~aspect. As~DI helps decouple the~application objects from~each other, AOP
-helps decouple \uv{cross-cutting} concerns from~the~objects that they affect.
+The~other key~advantage of~Spring is the~Aspect Oriented Programming (AOP)
+framework. AOP entails breaking down program logic into distinct parts called
+concerns. The~functions that span multiple points of~an~application are called
+\uv{cross-cutting} concerns and~are conceptually separate from~the~application's
+business logic. As~mentioned earlier, the~key unit of~modularity in~OOP is
+the~class, whereas in~AOP the~unit of~modularity is the~aspect, which is
+the~combination of~the~pointcut and~the~advice~\footnote{Advice describes
+a~class of~functions which modify other functions when the~latter are run.}.
+As~DI helps decouple the~application objects from~each other, AOP helps decouple
+\uv{cross-cutting} concerns from~the~objects that they affect. To~clarify,
+the~AOP module provides interceptors to~intercept an~application meaning when
+a~method is executed, the~developers have the~option to~add an~extra
+functionality before or~after the~method execution using the~interceptors.
 
-In~Spring, the~AOP module provides interceptors to~intercept an~application.
-To~clarify, when a~method is executed, the~developers have the~option to~add
-an~extra functionality before of~after the~method execution using
-the~interceptors.
+
 
 \section{Persisting Data With Hibernate}
-Even thought the~Spring framework covers a~lot of~functionality needed to~build
-a~complex web application and~adds significant enhancements to~the~data access
-layer of~the~application it is still best to~use external
+Even though the~Spring Framework covers a~lot of~functionality needed to~build
+complex web application and~adds significant enhancements to~the~data access
+layer of~Java language, it is still best to~use external
 ORM\footnote{\uv{Object-relational} mapping (ORM) is a~programming technique
 for~converting data between incompatible type systems using
 \uv{object-oriented} programming languages.} framework. For~the~development
 of~the~Restty application I've chosen to~use the~Hibernate
-framework\ref{Hibernate} on~top of~the~PostgreSQL database. 
+framework~\cite{Hibernate} on~top of~the~PostgreSQL database.
 
-Hibernate is a~high performance ORM solution for~Java. It was created by~G.
-King in~2001. Hibernate maps Java classes to~database tables and~from Java data
-types to~SQL data types and~relieves the~developer from~most of~common data
-persistence related programming tasks. Hibernate consists of~layered
-architecture which helps the~developer to~operate without having to~know
-the~underlying APIs. It makes use of~the~database and~configuration data
-to~provide persistence services (and~persistent objects) to~the~application.
+Hibernate is a~high performance ORM solution for~Java, created by~G.~King
+in~2001. Hibernate maps Java classes to~database tables ~Java data types to~SQL
+data types and~relieves the~developer from~most of~common data persistence
+related programming tasks. Hibernate consists of~layered architecture which
+helps the~developer to~operate without having to~know the~underlying APIs. It
+makes use of~the~database and~configuration data to~provide persistence services
+(and~persistent objects) to~the~application. The~entire concept of~Hibernate is
+to~take the~values from~Java class attributes and~persist them to~a~database
+table. To~provide such functionality, the~classes should follow specific rules.
+
+\begin{enumerate}
+  \item A~class that will be persisted needs a~default constructor.
+  \item All classes should contain an~ID in~order to~allow easy identification
+  of~the~objects within Hibernate and~the~database. The~ID property is mapped
+  to~the~primary key of~a~database table.
+  \item All attributes that will be persisted should be declared private
+  and~have appropriate getters and~setters defined in~the~JavaBean style.
+\end{enumerate}
 
 \begin{figure}[!hbt]
 	\centering
@@ -700,26 +715,14 @@ to~provide persistence services (and~persistent objects) to~the~application.
 	\caption{High level view of~the~Hibernate framework architecture.}
 \end{figure}
 
-The~entire concept of~Hibernate is to~take the~values from~Java class attributes
-and~persist them to~a~database table. These classes should follow these simple
-rules:
+As~can be seen in~the~listing~\ref{lst-table}, a~class is mapped to~the~database
+using Hibernate annotations on~the~entity. Hibernate's annotations are a~way
+of~providing the~metadata for~the~ORM mapping. All the~metadata is clubbed
+into~the~POJO Java file along with~the~code, which helps the~developer
+to~understand the~table structure and~POJO simultaneously during
+the~development.
 
-\begin{enumerate}
-  \item A~class that will be persisted need a~default constructor.
-  \item Classes should contain an~ID in~order to~allow easy identification
-  of~the~objects within Hibernate and~the~database. The~ID property is mapped
-  to~the~primary key of~a~database table.
-  \item All attributes that will be persisted should be declared private
-  and~have appropriate getters and~setters defined in~the~JavaBean style.
-\end{enumerate}
-
-In~the~listing~\ref{lst-hibernate-entity} is, based on~the~rules mentioned
-above, declared a~class that is mapped to~the~database using Hibernate
-annotations on~the~entity. Hibernate's annotations are a~way of~providing
-the~metadata for~the~ORM mapping. All the~metadata is clubbed into~the~POJO java
-file along with~the~code, which helps the~developer to~understand the~table
-structure and~POJO simultaneously during the~development.
-
+\vspace{1mm}
 \begin{lstlisting}[caption=POJO class that features the~advantages of~ORM.,
 style=dp-default, language=Java, label=lst-table]
 @Entity
@@ -753,36 +756,36 @@ public class User {
 }
 \end{lstlisting}
 
-When mapping the~entity, Hibernate detects the~annotations and~access
-the~properties through getter and~setter methods by~default. The~primary key is
-determined by~the~\textit{@Id} annotation, which by~default will automatically
-determine the~most appropriate primary key generation strategy to~be used.
-However the~default generation strategy can be overriden by~applying
-the~\uv{@GeneratedValue} annotation, which takes two parameters strategy
-and~generator.
+When mapping the~entity, Hibernate detects the~annotations and~accesses
+the~properties through getter and~setter methods by~default. The~primary key
+of~the~table is determined by~the~\textit{@Id} annotation, which by~default will
+automatically determine the~most appropriate primary key generation strategy
+to~be used. However, the~default generation strategy can be overriden
+by~applying the~\textit{@GeneratedValue} annotation, which takes two
+parameters~--~strategy and~generator.
 
-\begin{lstlisting}[caption=SQL code that is generated by~Hibernate when mapping
-the~class from~the~listing~\ref{lst-hibernate-entity}, style=dp-default,
-language=SQL, label=lst-table]
+\vspace{1mm}
+\begin{lstlisting}[caption=The~SQL code that is generated by~Hibernate when
+mapping the~entity from~the~listing~\ref{lst-table}, style=dp-default,
+language=SQL, label=lst-table-sql]
 CREATE TABLE public.users
 (
 	id bigint NOT NULL,
 	name character varying(255,
-	CONTRAINT users_peky PRIMARY KEY (id)
+	CONTRAINT users_pky PRIMARY KEY (id)
 )
 \end{lstlisting}
 
-
 The~second advantage of~using Hibernate is Hibernate Query Language (HQL) which
 is an~\uv{object-oriented} query language, similar to~SQL, but instead
-of~operating on~tables and~columns, HQL works with persistent objects and~their
-properties. The~queries are translated by~Hibernate into conventional SQL
-queries, which in turns perform an~action on~database.
+of~operating on~tables and~columns, HQL works with~persistent objects and~their
+properties. The~queries are translated by~Hibernate into~conventional SQL
+queries, which in~turns perform an~action on~the~database. Although it is
+possible to~use SQL statements directly with~Hibernate's Native SQL, it is not
+recomennded because of~possible database portability hassles and~Hibernate's SQL
+generation and~caching strategies.
 
-Although it is possible to~use SQL statements directly with Hibernate using
-Native SQL, it is not recommended to~use to~avoid database portability hassles,
-and~to~take advantage of~Hibernate's SQL generation and~caching strategies.
-
+\vspace{1mm}
 \begin{lstlisting}[caption=An~example of~HQL query that selects users with~name
 \uv{John Doe}., style=dp-default, language=Java, label=lst-hql] 
 StringBuilder hql = new StringBuilder(" FROM ");
@@ -794,141 +797,6 @@ query.setString("name", name);
 return query.list();
 \end{lstlisting}
 
-\section{Introduction to Swagger Framework}
-Swagger~\cite{Swagger} is an~open source framework for~designing and~describing
-APIs. It was developed by~Reverb Technologies in~2010 to~solve the~need
-for~keeping the~API design and~documentation in~sync. It provides a~large
-ecosystem of~tools that helps developers design, build, document, consume,
-and~test RESTful web services. It defines a~standard, language agnostic
-interface to~APIs which allows both humans and~machines to~discover
-and~understand the~capabilities of~the~service. The~standard is called
-the~OpenAPI Specification which is a~specification for~\uv{machine-readable}
-interface files. The~files are essentially a~resource listings of~the~API which
-adheres to~the~specification. The~files are either of~YAML or~JSON format
-and~contains a~detailed description of~the~entire API. Nowadays there are two
-ways to~create such file.
-
-\begin{enumerate}
-  \item \uv{Top-down} approach, or~\uv{design-first} which means using Swagger
-  to~design the~API before writing any actual code.
-  \item \uv{Bottom-up} approach, or~\uv{code-first} which means using Swagger
-  to~document the~API of~an~existing code.
-\end{enumerate}
-
-
-\subsection{Using the~Swagger}
-In~the~past, it was popular to~use the~\uv{code-first} approach which is much
-easier because the~developers can make adjustmens on~the~fly, and~it fits nicely
-into an~Agile delivery process. But because very often, the~developers are not
-thinking about the~design, it can make the~API difficult to~understand
-and~document. To~solve this, Swagger supports various annotations, as~can be
-seen in~the~listing~\ref{lst-swagger-api}, that allow developers to~specify
-the~details of~the~documentation. The~alternative way is to~let Swagger figure
-out the~documentation by~itself based on~the~annotations from~Spring
-framework\footnote{Swagger is~a~specification, and~supports a~wide range
-of~frameworks and~their annotations.}. Under the~hood, it scans Spring
-controllers on~\uv{start-up} and~registers a~documentation controller that
-exposes the~operations Spring controllers implement. The~documentation follows
-the~specification --~any client that understands the~specification can use
-the~API. The~important thing is that the~documentation is based on~the~code
-itself, therefore any change to~the~code is reflected on~the~documentation.
-There is no need to~maintain an~external document.
-
-\vspace{1mm}
-\begin{lstlisting}[caption=An~example of~Spring controller with Swagger's
-annotations that can be used to~generate API documentation., style=dp-default,
-language=Java, label=lst-swagger-api]
-@RestController
-@RequestMapping("/users")
-@Api(value = "users", description = "Users endpoints")
-public class UserController {
-
-	@Autowired
-	private UserService userService;
-	
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	public List<User> findAll() {
-		return userService.findAll();
-	}
-	
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public User create(@RequestBody UserDto userDto) {
-		return userService.create(userDto);
-	}
-	
-	@DeleteMapping
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@RequestMapping(value = "/users/{userId}")
-	public void remove(@PathVariable Long userId) {
-		userService.removeById(userId);
-	}
-
-}
-\end{lstlisting}
-
-On~the~other hand, the~push for~clear, easy to~read documentation has
-popularized the~\uv{design-first} approach. Not only more developers can have
-input on~the~documentation, but it actually results in~cleaner code, because
-the~developers are forced to~think simpler, more concise, and~easy to~follow.
-The~framework contains an~editor that allows to~write up~the~documentation
-in~appropriate formats and~have it automatically compared against the~Swagger
-specification. Any mistakes are flagged, and~alternatives are suggested. This
-way, when developers publish the~documentation they can be sure that it's
-\uv{error-free}. As~can be seen in~the~listing~\ref{lst-swagger-json},
-the~documentation consists of~2 parts, the~operations and~the~models.
-
-In~either case the~framework exposes the~endpoints from~the~documentation
-controller and~makes them accessible which allow for~applications to be built
-upon the~documentation. The~application that will be developed in~the~thesis
-will take an~advantage of~the~exposure. It will take an~existing JSON document
-created by~the~framework and~build an~interactive documentation and~testing
-environment upon it.
-\pagebreak
-
-\begin{lstlisting}[caption=An~example of~API documentation in~JSON format
-created using the~Swagger framework., style=dp-default, label=lst-swagger-json]
-{
-	"apiVersion": "1.0",
-	"swaggerVersion": "1.0",
-	"basePath": "http://localhost:8080",
-	"resourcePath": "/users",
-	"apis": [
-		{
-			"path": "/users",
-			"description": "Users endpoints",
-			"operations": [
-				{
-					"httpMethod": "GET",
-					"summary": "findAll",
-					"deprecated": "false",
-					"responseClass": "List[User]", 
-				},
-				
-				... 
-			]
-		}
-	],
-	"models": [
-		"User": {
-			"properties": {
-				"id": {
-					"type": "long"
-				},
-				"firstname": {
-					"type": "string"
-				},
-				"lastname": {
-					"type": "string"
-				}
-			}
-		}
-		
-		...	
-	]
-}
-\end{lstlisting}
 
 
 \section{What is Angular?}
@@ -1004,6 +872,7 @@ The~component is then defined using the~\textit{@Component} decorator that
 contains HTML template which is the~view that needs to~be rendered
 in~the~application.
 
+\pagebreak
 \begin{lstlisting}[caption=An~Angular class with~the~\textit{@Component}
 decorator and~a~HTML template., label=lst-angular-component, style=dp-default,
 language=Java]
@@ -1257,82 +1126,226 @@ enables the~responsive behavior in~that row. The~grid system is based on~four
 tiers of~classes -- \textit{xs} for~phones, \textit{sm} for~tables, \textit{md}
 for~desktops, and~\textit{lg} for~larger desktops. These classes define
 the~sizes at~which the~columns collapse or~spread horizontally. 
+
+
+\section{Introduction to Swagger Framework}
+Swagger~\cite{Swagger} is an~open source framework for~designing and~describing
+APIs. It was developed by~Reverb Technologies in~2010 to~solve the~need
+for~keeping the~API design and~documentation in~sync. It provides a~large
+ecosystem of~tools that helps developers design, build, document, consume,
+and~test RESTful web services. It defines a~standard, language agnostic
+interface to~APIs which allows both humans and~machines to~discover
+and~understand the~capabilities of~the~service. The~standard is called
+the~OpenAPI Specification which is a~specification for~\uv{machine-readable}
+interface files. The~files are essentially a~resource listings of~the~API which
+adheres to~the~specification. The~files are either of~YAML or~JSON format
+and~contains a~detailed description of~the~entire API. Nowadays there are two
+ways to~create such file.
+
+\begin{enumerate}
+  \item \uv{Top-down} approach, or~\uv{design-first} which means using Swagger
+  to~design the~API before writing any actual code.
+  \item \uv{Bottom-up} approach, or~\uv{code-first} which means using Swagger
+  to~document the~API of~an~existing code.
+\end{enumerate}
+
+
+\subsection{Using the~Swagger}
+In~the~past, it was popular to~use the~\uv{code-first} approach which is much
+easier because the~developers can make adjustmens on~the~fly, and~it fits nicely
+into an~Agile delivery process. But because very often, the~developers are not
+thinking about the~design, it can make the~API difficult to~understand
+and~document. To~solve this, Swagger supports various annotations, as~can be
+seen in~the~listing~\ref{lst-swagger-api}, that allow developers to~specify
+the~details of~the~documentation. The~alternative way is to~let Swagger figure
+out the~documentation by~itself based on~the~annotations from~Spring
+framework\footnote{Swagger is~a~specification, and~supports a~wide range
+of~frameworks and~their annotations.}. Under the~hood, it scans Spring
+controllers on~\uv{start-up} and~registers a~documentation controller that
+exposes the~operations Spring controllers implement. The~documentation follows
+the~specification --~any client that understands the~specification can use
+the~API. The~important thing is that the~documentation is based on~the~code
+itself, therefore any change to~the~code is reflected on~the~documentation.
+There is no need to~maintain an~external document.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=An~example of~Spring controller with Swagger's
+annotations that can be used to~generate API documentation., style=dp-default,
+language=Java, label=lst-swagger-api]
+@RestController
+@RequestMapping("/users")
+@Api(value = "users", description = "Users endpoints")
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+	
+	@GetMapping
+	@ResponseStatus(HttpStatus.OK)
+	public List<User> findAll() {
+		return userService.findAll();
+	}
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public User create(@RequestBody UserDto userDto) {
+		return userService.create(userDto);
+	}
+	
+	@DeleteMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(value = "/users/{userId}")
+	public void remove(@PathVariable Long userId) {
+		userService.removeById(userId);
+	}
+
+}
+\end{lstlisting}
+
+On~the~other hand, the~push for~clear, easy to~read documentation has
+popularized the~\uv{design-first} approach. Not only more developers can have
+input on~the~documentation, but it actually results in~cleaner code, because
+the~developers are forced to~think simpler, more concise, and~easy to~follow.
+The~framework contains an~editor that allows to~write up~the~documentation
+in~appropriate formats and~have it automatically compared against the~Swagger
+specification. Any mistakes are flagged, and~alternatives are suggested. This
+way, when developers publish the~documentation they can be sure that it's
+\uv{error-free}. As~can be seen in~the~listing~\ref{lst-swagger-json},
+the~documentation consists of~2 parts, the~operations and~the~models.
+
+In~either case the~framework exposes the~endpoints from~the~documentation
+controller and~makes them accessible which allow for~applications to be built
+upon the~documentation. The~application that will be developed in~the~thesis
+will take an~advantage of~the~exposure. It will take an~existing JSON document
+created by~the~framework and~build an~interactive documentation and~testing
+environment upon it.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=An~example of~API documentation in~JSON format
+created using the~Swagger framework., style=dp-default, label=lst-swagger-json]
+{
+	"apiVersion": "1.0",
+	"swaggerVersion": "1.0",
+	"basePath": "http://localhost:8080",
+	"resourcePath": "/users",
+	"apis": [
+		{
+			"path": "/users",
+			"description": "Users endpoints",
+			"operations": [
+				{
+					"httpMethod": "GET",
+					"summary": "findAll",
+					"deprecated": "false",
+					"responseClass": "List[User]", 
+				},
+				
+				... 
+			]
+		}
+	],
+	"models": [
+		"User": {
+			"properties": {
+				"id": {
+					"type": "long"
+				},
+				"firstname": {
+					"type": "string"
+				},
+				"lastname": {
+					"type": "string"
+				}
+			}
+		}
+		
+		...	
+	]
+}
+\end{lstlisting}
   
+
 
 % ==============================================================================
 
 
+
 \chapter{Application Design}
 \label{Design}
-This chapter will go~over the~application requirements and~will cover
+This chapter covers the~requirements for~the~Restty application and~presents
 the~application design drafts in~detail. The~design drafts can help reveal any
 clashing visual elements while it is still easy to~change them before writing
-the~code. Moreover, the~drafts allow to~fully flesh out the~ideas and~choose
-the~best possible options. The~drafts consists of~separate UI elements that,
-once combined, will represent the~final design draft of~the~application.
+the~code. Moreove, the~drafts allow to~fully flesh out the~ideas and~choose
+the~best possible options. The~design drafts pictured in~the~following sections
+consists of~separate UI elements that once combined, represent the~final design
+draft of~the~Restty application.
 
-\section{Application's Requirements}
-As~mentioned in~the~beginning, the~aim of~the~thesis is to~degign an~application
-that will allow to~create test cases from~an~other~application's API.
-The~application's API will be provided using the~Swagger's documentation file,
-which will contain information about the~API. Therefore the~application
-developed in~the~thesis has to~allow the~user to~choose the~application's API
-upon which it will work. When the~user chooses the~file with~the~API,
-the~application should be able to~present the~API's endpoints to~the~user
-and~allow their testing. 
 
-\begin{figure}[!hbt]
-	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/dashboard.png}
-	\caption{The~Dashboard of~the~application that contains the~navigation bar,
-	menu and~an~overview of~recently run endpoints and~test cases.}
-	\label{dashboard}
-\end{figure}
+\section{Requirements for~the~Restty Application}
+As~mentioned earlier, the~aim of~the~thesis is to~create an~application that
+allows to~test single endpoints of~the~interfaces of~other applications
+as~well~as to~create extensive test cases from~said interfaces. The~interface
+that should be tested will be provided via the~Swagger's JSON file which
+contains all necessary information about~the~interface. Therefore the~Restty has
+to~allow the~users to~choose the~application's interface upon which will
+the~Restty work. If the~interface and~its endpoints is successfully loaded
+and~the~data are persisted in~the~Restty's database, the~user should be
+redirected to~the~dashboard which should display basic statistics about
+the~status of~the~endpoints and~test cases.
 
-Last but not least, it is needed to~specify the~most
-important requirement for~the~application -- creating the~test cases.
-The~application should allow creating complex test cases that can combine various 
-endpoints and~other test cases. To~clarift, it should be possible
-to~test an~API's endpoint and~use its output as~an~input of~another endpoint.
-Moreover, once the~users create some test cases, they should be able to~manage
-them. Therfore the~application should be able to~present, filter, sort, and~run
-them.
+From~the~dashboard the~users should be able to~navigate to~the~overview of~all
+interface's endpoints, their details, configurations and~past test runs.
+In~addition, the~users should be able to~navigate to~the~similar overview
+with~test cases, which the~users can create using the~Restty's Test Case
+Creator (TCS). The~TCS should allow create test cases that can combine various
+endpoints and~other test cases. To~clarify, it should be possible to~test
+an~API's endpoint and~use its output as~an~input of~another endpoint.
+
 
 \section{Designing the~Project Explorer}
-This section focuses on~describing the~design process of~the~Project Explorer.
-The~Project Explorer will allow users to~create, manage and~remove projects
-in~the~application.
+The~entry point of~the~application should be the~Project Explorer. The~Project
+Explorer should allow users to~create and~manage the~projects created within
+the~Restty. Each project should have a~unique name which distinguishes it
+in~the~application. When the~project is created by~the~user, besides its name,
+it needs to~have specified a~source of~the~project's endpoints. As~a~source
+(in~form of~a~URL) is considered Swagger JSON with~information about
+the~project's interface. The~source should be then passed to~the~Restty's
+backend that should make an~request for~the~interface, parse the~request's
+response and~persist the~information about interface's endpoints and~models
+to~the~database. If~the~project information are successfully persisted
+in~the~Restty's database, the~user should see the~newly added project and~its
+attributes, such as~amount of~endpoints and~test cases, in~the~Project
+Explorer's list table.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/add-project.png}
-	\caption{A~modal window for~adding projects to~the~application.}
-	\label{addProject}
+	\includegraphics[scale=0.55]{./designs/project-explorer.pdf}
+	\caption{The~Project Explorer that contains list of~projects created
+	in~the~Restty application.}
 \end{figure}
 
-As~can be seen in~the~figure~\ref{addProject} each project consists of~it's name
-and~a~source of~the~API. As~the~source of~the~API is considered an~URL
-(or~a~link to~the~local file system) of~a~Swagger's JSON file that contains
-the~API's documentation. When the~project is added to~the~application
-via~the~Project Explorer's modal window, it should appear in~the~Project
-Explorer's table as~can be seen in~the~figure~\ref{projectExplorer}. The~table
-consists of~an~enumeration of~the~projects and~their attributes, e.g. amount
-of~endpoints or~test cases in~the~project.
+Overall, the~list table should show the~users some basic information about their
+projects and~should allow them to~manage them. Finally, by~clicking on~the~list
+item the~users should be redirected to~the~specified project's dashboard.
+
+
+\section{The~Project Dashboard}
+The~dashboard is the~entry point of~each specific project. It consists
+of~a~horizontal and~vertical navigation bars, donut charts and~tables that
+contains latest information about the~project. To~keep things simple,
+the~horizontal navigation bar should allow users to~swiftly switch between
+projects without the~need to~access the~Project Explorer. On~the~other hand
+the~vertical navigation bar should allow users to~quickly navigate between
+the~project's endpoints, test cases and~settings.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/project-explorer.png}
-	\caption{The~Project Explorer that contains information about projects that
-	were added to~the~application.}
-	\label{projectExplorer}
+	\includegraphics[scale=0.6]{./designs/dashboard.pdf}
+	\caption{The~dashboard of~a~project with~lastest information about test runs.}
 \end{figure}
 
-The~table view will allows users to~manage various projects, however, to~keep
-things simple the~users will not need to~view the~Project Explorer for~switching
-between projects. As~can be seen in~the~figure~\ref{dashboard}, which shows
-the~application's dashboard, the~application will contain the~navigation bar
-that will allow users to~swiftly switch between projects without accessing
-the~Project Explorer.
+Informace o donut charts
+Informace o tabulkach
 
 \section{Showing the~Endpoints}
 Once the~users choose a~project to~work with~within the~application, they should
@@ -1440,6 +1453,11 @@ enables users to~edit the~test case in~the~Creator.
 \end{figure}
 
 % ===============================================================================
+
+
+
+\chapter{Implementation and Testing}
+zminit se o zmene dashboardu z rychleho prepinani projektu na breadcrumbs
 
 
 \chapter{Conclusion}

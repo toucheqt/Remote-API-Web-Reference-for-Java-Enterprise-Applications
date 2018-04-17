@@ -90,7 +90,7 @@ public class TestCase {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
+    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_test_case_fkey"))
     public Project getProject() {
         return project;
     }

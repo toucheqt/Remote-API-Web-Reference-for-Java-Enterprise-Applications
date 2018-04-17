@@ -69,7 +69,7 @@ public class Header {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
+    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_header_fkey"))
     public Project getProject() {
         return project;
     }

@@ -105,7 +105,7 @@ public class Endpoint {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_fkey"))
+    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_endpoint_fkey"))
     public Project getProject() {
         return project;
     }

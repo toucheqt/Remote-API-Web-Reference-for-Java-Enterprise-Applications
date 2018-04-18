@@ -1338,45 +1338,46 @@ projects without the~need to~access the~Project Explorer. On~the~other hand
 the~vertical navigation bar should allow users to~quickly navigate between
 the~project's endpoints, test cases and~settings.
 
+However, the~main aim of~the~Dashboard is to~show the~current state
+of~the~project to~the~user. Which is achieved by~showing the~user two donut
+charts and~two tables. The~donut charts displays the~state of~the~project's
+endpoints and~test cases -- how many of~them were successfully (or~not) tested,
+or~if~they were tested at~all. The~tables on~the~other hand shows the~user
+the~information about~the~recent API or~test runs. The~Recent table shows
+the~user last five runs no matter if they were successful or~not. Whereas
+the~Failures table shows the~user unsuccessful runs only, if there are any. From
+there on~, using the~navigation bar or~the~quick navigation in~the~tables, user
+can start exploring the~endpoints or~the~tests.
+
 \begin{figure}[!hbt]
 	\centering
 	\includegraphics[scale=0.6]{./designs/dashboard.pdf}
 	\caption{The~dashboard of~a~project with~lastest information about test runs.}
 \end{figure}
 
-Informace o donut charts
-Informace o tabulkach
+\section{Exploring the~Endpoints}
+Once the~users start working with~the~application, they should be able to~view,
+manage and~run the~API endpoints they imported. However, as~explained
+in~the~section~\ref{frameworks}, many applications which provide an~overview
+of~the~endpoints does not scale well enough if they have to~display a~large
+number of~the~endpoints. To~address this issue, the~Restty puts the~endpoints
+into filterable list table with~a~simple expansion for~each item. 
 
-\section{Showing the~Endpoints}
-Once the~users choose a~project to~work with~within the~application, they should
-be able to~view and~test the~endpoints that are provided by~that project.
-However, as~explained in~the~section~\ref{frameworks}, many applications which
-provide an~overview of~an~API's endpoints does not scale well enough if they
-encounter large amount of~the~endpoints. To~address this issue, in~the~thesis
-was used for~the~presentation of~the~APIs a~\uv{tree-like} structure.
-
-\begin{figure}[!hbt]
-	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/api-general.png}
-	\caption{The~overview of~an~API's endpoints ordered into~a~hierarchical
-	\uv{tree-like} structure.}
-	\label{api-general}
-\end{figure}
-
-As~~can be seen in~figure~\ref{api-general} by~default only \uv{top-level} nodes
-of~the~tree are shown. However, the~users can then expand the~nodes and~view
-details of~particular endpoints or~run tests using the~settings menu in~the~top
-right corner of~the~endpoint node. Once the~user encounters the~leaf node,
-the~information about that particural leaf node are shown in~detail as~can be
-seen in~the~figure~\ref{api-detail}.
+Each item contains information about its last test run and~its success.
+Moreover, the~item's expansion contains the~details of~the~item's particular
+endpoint such as~request headers, path variables, parameters and~responses.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/api-detail.png}
-	\caption{A~leaf node of~a~hierarchical structure that is used for~displaying
-	the~information about~API's endpoints.}
-	\label{api-detail}
+	\includegraphics[scale=0.7]{./designs/api-list.pdf}
+	\caption{Expanded API endpoint in~the~endpoint's list table.}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+TADY INFORMACE O DETAILU ENDPOINTU
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Creating the~Test Case}
 Even though it is important to~present the~API's endpoints to~the~users

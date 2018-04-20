@@ -5,10 +5,26 @@
 % Placing of table of contents of the memory media here should be consulted with a supervisor
 %\chapter{Obsah přiloženého paměťového média}
 
-%\chapter{Manuál}
+\chapter{Installation details}
+Chapter covers the~details of~running the~Restty application on~local computer. At~first it is required to~copy the~folder
+with~the~project to~the~local disk. Then it is neccessary to~follow the~procedure that consists of~two parts. 
+The~first part is used to~start up the~backend of~the~application and~the~steps needed to~run Restty's backend are as~follows:
 
-%\chapter{Konfigurační soubor} % Configuration file
+\begin{enumerate}
+  \item Download and~install the~Java Development Kit of~version 1.8.
+  \item Download and~install the~Apache Maven project management tool in~version 3 or~later.
+  \item Add the~Java and~Maven to~the~system variables if~running the~application on~Windows.
+  \item In~the~root folder of~the~project run the~command -- \textit{mvn clean install} which installs
+		neccessary dependencies required by~the~application.
+  \item To~start the~application, in~the \textit{/backend} folder, run the~command -- \textit{mvn spring-boot:run}. 
+\end{enumerate}
 
-%\chapter{RelaxNG Schéma konfiguračního souboru} % Scheme of RelaxNG configuration file
+The~second part is to~start up the~frontend of~the~application which is needed for~Restty to~be fully functional.
+To~start up the~frontend, following steps must be executed:
 
-%\chapter{Plakát} % poster
+\begin{enumerate}
+  \item Download latest version of~NodeJS.
+  \item Install the~\textit{angular-cli} using the~command -- \textit{npm install -g @angular-cli}.
+  \item To~start the~application, run the~\textit{ng serve --proxy-conf proxy.conf.json} command
+  	 	in~the~\textit{/frontend/src/main/frontend} directory. 
+\end{enumerate}

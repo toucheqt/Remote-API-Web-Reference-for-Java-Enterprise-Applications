@@ -688,7 +688,7 @@ ORM\footnote{\uv{Object-relational} mapping (ORM) is a~programming technique
 for~converting data between incompatible type systems using
 \uv{object-oriented} programming languages.} framework. For~the~development
 of~the~Restty application I've chosen to~use the~Hibernate
-framework~\cite{Hibernate} on~top of~the~PostgreSQL database.
+framework~\cite{Hibernate} on~top of~the~H2 database.
 
 Hibernate is a~high performance ORM solution for~Java, created by~G.~King
 in~2001. Hibernate maps Java classes to~database tables ~Java data types to~SQL
@@ -1301,8 +1301,13 @@ Creator (TCS). The~TCS should allow create test cases that can combine various
 endpoints and~other test cases. To~clarify, it should be possible to~test
 an~API's endpoint and~use its output as~an~input of~another endpoint.
 
+\section{Design drafts}
+As~mentioned earlier, the~design drafts were created to~reveal any clashing visual
+elements before writing the~code. However, even though the~thesis presents the~final drafts
+of~the~application, it is still possible that parts of~the~design will be changed during
+the~development process.
 
-\section{Designing the~Project Explorer}
+\subsection{Designing the~Project Explorer}
 The~entry point of~the~application should be the~Project Explorer. The~Project
 Explorer should allow users to~create and~manage the~projects created within
 the~Restty. Each project should have a~unique name which distinguishes it
@@ -1329,7 +1334,7 @@ projects and~should allow them to~manage them. Finally, by~clicking on~the~list
 item the~users should be redirected to~the~specified project's dashboard.
 
 
-\section{The~Project Dashboard}
+\subsection{The~Project Dashboard}
 The~dashboard is the~entry point of~each specific project. It consists
 of~a~horizontal and~vertical navigation bars, donut charts and~tables that
 contains latest information about the~project. To~keep things simple,
@@ -1355,7 +1360,7 @@ can start exploring the~endpoints or~the~tests.
 	\caption{The~dashboard of~a~project with~lastest information about test runs.}
 \end{figure}
 
-\section{Exploring the~Endpoints}
+\subsection{Exploring the~Endpoints}
 Once the~users start working with~the~application, they should be able to~view,
 manage and~run the~API endpoints they imported. However, as~explained
 in~the~section~\ref{frameworks}, many applications which provide an~overview
@@ -1373,118 +1378,194 @@ endpoint such as~request headers, path variables, parameters and~responses.
 	\caption{Expanded API endpoint in~the~endpoint's list table.}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In~addition, when clicking on~the~endpoint's name, its detail is displayed.
+The~detail consists of~a~tab view with~three tabs. The~first tab is similar to~the~list item's extension,
+showing the~information about request and~responses. The~next one is contains a~configuration that
+allows to~make changes to~the~endpoint e.g. changing the~request params, body or~headers. The~last
+tab contains records of~previous test runs, so that users know in~which point the~endpoint stopped working
+or~when was the~endpoint's code fixed.
 
-TADY INFORMACE O DETAILU ENDPOINTU
+\subsection{The Test Cases}
+Even though it is important to~enable users to~work with~the~endpoints directly,
+the~main focus of~the~Restty is to~test cases. When users view the~test cases page,
+they should be able to~manage them. The~management of~the~test cases is outlined using
+the~table with~filtering, sorting and~pagination components. Moreover, each item in~the~table
+contains basic information about~the~specific test case (e.g. the~date of~last run, its success etc.).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Creating the~Test Case}
-Even though it is important to~present the~API's endpoints to~the~users
-in~a~friendly way, the~main focus of~the~application lies in~the~test cases.
-For~that particular reason the~Test Case Creator was designed. The~design is
-based on~canvas, which is a~HTML~5 element that allows for~dynamic, scriptable
-rendering of~2D shapes and~bitmap images. The~Creator is designed as~an~dynamic
-editor that allows users to~build test cases using various endpoints, test cases
-and~control structures. The~idea behind it is that the~users will be able
-to~construct complex test cases in~the~same way as~they would create state
-machine diagrams\footnote{A~state machine diagram is a~behavior diagram which
-showsh discrete behavior of~a~part of~designed system through finite state
-transitions.}.
-
-\begin{figure}[!hbt]
-	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/add-endpoint-1.png}
-	\caption{A~modal window for adding endpoint to~a~test case -- selecting
-	the~endpoint's HTTP method.}
-	\label{add-endpoint-1}
-\end{figure}
-
-The~Creator consists of~several parts. All of~them together allows users
-to~model desired test cases using the~drag and~drop functionality. To~clarify,
-consider an~example shown in~the~figure~\ref{test-case-creator}. In~the~example,
-using the~drag and~drop functionality was inserted several endpoints
-to~the~canvas. When an~endpoint is dropped to~the~canvas a~modal window with
-endpoint's settings appears. If the~dropped endpoint was not a~leaf node
-the~modal window asks the~user to~select endpoint's method
-as~shown~in~the~figure~\ref{add-endpoint-1}.
+Upon clicking on~the~test case's name, its detail is shown in~a~similar fashion as~the~endpoints detail.
+The~view consists of~a~tab view, in~which the~most important tab is the~configuration tab -- containing
+the~Test Case Creator (TCC). The~design of~tCC is based on~canvas, which is a~HTML~5 element that allows
+for~dynamic, scriptable rendering of~2D shapes and~bitmap images. TCC was designed as~an~dynamic editor that
+allows users to~build test cases using various endpoints an~other test cases. The~idea behind it is that the~users
+will be able to~construct complex test cases in~the~same way as~they would create a~linked list\footnote{
+A~linked list is a~linear collection of~data elements, in~which linear order is not given by~their
+physical placement in~memory. Instead, each element points to~the~next. It is a~data structure
+consisting of~a~group of~nodes which together represent a~sequence.}.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/test-case-creator.png}
-	\caption{The~Test Case Creator with an~example of~a~test case in~the~format
-	of~as~state machine diagram.}
-	\label{test-case-creator}
+	\includegraphics[scale=0.7]{./designs/add-endpoint.pdf}
+	\caption{A~modal window that appears when adding first endpoint to~the~canvas.}
+	\label{fig-add-endpoint}
 \end{figure}
 
-However, if the~endpoint was a~leaf node the~modal window with endpoint's detail
-is shown as~can be seen in~the~figure~\ref{add-endpoint-2}. Then either
-the~endpoint's details can be filled using the~form in~the~modal or~skipping
-the~form and~using another endpoint's output as~the~endpoint's details -- simply
-connecting them in~the~canvas. Overall, the~figure~\ref{test-case-creator} is
-modelling simple test case that will find a~student by~given id, uses its
-information details as~an~input for~creating new student and~a~user, and~tehn
-enrolling the~newly created student to~some~course.
+The~TCC consists of~several parts. All of~them together allow users to~model desired
+test cases using the~drag and~drop functionality. To~clarify how it works, consider an~example
+as~shown in~the~figure~\ref{fig-test-case}. In~the~figure, using the~drag and~drop functionality was
+inserted several endpoints from~the~list to~the~canvas. When the~endpoint is dropped, a~modal window
+with~the~endpoint's details appears. Note that the~window is prefilled with~the~endpoint's details,
+loaded from~its configuration.
+
+However, it is important to~notice that the~behavior specified above is applied only to~first
+endpoint that is added to~the~canvas. For~the~following endpoints, the~input data is
+automatically derived from~the~previous endpoint output. Once again, consider an~example
+from~the~figure~\ref{fig-test-case} that demonstrates how the~data are passed bewteen the~endpoints.
+In~the~beginning a~student resource is found or~created and~afterwards immediately deleted, testing 
+the~deletion of~the~student resource.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/add-endpoint-2.png}
-	\caption{A~modal window for adding endpoint to~a~test case -- filling
-	the~endpoint's information.}
-	\label{add-endpoint-2}
+	\includegraphics[scale=0.65]{./designs/test-case.pdf}
+	\caption{The~TCC with~an~example of~a~test case.}
+	\label{fig-test-case}
 \end{figure}
 
-Once the~test case is creates using the~Creator, the~users should be allow
-to~view, edit, and~run it. Hence the~Test Cases Overview was designed. As~can be
-seen in~the~figure~\ref{test-cases}, the~overview consists of~a~navigation bar
-with~buttons that allow managing the~test cases, e.g. creating, running
-or~removing them. Following the~design, the~table with~test cases was created.
-The~table allows users to~view, sort and~filter all test cases in~the~project.
-Each test case in~the~table consists of~basic information about it, such
-as~the~day when it was last run or~whether the~last run was successful or~not.
-The~name of~the~test case in~the~table is then~used to~create a~link that
-enables users to~edit the~test case in~the~Creator.
 
-\begin{figure}[!hbt]
-	\centering
-	\includegraphics[scale=0.4]{./designs/drafts-1.0/test-cases.png}
-	\caption{The~Test Cases Overview that contains information about created test
-	cases.}
-	\label{test-cases}
-\end{figure}
 
 % ===============================================================================
 
 
 
 \chapter{Implementation and Testing}
-zminit se o zmene dashboardu z rychleho prepinani projektu na breadcrumbs
+The~chapter covers the~implementation of~the~Restty application, based on~the~designs presented
+in~the~previous chapter, and~its testing using the~Red Hat JBoss BPM Suite application as~a~source
+of~API endpoints to~test. Backend of~the~application is implemented using Java~8, MVC framework
+Spring Boot, persistence framework Hibernate 5 and~in~memory database H2. The~frontend is implemented using
+Angular~5, TypeScript language and~the~web framework PatternFly.
 
+\section{Structure of the Frontend}
+When implementing an~the~application, the~most important task is to structure the~application's code
+the~right way. Ideally, the~whole application should be a~tree of~components that implement clearly
+defined inputs and~outputs, and~minimaze \uv{two-way} databinding. That way, it is easier to~predict
+when data changes and~what the~state of~a~component is.
 
-\chapter{Conclusion}
-The~aim of~this term project was to~design an~application that will allow its
-users to~create test cases from~other applications API. As~a~part of~working
-on~the~above goal the~technologies and~frameworks that will be needed when
-building the~application upon~the~design were presented.
+When developing Restty, the~goal was to~create an~application that is scalable and~consists
+of~reusable, well encapsulated components that are easy to~maintain and~refactor. To~follow these
+rules the~application was divided into~three parts, as~can be seen in~the~figure~\ref{fig-layout}.
 
-On~top of~that using patterns from~the~PatternFly framework the~first
-application's designs were created and~the~most important part
-of~the~application -- the~Test Case Creator was designed as~an~interactive
-editor that uses simplified state machine diagrams to~allow users to~build the~test
-cases easily and~fastly.
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.7]{./figures/layout.pdf}
+	\caption{The~structure of~a~Restty's main layout components.}
+	\label{fig-layout}
+\end{figure}
 
-For~the~future, the~following improvements are planned such as~redesign of~the
-endpoint's details that would allow the~users to~fill in~some~default data
-for~that particular endpoint, which would allow the~users to~add endpoints
-directly to~the~test cases without the~need to~specify the~endpoint's data.
+The~only component that is always present is the~Masthead that serves as~an~app's header, containing
+the~Restty's name. It is purposely made using the~tall option of~the~PatternFly framework to~accommodate
+for~larger app's logo. Following the~design, if the~users open a~project, the~rest of~the~components appears, 
+with~one of~them being the~global navigation that is displayed on~the~left. While vertical navigation menus
+generally consume more space than their horizontal counterparts, they have become popular as~desktop monitors
+move to~\uv{wide-screen} formats. 
 
-Another key step is to~implement the~application using the~technologies listed
-in~Chapter~\ref{Technologies} and~to~test it~using the~Red Hat JBoss BPM Suite
-as~a~test project.
+Moreover, vertical navigation supports common left to~right flow
+and~navigation categories are easily differentiated from~other information that may exist in~the~header area
+of~the~application. Which in~Restty's case contains a~hamburger menu and~a~breadcrumbs navigation. 
+The~hamburger menu is always visible in~the~top left corner and~allows to~use the~vertical navigation even
+on~small devices using \textit{@media} queries and~PatternFly's \textit{navbar-collapse} class.
 
-% TODO co by slo vylepsit 
+\vspace{1mm}
+\begin{lstlisting}[caption=Media queries on the .navbar-collapse class that enables the~navbar
+to~work even on~small devices., style=dp-default]
+@media (min-width: 768px) {
+	.navbar-collapse.collapse {
+		display: block !important;
+		height: auto !important;
+		padding-bottom: 0;
+		overflow: visible !important;
+	}
+}
+
+.collapse {
+	display: none;
+}
+\end{lstlisting}
+
+Breadcrumbs displays a~users location within an~application hierarchy and~act as~a~resource to~help users navigate more
+efficiently and~provide additional context. Note that the~breadcrumbs originally were not part of~the~designs. They
+replaced a~context selector that should allow for~quick changing between various projects, but it was decided that
+the~breadcrumbs are more useful to~the~user as~the~secondary navigation items like tables are not always exposed.
+
+The~last component in~the~layout is the~\textit{ProjectDetailComponent} that creates a~container for~all subpages,
+such as~endpoint and~test cases tables, details etc. The~subpages are displayed using routing which is a~technique
+that can interpret a~browser URL as~an~instruction to~navigate to~a~client generated view.
+
+\begin{lstlisting}[caption=Solution of~routing the~subpages in~the~\textit{ProjectDetailComponent}.,
+style=dp-default]
+// Handles navigation bar clicks
+onItemClicked($event: NavigationItemConfig): void {
+	this.contentView = $event.title;
+	if ($event.title === 'Dashboard') {
+		this.contentView = null;
+		this.router.navigate(['projects', this.project.id]);
+    } else if ($event.title === 'API') {
+      this.router.navigate(['projects', this.project.id, 'api']);
+    } else if ($event.title === 'Test cases') {
+      this.router.navigate(['projects', this.project.id, 'test-cases']);
+    } else if ($event.title === 'Settings') {
+      this.router.navigate(['projects', this.project.id, 'settings']);
+    }
+}
+\end{lstlisting}
+
+\section{Parsing the Swagger's JSON}
+Sekce o tom, jak dochazi k vytvoreni noveho projektu - konkretne parsovani JSON souboru,
+ktery obsahuje informace o API projektu, ktery je vytvaren.
+
+\section{The~Restty's Model}
+Informace o tom, jak vypada vysledny db model, do ktereho se ukladaji data z json souboru.
+Dale zde bude zmineno, jak je vyreseno pouziti 'in memory' databaze tak, aby byla perzistentni
+a data tak byla zachovana i po vypnuti aplikace.
+
+\section{Implementation of TCC}
+Informace o tom, jak je implementovano vytvareni testovacich scenaru, jak na strane FE, tak i BE
+Dale zde bude zmineno, proc v projektu nakonec nebyla pouzita drag and drop funkcionalita, ale zvolil se vyber ze 
+selectboxu po kliknuti na uzel (uzlem je myslen start / endpoint nebo test case)
+
+\section{Testing with Red Hat JBoss BPM Suite}
+Zakladni uvedeni nastroje bpm suite
+
+\subsection{Red Hat JBoss BPM Suite's API}
+Kratke uvedeni bpm suite's API, ktere bude vyuzito v prubehu testovani
+
+\subsection{Testing the Restty}
+Uvedeni par prikladu testovani pomoci jednotlivych endpointu a dale i vytvareni testovacich scenaru
+na zaklade bpm suite api
+
+\section{Future extensions}
+Par slov o moznych rozsireni aplikace
+
 % aby Test Case Creator umel i cykly a slozky pro test casy
 
-%https://blog.readme.io/what-is-swagger-and-why-it-matters/
+\chapter{Conclusion}
+%The~aim of~this term project was to~design an~application that will allow its
+%users to~create test cases from~other applications API. As~a~part of~working
+%on~the~above goal the~technologies and~frameworks that will be needed when
+%building the~application upon~the~design were presented.
+
+%On~top of~that using patterns from~the~PatternFly framework the~first
+%application's designs were created and~the~most important part
+%of~the~application -- the~Test Case Creator was designed as~an~interactive
+%editor that uses simplified state machine diagrams to~allow users to~build the~test
+%cases easily and~fastly.
+
+%For~the~future, the~following improvements are planned such as~redesign of~the
+%endpoint's details that would allow the~users to~fill in~some~default data
+%for~that particular endpoint, which would allow the~users to~add endpoints
+%directly to~the~test cases without the~need to~specify the~endpoint's data.
+
+%Another key step is to~implement the~application using the~technologies listed
+%in~Chapter~\ref{Technologies} and~to~test it~using the~Red Hat JBoss BPM Suite
+%as~a~test project.
+
 
 %================================================================================

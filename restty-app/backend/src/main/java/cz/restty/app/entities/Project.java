@@ -70,6 +70,7 @@ public class Project {
 
     private Set<Endpoint> endpoints = new HashSet<Endpoint>();
     private Set<TestCase> testCases = new HashSet<TestCase>();
+    private Set<Model> models = new HashSet<Model>();
 
     @Id
     @Column(name = "id")
@@ -135,6 +136,21 @@ public class Project {
 
     public void setTestCases(Set<TestCase> testCases) {
         this.testCases = testCases;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
+    public Set<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(Set<Model> models) {
+        this.models = models;
+    }
+
+    @Transient
+    public void addModel(Model model) {
+        models.add(model);
     }
 
 }

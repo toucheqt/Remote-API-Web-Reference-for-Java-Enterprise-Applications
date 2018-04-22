@@ -2,7 +2,6 @@ package cz.restty.app.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -41,13 +40,4 @@ public interface EndpointRepository extends CrudRepository<Endpoint, Long> {
             + " WHERE e.project.id = ?1")
     StatsDto getStatsByProject(Long projectId);
 
-    /**
-     * Deletes all endpoints for given project.
-     * 
-     * @param project
-     *            {@link Project} to delete endpoints for.
-     */
-    @Modifying
-    @Query("DELETE FROM #{#entityName} WHERE project = ?1")
-    void deleteAllByProject(Project project);
 }

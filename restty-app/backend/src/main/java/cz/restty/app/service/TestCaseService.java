@@ -23,4 +23,12 @@ public interface TestCaseService {
      */
     TestCaseDto createTestCase(Project project, TestCaseDto testCaseDto);
 
+    /**
+     * Deletes all test cases for given project.
+     * 
+     * @param project
+     *            {@link Project} to delete test cases for.
+     */
+    void deleteAllByProject(Project project);
+
 }

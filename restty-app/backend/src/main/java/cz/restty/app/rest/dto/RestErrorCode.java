@@ -9,6 +9,7 @@ package cz.restty.app.rest.dto;
  */
 public enum RestErrorCode {
 
+    ENDPOINT_NOT_FOUND("endpoint.notFound"),
     PROJECT_NOT_FOUND("project.notFound"),
     PROJECT_NAME_INVALID("project.name.invalid"),
     TEST_CASE_NAME_INVALID("testCase.name.invalid"),

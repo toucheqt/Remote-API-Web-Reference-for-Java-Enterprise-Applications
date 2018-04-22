@@ -23,4 +23,12 @@ public interface EndpointService {
      */
     Endpoint createEndpoint(Project project, Path path);
 
+    /**
+     * Deletes all endpoints for given project.
+     * 
+     * @param project
+     *            {@link Project} to delete endpoints for.
+     */
+    void deleteAllByProject(Project project);
+
 }

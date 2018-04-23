@@ -13,6 +13,7 @@ public class ParameterDto {
     private boolean required = false;
 
     private String modelName;
+    private String parameter;
 
     public String getIn() {
         return in;
@@ -36,6 +37,14 @@ public class ParameterDto {
 
     public void setRequired(boolean required) {
         this.required = required;
+    }
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
 
     public String getModelName() {

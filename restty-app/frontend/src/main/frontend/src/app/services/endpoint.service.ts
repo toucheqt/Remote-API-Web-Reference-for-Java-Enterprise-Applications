@@ -12,6 +12,10 @@ export class EndpointService {
     return this.http.get<Endpoint[]>(`/api/projects/${projectId}/endpoints`);
   }
 
+  findById(projectId: number, endpointId: number) {
+    return this.http.get<Endpoint>(`/api/projects/${projectId}/endpoints/${endpointId}`);
+  }
+
   findStatsByProject(projectId: number) {
     return this.http.get<Stats>(`/api/projects/${projectId}/endpoints/stats`);
   }

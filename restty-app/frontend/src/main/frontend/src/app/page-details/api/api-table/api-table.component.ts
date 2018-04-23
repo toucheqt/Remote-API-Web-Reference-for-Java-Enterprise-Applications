@@ -1,5 +1,6 @@
 import { EndpointService } from '../../../services/endpoint.service';
 import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionConfig, ListConfig, Action, ListEvent, PaginationConfig, PaginationEvent,
   FilterConfig, FilterType, FilterField, Filter, FilterEvent } from 'patternfly-ng';
 import { TimeAgoPipe } from 'time-ago-pipe';
@@ -32,7 +33,8 @@ export class ApiTableComponent implements OnInit {
   constructor(
     private endpointService: EndpointService,
     private ref: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -150,7 +152,7 @@ export class ApiTableComponent implements OnInit {
   }
 
   handleClick($event: ListEvent): void {
-    console.log('Handle click: ' + $event.item.path);
+    this.router.navigate(['projects', this.projectId, 'api', $event.item.id]);
   }
 
   handlePageSize($event: PaginationEvent) {

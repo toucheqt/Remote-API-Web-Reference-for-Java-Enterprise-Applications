@@ -8,7 +8,6 @@ import org.springframework.http.HttpMethod;
 
 import cz.restty.app.entities.Endpoint;
 import cz.restty.app.entities.Log;
-import cz.restty.app.entities.Response;
 
 /**
  * DTO that contains detailed information about endpoint.
@@ -28,7 +27,7 @@ public class EndpointDetailsDto {
     private Boolean lastRunSuccess;
 
     private List<ParameterJsonDto> parameters;
-    private List<Response> responses;
+    private List<ResponseJsonDto> responses;
     private List<Log> logs;
 
     public EndpointDetailsDto(Endpoint endpoint) {
@@ -39,7 +38,11 @@ public class EndpointDetailsDto {
         this.lastRun = endpoint.getLastRun();
         this.lastRunSuccess = endpoint.getLastRunSuccess();
         this.parameters = endpoint.getParameters().stream().map(param -> new ParameterJsonDto(param)).collect(Collectors.toList());
-        this.responses = endpoint.getResponses().stream().map(e -> e).collect(Collectors.toList());
+        this.responses = endpoint.getResponses()
+                .stream()
+                .sorted((r1, r2) -> new Integer(r1.getStatus().value()).compareTo(r2.getStatus().value()))
+                .map(response -> new ResponseJsonDto(response))
+                .collect(Collectors.toList());
         this.logs = endpoint.getLogs().stream().collect(Collectors.toList());
     }
 
@@ -99,11 +102,11 @@ public class EndpointDetailsDto {
         this.parameters = parameters;
     }
 
-    public List<Response> getResponses() {
+    public List<ResponseJsonDto> getResponses() {
         return responses;
     }
 
-    public void setResponses(List<Response> responses) {
+    public void setResponses(List<ResponseJsonDto> responses) {
         this.responses = responses;
     }
 

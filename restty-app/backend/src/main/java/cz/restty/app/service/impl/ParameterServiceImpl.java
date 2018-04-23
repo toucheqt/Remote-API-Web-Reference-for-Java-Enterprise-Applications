@@ -2,6 +2,7 @@ package cz.restty.app.service.impl;
 
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +46,18 @@ public class ParameterServiceImpl implements ParameterService {
         parameter.setType(ParamType.valueOf(parameterDto.getIn().toUpperCase()));
         parameter.setRequired(parameterDto.isRequired());
 
-        Optional<Model> model = modelRepository.findByNameIgnoreCase(parameterDto.getModelName());
-        if (!model.isPresent()) {
-            logger.error(String.format("Error creating endpoint's parameter [ENDPOINT=%s %s], model [NAME=%s] does not exist.",
-                    endpoint.getMethod().toString(), endpoint.getPath(), parameterDto.getModelName()));
-            return Optional.empty();
+        if (StringUtils.isNotBlank(parameterDto.getModelName())) {
+            Optional<Model> model = modelRepository.findByNameIgnoreCase(parameterDto.getModelName());
+            if (!model.isPresent()) {
+                logger.warn(String.format("Error creating endpoint's parameter [ENDPOINT=%s %s], model [NAME=%s] does not exist.",
+                        endpoint.getMethod().toString(), endpoint.getPath(), parameterDto.getModelName()));
+            }
+
+            parameter.setModel(model.get());
+        } else if (StringUtils.isNotBlank(parameterDto.getParameter())) {
+            parameter.setParameter(parameterDto.getParameter());
         }
 
-        parameter.setModel(model.get());
         return Optional.of(parameterRepository.save(parameter));
     }
 

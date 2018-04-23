@@ -36,6 +36,9 @@ public class Parameter {
 
     private Boolean required;
 
+    private String parameter;
+    private String parameterValue;
+
     private Model model;
 
     @Id
@@ -78,6 +81,24 @@ public class Parameter {
 
     public void setRequired(Boolean required) {
         this.required = required;
+    }
+
+    @Column(name = "parameter")
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
+    }
+
+    @Column(name = "parameter_value")
+    public String getParameterValue() {
+        return parameterValue;
+    }
+
+    public void setParameterValue(String parameterValue) {
+        this.parameterValue = parameterValue;
     }
 
     @OneToOne(fetch = FetchType.LAZY)

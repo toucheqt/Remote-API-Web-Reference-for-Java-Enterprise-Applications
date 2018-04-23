@@ -1,3 +1,7 @@
+import { Log } from './log';
+import { Parameter } from './parameter';
+import { Response } from './response';
+
 /**
  * Entity that contains information about endpoints.
  * @author Ondrej Krpec
@@ -10,4 +14,8 @@ export class Endpoint {
 
   lastRun: string;
   lastRunSuccess: boolean;
+
+  parameters: Parameter[];
+  responses: Response[];
+  log: Log[];
 }

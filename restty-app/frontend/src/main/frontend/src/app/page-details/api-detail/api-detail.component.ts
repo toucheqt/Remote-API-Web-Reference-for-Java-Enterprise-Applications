@@ -1,4 +1,7 @@
+import { Endpoint } from '../../model/endpoint';
+import { EndpointService } from '../../services/endpoint.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-api-detail',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApiDetailComponent implements OnInit {
 
-  constructor() { }
+  projectId: number;
+  apiId: number;
 
-  ngOnInit() {
+  endpoint: Endpoint;
+
+  loading = true;
+
+  activeTab = 'Details';
+
+  constructor(
+    private route: ActivatedRoute,
+    private endpointService: EndpointService
+  ) {
+    this.route.parent.params.subscribe(pathVariable => this.projectId = pathVariable.id);
+    this.route.params.subscribe(pathVariable => this.apiId = pathVariable.apiId);
+  }
+
+  ngOnInit(): void {
+    this.endpointService.findById(this.projectId, this.apiId).subscribe(endpoint => {
+      this.endpoint = endpoint;
+      this.loading = false;
+    });
   }
 
 }

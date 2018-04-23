@@ -132,9 +132,11 @@ public class SwaggerJson {
                                         parameterDto.setModelName(schemaNode.getValue().asText()
                                                 .substring(schemaNode.getValue().asText().lastIndexOf('/') + 1));
                                     }
+                                } else if ("type".equals(schemaNode.getKey())) {
+                                    parameterDto.setParameter(schemaNode.getValue().asText());
                                 } else {
                                     String modelName = JsonUtils.getPathValue(schemaNode.getValue(), REF_PROPERTY, false);
-                                    if (StringUtils.isNoneBlank(modelName)) {
+                                    if (StringUtils.isNotBlank(modelName)) {
                                         parameterDto.setModelName(modelName.substring(modelName.lastIndexOf('/') + 1));
                                     }
                                 }
@@ -160,14 +162,21 @@ public class SwaggerJson {
                                 response.setHttpStatus(HttpStatus.valueOf(Integer.valueOf(httpStatus)));
                             }
 
-                            response.setDescription(JsonUtils.getPathValue(responsesNode, DESCRIPTION_PROPERTY, false));
+                            response.setDescription(JsonUtils.getPathValue(responseNode.getValue(), DESCRIPTION_PROPERTY, false));
                             
                             ObjectNode schemasNode = JsonUtils.getObjectNode(responseNode.getValue(), SCHEMA_PROPERTY, false);
                             if (schemasNode != null) {
                                 schemasNode.fields().forEachRemaining(schemaNode -> {
-                                    String modelName = JsonUtils.getPathValue(schemaNode.getValue(), REF_PROPERTY, false);
-                                    if (StringUtils.isNoneBlank(modelName)) {
-                                        response.setModelName(modelName.substring(modelName.lastIndexOf('/') + 1));
+                                    if (REF_PROPERTY.equals(schemaNode.getKey())) {
+                                        if (StringUtils.isNotBlank(schemaNode.getValue().asText())) {
+                                            response.setModelName(schemaNode.getValue().asText()
+                                                    .substring(schemaNode.getValue().asText().lastIndexOf('/') + 1));
+                                        }
+                                    } else {
+                                        String modelName = JsonUtils.getPathValue(schemaNode.getValue(), REF_PROPERTY, false);
+                                        if (StringUtils.isNotBlank(modelName)) {
+                                            response.setModelName(modelName.substring(modelName.lastIndexOf('/') + 1));
+                                        }
                                     }
                                 });
                             }

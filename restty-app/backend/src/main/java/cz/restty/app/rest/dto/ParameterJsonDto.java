@@ -16,6 +16,7 @@ public class ParameterJsonDto {
     private String name;
 
     private Boolean required;
+    private String parameter;
     private ModelJsonDto model;
 
     public ParameterJsonDto(Parameter parameter) {
@@ -23,7 +24,10 @@ public class ParameterJsonDto {
         this.type = parameter.getType().getName();
         this.name = parameter.getName();
         this.required = parameter.getRequired();
-        this.model = new ModelJsonDto(parameter.getModel());
+        this.parameter = parameter.getParameter();
+        if (parameter.getModel() != null) {
+            this.model = new ModelJsonDto(parameter.getModel());
+        }
     }
 
     public Long getId() {
@@ -56,6 +60,14 @@ public class ParameterJsonDto {
 
     public void setRequired(Boolean required) {
         this.required = required;
+    }
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
 
     public ModelJsonDto getModel() {

@@ -51,7 +51,7 @@ public class ModelServiceImpl implements ModelService {
         Set<Attribute> attributes = modelDto.getAttributes()
             .stream()
             .map(attr -> attributeService.createAttribute(model, attr))
-            .collect(Collectors.toSet());
+                .collect(Collectors.toSet());
         
         model.setAttributes(attributes);
         return modelRepository.save(model);

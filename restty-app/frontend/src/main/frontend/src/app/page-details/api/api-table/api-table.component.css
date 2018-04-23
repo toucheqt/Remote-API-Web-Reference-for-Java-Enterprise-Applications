@@ -2,6 +2,10 @@
 	padding-top: 19px !important;
 }
 
+#list-table .list-pf-container {
+	cursor: pointer;
+}
+
 #list-table .list-pf-item {
 	border-color: #e4e4e4;
 	border-left: none;

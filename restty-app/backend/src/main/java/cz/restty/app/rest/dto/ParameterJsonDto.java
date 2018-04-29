@@ -20,6 +20,8 @@ public class ParameterJsonDto {
     private String parameterValue;
     private ModelJsonDto model;
 
+    public ParameterJsonDto() {}
+
     public ParameterJsonDto(Parameter parameter) {
         this.id = parameter.getId();
         this.type = parameter.getType().getName();

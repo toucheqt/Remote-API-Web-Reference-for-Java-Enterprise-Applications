@@ -22,7 +22,7 @@ export class ApiDetailComponent implements OnInit {
   notifications: Observable<Notification[]>;
 
   loading = true;
-  updateLogs = false;
+  updateLogs = 0;
 
   activeTab = 'Details';
   detailsActive = true;
@@ -74,7 +74,7 @@ export class ApiDetailComponent implements OnInit {
           null,
           null
         );
-        this.updateLogs = true;
+        this.updateLogs++;
       },
       error => {
         this.notificationService.message(
@@ -85,7 +85,7 @@ export class ApiDetailComponent implements OnInit {
           null,
           null
         );
-        this.updateLogs = true;
+        this.updateLogs++;
       },
     );
   }

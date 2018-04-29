@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cz.restty.app.entities.Attribute;
 import cz.restty.app.entities.Model;
 import cz.restty.app.entities.Project;
@@ -16,6 +19,7 @@ import cz.restty.app.repositories.ResponseRepository;
 import cz.restty.app.rest.dto.ModelDto;
 import cz.restty.app.service.AttributeService;
 import cz.restty.app.service.ModelService;
+import cz.restty.app.utils.JsonUtils;
 
 /**
  * Default implementation of {@link ModelService}
@@ -54,6 +58,21 @@ public class ModelServiceImpl implements ModelService {
             .collect(Collectors.toSet());
         
         model.setAttributes(attributes);
+        return modelRepository.save(model);
+    }
+
+    @Override
+    public Model updateModelValues(Model model, String content) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(content);
+
+            model.getAttributes().forEach(attribute -> {
+                attribute.setValue(JsonUtils.getPathValue(rootNode, attribute.getName(), false));
+                attributeRepository.save(attribute);
+            });
+        } catch (Exception ex) {}
+
         return modelRepository.save(model);
     }
 

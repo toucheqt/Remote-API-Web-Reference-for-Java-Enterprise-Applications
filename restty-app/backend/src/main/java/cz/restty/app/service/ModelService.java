@@ -24,6 +24,17 @@ public interface ModelService {
     Model createModel(Project project, ModelDto modelDto);
 
     /**
+     * Updates model values.
+     * 
+     * @param model
+     *            {@link Model} to update
+     * @param content
+     *            String with content (model values)
+     * @return {@link Model}
+     */
+    Model updateModelValues(Model model, String content);
+
+    /**
      * Deletes all models for given project.
      * 
      * @param project

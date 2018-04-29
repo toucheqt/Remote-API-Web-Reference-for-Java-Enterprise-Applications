@@ -19,7 +19,7 @@
 			</ul>
 			
 			<div *ngIf="activeTab === 'Details'">
-				<app-api-detail-tab [endpoint]="endpoint"></app-api-detail-tab>
+				<app-api-detail-tab [endpoint]="endpoint" [update]="updateLogs"></app-api-detail-tab>
 			</div>
 			
 			<div *ngIf="activeTab === 'Configuration'">
@@ -33,7 +33,7 @@
 		</div>
 	</div>
 </ng-template>
-<pfng-toast-notification-list [notifications]="notifications|async"></pfng-toast-notification-list>
+<pfng-toast-notification-list [notifications]="notifications|async" class="margin-top-32"></pfng-toast-notification-list>
 
 
 

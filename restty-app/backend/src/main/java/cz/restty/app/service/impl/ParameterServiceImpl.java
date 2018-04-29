@@ -15,6 +15,7 @@ import cz.restty.app.enums.ParamType;
 import cz.restty.app.repositories.ModelRepository;
 import cz.restty.app.repositories.ParameterRepository;
 import cz.restty.app.rest.dto.ParameterDto;
+import cz.restty.app.rest.dto.ParameterJsonDto;
 import cz.restty.app.service.ParameterService;
 
 /**
@@ -59,6 +60,12 @@ public class ParameterServiceImpl implements ParameterService {
         }
 
         return Optional.of(parameterRepository.save(parameter));
+    }
+
+    @Override
+    public Parameter updateParameter(Parameter parameter, ParameterJsonDto parameterDto) {
+        parameter.setParameterValue(parameterDto.getParameterValue());
+        return parameterRepository.save(parameter);
     }
 
 }

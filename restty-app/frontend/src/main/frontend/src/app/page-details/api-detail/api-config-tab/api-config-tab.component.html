@@ -5,25 +5,44 @@
 		<div *ngFor="let parameter of endpoint.parameters">
 			<div *ngIf="parameter.type === 'path'"class="flex-info padding-top-10">
 				<div class="flex-info-left request-params bold">
-					<span>{{parameter.name}}</span><br>
-					<span class="font-size-sm">(path)</span>
+					<app-edit-param (paramEditEvent)="refreshOnParamEdit($event)" [parameter]="parameter"></app-edit-param>
+					<div class="edit-parameter inline-block">
+						<span class="pf pficon-edit clickable" (click)="createModal('#editParamModal', parameter.id)"></span>
+					</div>
+					<div class="inline-block">
+						<span>{{parameter.name}}</span><br>
+						<span class="font-size-sm">(path)</span>
+					</div>
 				</div>
-				<div class="flex-info-right">{{parameter.parameterValue}}</div>
+				<div *ngIf="parameter.parameterValue === null" class="flex-info-right">{{parameter.parameter}}</div>
+				<div *ngIf="parameter.parameterValue !== null"  class="flex-info-right">{{parameter.parameterValue}}</div>
 			</div>
 		</div>
 		<div *ngFor="let parameter of endpoint.parameters">
-			<div *ngIf="parameter.type === 'query'"class="flex-info padding-top-10">
+			<div *ngIf="parameter.type === 'query'" class="flex-info padding-top-10">
 				<div class="flex-info-left request-params bold">
-					<span>{{parameter.name}}</span><br>
-					<span class="font-size-sm">(query)</span>
+					<app-edit-param (paramEditEvent)="refreshOnParamEdit($event)" [parameter]="parameter"></app-edit-param>
+					<div class="edit-parameter inline-block">
+						<span class="pf pficon-edit clickable" (click)="createModal('#editParamModal', parameter.id)"></span>
+					</div>
+					<div class="inline-block">
+						<span>{{parameter.name}}</span><br>
+						<span class="font-size-sm">(query)</span>
+					</div>
 				</div>
-				<div class="flex-info-right">{{parameter.parameterValue}}</div>
+				<div *ngIf="parameter.parameterValue === null" class="flex-info-right">{{parameter.parameter}}</div>
+				<div *ngIf="parameter.parameterValue !== null"  class="flex-info-right">{{parameter.parameterValue}}</div>
 			</div>
 		</div>
 		<div *ngFor="let parameter of endpoint.parameters">
 			<div *ngIf="parameter.type === 'body'" class="flex-info padding-top-10">
-				<div class="flex-info-left request-params bold">{{parameter.name}}</div>
-				<div class="flex-info-right">
+				<div class="flex-info-left request-params bold">
+					<div class="edit-parameter-single inline-block">
+						<span class="pf pficon-edit clickable" (click)="makeBody()"></span>
+					</div>
+					<div class="inline-block"><span>{{parameter.name}}</span><br></div>
+				</div>
+				<div *ngIf="!bodyEditable" class="flex-info-right">
 					<div *ngIf="parameter.model !== null" class="response-model body-model">
 						<span>{{parameter.model.name}}</span>
 						<span> {{'{'}}</span>
@@ -34,6 +53,11 @@
 					</div>
 					<div *ngIf="parameter.parameter !== null">{{parameter.parameterValue}}</div>
 				</div>
+				<div *ngIf="bodyEditable" class="flex-info-right">
+					<div>
+						<textarea id="area-content" rows="{{parameter.model.attributes.length + 2}}" style="width: 94%; resize: none; ">{{bodyString}}</textarea>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -41,7 +65,7 @@
 	<div class="flex-info-right">
 		<div class="info-header info-header-right">
 			<span>Headers</span>
-			<span class="fa fa-plus add-header clickable" (click)="createHeaderModal($event)"></span>
+			<span class="fa fa-plus add-header clickable" (click)="createModal('#addHeaderModal', null)"></span>
 		</div>
 		<div *ngIf="loading === false">
 			<div *ngFor="let header of headers"  class="flex-info">
@@ -63,7 +87,7 @@
 				<div *ngIf="!header.global" class="flex-info-left-sm margin-top-10">
 					<div class="header-content">
 						<app-edit-endpoint-header (headerEditEvent)="refreshOnEdit($event)" [headerEntity]="header"></app-edit-endpoint-header>
-          				<span class="pf pficon-edit clickable" (click)="editHeaderModal($event)"></span>
+          				<span class="pf pficon-edit clickable" (click)="createModal('#editHeaderModal', null)"></span>
 					</div>
 					<span>{{header.header}}</span>
 				</div>

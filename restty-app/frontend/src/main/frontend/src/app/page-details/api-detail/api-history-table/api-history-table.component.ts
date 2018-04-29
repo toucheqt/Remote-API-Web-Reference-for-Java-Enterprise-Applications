@@ -13,7 +13,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 })
 export class ApiHistoryTableComponent implements OnInit, OnChanges {
 
-  @Input() update: boolean;
+  @Input() update: number;
 
   endpointId: number;
 
@@ -75,7 +75,7 @@ export class ApiHistoryTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.update.currentValue) {
+    if (changes.update.currentValue && this.allRows !== undefined) {
       this.logService.findRecentLogByEndpoint(this.endpointId).subscribe(log => {
         this.allRows.push({
           run: new TimeAgoPipe(this.ref, this.ngZone).transform(log.run),
@@ -91,7 +91,6 @@ export class ApiHistoryTableComponent implements OnInit, OnChanges {
         this.allRows.sort((item1: any, item2: any) => this.compare(item1, item2));
         this.updateRows();
         this.applyFilters(this.filterConfig.appliedFilters || []);
-        this.update = false;
       });
     }
   }

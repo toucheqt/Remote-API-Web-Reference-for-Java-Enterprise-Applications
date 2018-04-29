@@ -41,7 +41,7 @@ public class EndpointDetailsDto {
         if (CollectionUtils.isNotEmpty(endpoint.getLogs())) {
             Log log = endpoint.getLogs()
                 .stream()
-                .sorted((l1, l2) -> l1.getRun().compareTo(l2.getRun()))
+                .sorted((l1, l2) -> l1.getRun().compareTo(l2.getRun()) * -1)
                 .findFirst().get();
             this.lastRun = log.getRun();
             this.lastRunSuccess = log.getSuccess();

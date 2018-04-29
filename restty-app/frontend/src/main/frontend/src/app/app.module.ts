@@ -40,6 +40,9 @@ import { ApiHistoryTableComponent } from './page-details/api-detail/api-history-
 import { LogService } from './services/log.service';
 import { AddEndpointHeaderComponent } from './page-details/api-detail/api-config-tab/add-endpoint-header/add-endpoint-header.component';
 import { EditEndpointHeaderComponent } from './page-details/api-detail/api-config-tab/edit-endpoint-header/edit-endpoint-header.component';
+import { EditParamComponent } from './page-details/api-detail/api-config-tab/edit-param/edit-param.component';
+import { ModelService } from './services/model.service';
+import { ParameterService } from './services/parameter.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,8 @@ import { EditEndpointHeaderComponent } from './page-details/api-detail/api-confi
     ApiConfigTabComponent,
     ApiHistoryTableComponent,
     AddEndpointHeaderComponent,
-    EditEndpointHeaderComponent
+    EditEndpointHeaderComponent,
+    EditParamComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,9 @@ import { EditEndpointHeaderComponent } from './page-details/api-detail/api-confi
     EndpointService,
     TestCaseService,
     HeaderService,
-    LogService
+    LogService,
+    ParameterService,
+    ModelService
   ],
   bootstrap: [AppComponent]
 })

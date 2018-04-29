@@ -2,8 +2,9 @@ import { EndpointService } from '../../../services/endpoint.service';
 import { Component, OnInit, ViewEncapsulation, Input, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionConfig, ListConfig, Action, ListEvent, PaginationConfig, PaginationEvent,
-  FilterConfig, FilterType, FilterField, Filter, FilterEvent } from 'patternfly-ng';
+  FilterConfig, FilterType, FilterField, Filter, FilterEvent, NotificationType, NotificationService, Notification } from 'patternfly-ng';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-api-table',
@@ -21,6 +22,8 @@ export class ApiTableComponent implements OnInit {
   listConfig: ListConfig;
   paginationConfig: PaginationConfig;
 
+  methodQueries: any[];
+
   loading = true;
 
   allItems: any[];
@@ -30,14 +33,37 @@ export class ApiTableComponent implements OnInit {
   actionsText: '';
   filtersText: '';
 
+  notifications: Observable<Notification[]>;
+
   constructor(
     private endpointService: EndpointService,
     private ref: ChangeDetectorRef,
     private ngZone: NgZone,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
+    this.methodQueries = [{
+      id: 'GET',
+      value: 'GET'
+    }, {
+      id: 'HEAD',
+      value: 'HEAD'
+    }, {
+      id: 'POST',
+      value: 'POST'
+    }, {
+      id: 'PUT',
+      value: 'PUT'
+    }, {
+      id: 'PATCH',
+      value: 'PATCH'
+    }, {
+      id: 'DELETE',
+      value: 'DELETE'
+    }];
+
     this.endpointService.findAll(this.projectId).subscribe(endpoints => {
       this.allItems = endpoints.map(endpoint => {
         return {
@@ -56,6 +82,9 @@ export class ApiTableComponent implements OnInit {
       this.updateItems();
       this.loading = false;
     });
+
+    this.notifications = this.notificationService.getNotificationsObserver;
+    this.notificationService.setDelay(3000);
   }
 
   initConfigurations() {
@@ -65,6 +94,14 @@ export class ApiTableComponent implements OnInit {
         title: 'Path',
         placeholder: 'Filter by path',
         type: FilterType.TEXT
+      }, {
+        id: 'method',
+        title: 'Method',
+        placeholder: 'Filter by method',
+        type: FilterType.TYPEAHEAD,
+        queries: [
+          ...this.methodQueries,
+        ]
       }] as FilterField[],
       appliedFilters: []
     } as FilterConfig;
@@ -87,17 +124,18 @@ export class ApiTableComponent implements OnInit {
 
     this.actionConfig = {
       moreActions: [{
-        id: 'edit',
-        title: 'Edit',
-        tooltip: 'Edit API'
-      }, {
         id: 'run',
         title: 'Run',
         tooltip: 'Run API'
-      }, {
-        id: 'remove',
-        title: 'Remove',
-        tooltip: 'Remove API'
+        // TODO pridat upravu endpointu
+//      }, {
+//        id: 'edit',
+//        title: 'Edit',
+//        tooltip: 'Edit API'
+//      }, {
+//        id: 'remove',
+//        title: 'Remove',
+//        tooltip: 'Remove API'
       }],
     } as ActionConfig;
   }
@@ -131,7 +169,10 @@ export class ApiTableComponent implements OnInit {
     let match = true;
     if (filter.field.id === 'path') {
       match = item.path.match(filter.value) !== null;
+    } else if (filter.field.id === 'method') {
+      match = item.method.match(filter.value) !== null;
     }
+
     return match;
   }
 
@@ -146,9 +187,50 @@ export class ApiTableComponent implements OnInit {
     return matches;
   }
 
+  // Filter queries for type ahead
+  filterQueries($event: FilterEvent) {
+    const index = (this.filterConfig.fields as any).findIndex((i: any) => i.id === $event.field.id);
+    const val = $event.value.trim();
+
+    if (this.filterConfig.fields[index].id = 'method') {
+      this.filterConfig.fields[index].queries = [
+        ...this.methodQueries.filter((item: any) => {
+          if (item.value) {
+            return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          } else {
+            return true;
+          }
+        })
+      ];
+    }
+  }
+
   // Actions
   handleAction($event: Action, item: any): void {
-    console.log('Handle action: ' + $event.title + ' / ' + item);
+    if ($event.id === 'run') {
+      this.endpointService.run(item.id).subscribe(
+        response => {
+          this.notificationService.message(
+            NotificationType.SUCCESS,
+            'Success',
+            'The request was completed successfully',
+            false,
+            null,
+            null
+          );
+        },
+        error => {
+          this.notificationService.message(
+            NotificationType.DANGER,
+            'Failure',
+            'The request failed, see logs for details',
+            false,
+            null,
+            null
+          );
+        }
+      );
+    }
   }
 
   handleClick($event: ListEvent): void {

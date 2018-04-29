@@ -82,3 +82,7 @@
 		display: none;
 	}
 }
+
+#list-table .toast-notifications-list-pf .toast-pf {
+	margin-top: 32px;
+}

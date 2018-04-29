@@ -76,3 +76,18 @@
 	right: 34px;
 	top: 99px;
 }
+
+.edit-parameter {
+	position: relative;
+	margin-right: 10px;
+	top: -5px;
+}
+
+.edit-parameter-single {
+	position: relative;
+	margin-right: 10px;
+}
+
+.inline-block {
+	display: inline-block;
+}

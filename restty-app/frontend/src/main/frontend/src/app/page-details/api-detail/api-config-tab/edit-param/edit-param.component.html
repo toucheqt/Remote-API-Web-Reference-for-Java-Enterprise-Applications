@@ -1,0 +1,29 @@
+<div class="modal fade" id="{{'editParamModal' + parameter.id}}" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span class="pficon pficon-close" (click)="onCancel()"></span>
+				</button>
+				<h4 class="modal-title">Edit Parameter</h4>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="paramForm" #formDir="ngForm" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="value">
+							<strong *ngIf="parameter.required">*&nbsp;{{parameter.name}}</strong>
+							<strong *ngIf="!parameter.required">{{parameter.name}}</strong>
+						</label>
+						<div class="col-sm-9">
+							<input id="value" class="form-control" formControlName="value" required minlength=1>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+        		<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Save</button>
+			</div>
+		</div>
+	</div>
+</div>

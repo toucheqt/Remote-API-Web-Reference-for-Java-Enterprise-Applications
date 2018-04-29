@@ -43,6 +43,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private HeaderRepository headerRepository;
+    // TODO fixni mazani projektu
 
     @Override
     public Project createProject(ProjectDto projectDto) throws RestClientException, IOException {

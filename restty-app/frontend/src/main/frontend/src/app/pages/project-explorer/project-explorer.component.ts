@@ -31,7 +31,7 @@ export class ProjectExplorerComponent implements OnInit {
     private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    this.projectService.findProjects()
+    this.projectService.findAll()
       .subscribe(projects => {
         this.allProjects = projects;
         this.projects = projects;
@@ -68,6 +68,7 @@ export class ProjectExplorerComponent implements OnInit {
 
   /**
    * Implementation of the sort function.
+   *
    * @param project1 first item to compare
    * @param project2 second item to compare
    * @return item order

@@ -6,92 +6,34 @@
 	<div class="page-header page-header-bleed-left">
 		<div>
 			<h1 class="contains-actions disable-margin-bottom">{{endpoint.path}}</h1>
-			<button class="btn btn-default run-button">Run</button>
+			<button class="btn btn-default run-button" (click)="run()">Run</button>
 		</div>
 		<h5 class="margin-top-5">{{endpoint.method}}</h5>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#">Details</a></li>
-			 	<li role="presentation"><a href="#">Configuration</a></li>
-			  	<li role="presentation"><a href="#">History</a></li>
+				<li role="presentation" [ngClass]="{'active': detailsActive}"><a (click)="handleTabChange('Details')">Details</a></li>
+			 	<li role="presentation" [ngClass]="{'active': configActive}"><a (click)="handleTabChange('Configuration')">Configuration</a></li>
+			  	<li role="presentation" [ngClass]="{'active': historyActive}"><a (click)="handleTabChange('History')">History</a></li>
 			</ul>
 			
 			<div *ngIf="activeTab === 'Details'">
-				<div class="description">{{endpoint.description}}</div>
-				<div class="run-info">
-					<span class="fa fa-check"></span>
-					<div class="run-info-detail">
-						<span class="fs-14">No errors found.</span><br>
-						<span class="fs-10">tested 4 days ago</span>
-					</div>
-				</div>
-				
-				<div class="flex-info">			
-					<div class="flex-info-left">
-						<div class="info-header">Parameters</div>
-						<div *ngFor="let parameter of endpoint.parameters">
-							<div *ngIf="parameter.type === 'path'"class="flex-info padding-top-10">
-								<div class="flex-info-left request-params bold">
-									<span>{{parameter.name}}</span><br>
-									<span>(path)</span>
-								</div>
-								<div class="flex-info-right">{{parameter.type}}</div>
-							</div>
-						</div>
-						<div *ngFor="let parameter of endpoint.parameters">
-							<div *ngIf="parameter.type === 'query'"class="flex-info padding-top-10">
-								<div class="flex-info-left request-params bold">
-									<span>{{parameter.name}}</span><br>
-									<span>(query)</span>
-								</div>
-								<div class="flex-info-right">{{parameter.type}}</div>
-							</div>
-						</div>
-						<div *ngFor="let parameter of endpoint.parameters">
-							<div *ngIf="parameter.type === 'body'" class="flex-info padding-top-10">
-								<div class="flex-info-left request-params bold">{{parameter.name}}</div>
-								<div class="flex-info-right">
-									<div *ngIf="parameter.model !== null" class="response-model">
-										<span>{{parameter.model.name}}</span>
-										<span> {{'{'}}</span>
-										<div *ngFor="let attribute of parameter.model.attributes">
-											<span>&nbsp;&nbsp;&nbsp;&nbsp;{{attribute.name}}: {{attribute.type}}</span>
-										</div>
-										<span>{{'}'}}</span>
-									</div>
-									<div *ngIf="parameter.parameter !== null">{{parameter.parameter}}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="flex-info-right">
-						<div class="info-header info-header-right">Response</div>
-						<div *ngFor="let response of endpoint.responses">
-							<div class="flex-info padding-top-10">
-								<div class="flex-info-left response-status bold">{{response.status}}</div>
-								<div class="flex-info-right">
-									<span>{{response.description}}</span>
-									<div *ngIf="response.model !== null" class="response-model">
-										<span>{{response.model.name}}</span>
-										<span> {{'{'}}</span>
-										<div *ngFor="let attribute of response.model.attributes">	
-											<span>&nbsp;&nbsp;&nbsp;&nbsp;{{attribute.name}}: {{attribute.type}}</span>
-										</div>
-										<span>{{'}'}}</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>		
-				</div>		
+				<app-api-detail-tab [endpoint]="endpoint"></app-api-detail-tab>
+			</div>
+			
+			<div *ngIf="activeTab === 'Configuration'">
+				<app-api-config-tab [endpoint]="endpoint"></app-api-config-tab>
+			</div>
+			
+			<div *ngIf="activeTab === 'History'">
+				<app-api-history-table [update]="updateLogs"></app-api-history-table>
 			</div>
 			
 		</div>
 	</div>
 </ng-template>
-
+<pfng-toast-notification-list [notifications]="notifications|async"></pfng-toast-notification-list>
 
 
 

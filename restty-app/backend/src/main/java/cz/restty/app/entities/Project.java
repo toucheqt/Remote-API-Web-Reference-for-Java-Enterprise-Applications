@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import cz.restty.app.rest.dto.LastRunsDto;
+import cz.restty.app.rest.dto.RunStatisticsDto;
 import cz.restty.app.rest.dto.ProjectDto;
 
 /**
@@ -48,14 +48,14 @@ import cz.restty.app.rest.dto.ProjectDto;
                     @ColumnResult(name = "tests", type = Long.class) 
             })
     }),
-    @SqlResultSetMapping(name = "LastRunsStats", classes = {
-            @ConstructorResult(targetClass = LastRunsDto.class, columns = {
+    @SqlResultSetMapping(name = "RunStatistics", classes = {
+            @ConstructorResult(targetClass = RunStatisticsDto.class, columns = {
                     @ColumnResult(name = "id", type = Long.class),
                     @ColumnResult(name = "name", type = String.class),
                     @ColumnResult(name = "method", type = String.class),
                     @ColumnResult(name = "testType", type = String.class),
-                    @ColumnResult(name = "lastRun", type = LocalDateTime.class),
-                    @ColumnResult(name = "lastRunSuccess", type = Boolean.class)
+                    @ColumnResult(name = "run", type = LocalDateTime.class),
+                    @ColumnResult(name = "success", type = Boolean.class)
             })
     })
 })

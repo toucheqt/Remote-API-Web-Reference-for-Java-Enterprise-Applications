@@ -1,25 +1,28 @@
 package cz.restty.app.rest.controllers;
 
+import static cz.restty.app.constants.AppConstants.REST_API_PREFIX;
 import static cz.restty.app.rest.controllers.ProjectController.PROJECT_PATH;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cz.restty.app.repositories.EndpointRepository;
 import cz.restty.app.rest.controllers.validators.EndpointValidator;
 import cz.restty.app.rest.controllers.validators.ProjectValidator;
 import cz.restty.app.rest.dto.EndpointDetailsDto;
-import cz.restty.app.rest.dto.EndpointDto;
-import cz.restty.app.rest.dto.StatsDto;
+import cz.restty.app.service.EndpointService;
 
 /**
- * Controller that handles all /endpoints requests
+ * Controller that handles all /endpoints requests.
  * 
  * @author Ondrej Krpec
  *
@@ -29,8 +32,9 @@ import cz.restty.app.rest.dto.StatsDto;
 public class EndpointController {
 
     public static final String ENDPOINTS_PATH = PROJECT_PATH + "/endpoints";
-    public static final String ENDPOINT_DETAIL_PATH = ENDPOINTS_PATH + "/{endpointId}";
-    public static final String ENDPOINTS_STATS_PATH = ENDPOINTS_PATH + "/stats";
+    public static final String ENDPOINT_PATH = REST_API_PREFIX + "/endpoints/{endpointId}";
+
+    public static final String RUN_ENDPOINT_PATH = ENDPOINT_PATH + "/run";
 
     @Autowired
     private EndpointRepository endpointRepository;
@@ -41,6 +45,9 @@ public class EndpointController {
     @Autowired
     private EndpointValidator endpointValidator;
 
+    @Autowired
+    private EndpointService endpointService;
+
     /**
      * Finds all endpoints by given project ID.
      * 
@@ -50,41 +57,40 @@ public class EndpointController {
      */
     @Transactional(readOnly = true)
     @GetMapping(ENDPOINTS_PATH)
-    public List<EndpointDto> findAllByProject(@PathVariable Long projectId) {
+    public List<EndpointDetailsDto> findAllByProject(@PathVariable Long projectId) {
         return endpointRepository.findAllByProject(projectValidator.validate(projectId))
                 .stream()
-                .map(endpoint -> new EndpointDto(endpoint))
+                .map(endpoint -> new EndpointDetailsDto(endpoint))
                 .collect(Collectors.toList());
     }
 
     /**
      * Finds endpoint by given ID.
      * 
-     * @param projectId
-     *            ID of project to search by
      * @param endpointId
      *            ID of endpoint to search by
      * @return List of {@link EndpointDto}
      */
     @Transactional(readOnly = true)
-    @GetMapping(ENDPOINT_DETAIL_PATH)
-    public EndpointDetailsDto findById(@PathVariable Long projectId, @PathVariable Long endpointId) {
-        projectValidator.validate(projectId);
+    @GetMapping(ENDPOINT_PATH)
+    public EndpointDetailsDto findById(@PathVariable Long endpointId) {
         return new EndpointDetailsDto(endpointValidator.validate(endpointId));
     }
 
     /**
-     * Finds endpoints statistics for given project.
+     * Finds endpoint by given ID and runs it against the source server.
      * 
-     * @param projectId
-     *            ID of project to search by
-     * @return {@link StatsDto}
+     * @param endpointId
+     *            ID of endpoint to run.
+     * @return {@link HttpStatus#OK} if run was successful, {@link HttpStatus#BAD_REQUEST} otherwise.
      */
-    @Transactional(readOnly = true)
-    @GetMapping(ENDPOINTS_STATS_PATH)
-    public StatsDto getStatsByProject(@PathVariable Long projectId) {
-        projectValidator.validate(projectId);
-        return endpointRepository.getStatsByProject(projectId);
+    @PostMapping(RUN_ENDPOINT_PATH)
+    public ResponseEntity<?> run(@PathVariable Long endpointId) {
+        if (endpointService.run(endpointValidator.validate(endpointId))) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

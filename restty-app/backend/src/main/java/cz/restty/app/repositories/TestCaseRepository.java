@@ -29,6 +29,24 @@ public interface TestCaseRepository extends CrudRepository<TestCase, Long> {
     List<TestCase> findAllByProject(Project project);
 
     /**
+     * Finds test cases statistics for given project.
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @return {@link StatsDto}
+     */
+    @Query("SELECT new cz.restty.app.rest.dto.StatsDto("
+            + " sum(CASE WHEN l.run IS NULL THEN 1 END), "
+            + " sum(CASE WHEN l.success = true THEN 1 END), "
+            + " sum(CASE WHEN l.success = false THEN 1 END) "
+            + ") FROM #{#entityName} tc"
+            + " LEFT JOIN tc.logs l "
+            + " WHERE tc.project = ?1 "
+            + " AND (l.id = (SELECT max(l2.id) FROM Log l2 WHERE l2.endpoint = tc) OR l.id IS NULL)")
+    StatsDto getStatsByProject(Project project);
+
+
+    /**
      * Finds test case from given project with given name.
      * 
      * @param project
@@ -39,20 +57,6 @@ public interface TestCaseRepository extends CrudRepository<TestCase, Long> {
      */
     Optional<TestCase> findByProjectAndNameIgnoreCase(Project project, String name);
 
-    /**
-     * Finds test case statistics for given project.
-     * 
-     * @param projectId
-     *            ID of project to search by
-     * @return {@link StatsDto}
-     */
-    @Query("SELECT new cz.restty.app.rest.dto.StatsDto("
-            + " sum(CASE WHEN tc.lastRunSuccess IS NULL THEN 1 END), "
-            + " sum(CASE WHEN tc.lastRunSuccess = true THEN 1 END), "
-            + " sum(CASE WHEN tc.lastRunSuccess = false THEN 1 END) "
-            + ") FROM #{#entityName} tc "
-            + " WHERE tc.project.id = ?1")
-    StatsDto getStatsByProject(Long projectId);
 
     /**
      * Deletes all test cases for given project.

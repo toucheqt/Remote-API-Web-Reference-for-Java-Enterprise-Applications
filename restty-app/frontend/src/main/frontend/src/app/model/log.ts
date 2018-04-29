@@ -1,5 +1,6 @@
 export class Log {
-  id: number;
   run: string;
+  responseStatus: string;
+  responseMessage: string;
   success: boolean;
 }

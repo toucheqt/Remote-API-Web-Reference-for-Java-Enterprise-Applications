@@ -1,0 +1,76 @@
+<app-add-endpoint-header (headerCreateEvent)="refreshOnCreate($event)"></app-add-endpoint-header>
+<div class="flex-info padding-bottom-25">			
+	<div class="flex-info-left">
+		<div class="info-header">Parameters</div>
+		<div *ngFor="let parameter of endpoint.parameters">
+			<div *ngIf="parameter.type === 'path'"class="flex-info padding-top-10">
+				<div class="flex-info-left request-params bold">
+					<span>{{parameter.name}}</span><br>
+					<span class="font-size-sm">(path)</span>
+				</div>
+				<div class="flex-info-right">{{parameter.parameterValue}}</div>
+			</div>
+		</div>
+		<div *ngFor="let parameter of endpoint.parameters">
+			<div *ngIf="parameter.type === 'query'"class="flex-info padding-top-10">
+				<div class="flex-info-left request-params bold">
+					<span>{{parameter.name}}</span><br>
+					<span class="font-size-sm">(query)</span>
+				</div>
+				<div class="flex-info-right">{{parameter.parameterValue}}</div>
+			</div>
+		</div>
+		<div *ngFor="let parameter of endpoint.parameters">
+			<div *ngIf="parameter.type === 'body'" class="flex-info padding-top-10">
+				<div class="flex-info-left request-params bold">{{parameter.name}}</div>
+				<div class="flex-info-right">
+					<div *ngIf="parameter.model !== null" class="response-model body-model">
+						<span>{{parameter.model.name}}</span>
+						<span> {{'{'}}</span>
+						<div *ngFor="let attribute of parameter.model.attributes">
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;{{attribute.name}}: {{attribute.type}}</span>
+						</div>
+						<span>{{'}'}}</span>
+					</div>
+					<div *ngIf="parameter.parameter !== null">{{parameter.parameterValue}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="flex-info-right">
+		<div class="info-header info-header-right">
+			<span>Headers</span>
+			<span class="fa fa-plus add-header clickable" (click)="createHeaderModal($event)"></span>
+		</div>
+		<div *ngIf="loading === false">
+			<div *ngFor="let header of headers"  class="flex-info">
+				<div *ngIf="header.global" class="flex-info-left-sm margin-top-10">
+					<div class="header-content">
+          				<span [ngClass]="{
+          					'pf': true,
+          					'pficon-ok': header.enabled,
+          					'pficon-error-circle-o': !header.enabled
+          				}" (click)="updateHeaderStatus(header.id)" class="clickable"></span>
+					</div>
+					<span>{{header.header}}</span>
+				</div>
+				<div *ngIf="header.global" class="flex-info-right margin-top-10">
+					<span>{{header.value}}</span>
+				</div>
+			</div>
+			<div *ngFor="let header of headers"  class="flex-info">
+				<div *ngIf="!header.global" class="flex-info-left-sm margin-top-10">
+					<div class="header-content">
+						<app-edit-endpoint-header (headerEditEvent)="refreshOnEdit($event)" [headerEntity]="header"></app-edit-endpoint-header>
+          				<span class="pf pficon-edit clickable" (click)="editHeaderModal($event)"></span>
+					</div>
+					<span>{{header.header}}</span>
+				</div>
+				<div *ngIf="!header.global" class="flex-info-right margin-top-10">
+					<span>{{header.value}}</span>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>	

@@ -8,6 +8,7 @@ import cz.restty.app.entities.Project;
 import cz.restty.app.entities.TestCase;
 import cz.restty.app.repositories.TestCaseRepository;
 import cz.restty.app.rest.dto.RestErrorCode;
+import cz.restty.app.rest.exceptions.ResourceNotFoundException;
 import cz.restty.app.rest.exceptions.ValidationException;
 
 /**
@@ -21,6 +22,19 @@ public class TestCaseValidator {
 
     @Autowired
     private TestCaseRepository testCaseRepository;
+
+    /**
+     * Finds and validates that test case with given ID exists.
+     * 
+     * @param testCaseId
+     *            ID of test case to search by
+     * @return {@link TestCase}
+     */
+    public TestCase validate(Long testCaseId) {
+        return testCaseRepository.findById(testCaseId)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Test case [ID=%d] does not exist.", testCaseId),
+                        RestErrorCode.TEST_CASE_NOT_FOUND));
+    }
 
     /**
      * Validates that test case with given name does not already exist in the project.

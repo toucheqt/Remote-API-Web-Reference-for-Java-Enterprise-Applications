@@ -33,18 +33,19 @@ export class RecentTableComponent implements OnInit {
 
   ngOnInit() {
     this.initTable();
-    this.projectService.findRecentRuns(this.projectId).subscribe(lastRuns => {
-      this.allRows = lastRuns.map(lastRun => {
+    this.projectService.findRecentRuns(this.projectId).subscribe(runs => {
+      this.allRows = runs.map(run => {
         return {
-          id: lastRun.id,
-          name: lastRun.name,
-          method: lastRun.method,
-          testType: lastRun.testType,
-          lastRun: lastRun.lastRun === null
-            ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(lastRun.lastRun),
-          lastRunSuccess: lastRun.lastRunSuccess === null
+          id: run.id,
+          name: run.name,
+          method: run.method,
+          testType: run.testType,
+          run: run.run === null
+            ? '<span>Never</span>'
+            : new TimeAgoPipe(this.ref, this.ngZone).transform(run.run),
+          success: run.success === null
             ? '<span class="padding-left-25">--</span>'
-            : lastRun.lastRunSuccess ? '<span class="fa fa-check"></span>' : '<span class="pf pficon-close"></span>'
+            : run.success ? '<span class="fa fa-check"></span>' : '<span class="pf pficon-close"></span>'
         };
       });
 
@@ -74,13 +75,13 @@ export class RecentTableComponent implements OnInit {
       sortable: false
     }, {
       draggable: false,
-      prop: 'lastRun',
+      prop: 'run',
       name: 'Last run',
       resizeable: false,
       sortable: false
     }, {
       draggable: false,
-      prop: 'lastRunSuccess',
+      prop: 'success',
       name: 'Success',
       resizeable: false,
       sortable: false

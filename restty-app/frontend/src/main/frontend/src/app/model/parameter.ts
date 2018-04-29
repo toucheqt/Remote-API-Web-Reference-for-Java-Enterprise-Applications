@@ -6,5 +6,6 @@ export class Parameter {
   name: string;
   required: boolean;
   parameter: string;
+  parameterValue: string;
   model: Model;
 }

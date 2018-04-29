@@ -3,16 +3,17 @@ package cz.restty.app.entities;
 import static cz.restty.app.constants.DbConstants.HEADER_SEQUENCE;
 import static cz.restty.app.constants.DbConstants.HEADER_TABLE;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -33,8 +34,9 @@ public class Header {
     private String header;
     private String value;
 
-    private Project project;
-    private Endpoint endpoint;
+    private Boolean global = false;
+
+    private Set<EndpointHeader> endpoints = new HashSet<>();
 
     @Id
     @Column(name = "id")
@@ -68,24 +70,22 @@ public class Header {
     }
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_header_fkey"))
-    public Project getProject() {
-        return project;
+    @Column(name = "global", nullable = false, columnDefinition = "boolean default false")
+    public Boolean getGlobal() {
+        return global;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setGlobal(Boolean global) {
+        this.global = global;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endpoint", foreignKey = @ForeignKey(name = "id_endpoint_fkey"))
-    public Endpoint getEndpoint() {
-        return endpoint;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "header", cascade = CascadeType.ALL)
+    public Set<EndpointHeader> getEndpoints() {
+        return endpoints;
     }
 
-    public void setEndpoint(Endpoint endpoint) {
-        this.endpoint = endpoint;
+    public void setEndpoints(Set<EndpointHeader> endpoints) {
+        this.endpoints = endpoints;
     }
 
 }

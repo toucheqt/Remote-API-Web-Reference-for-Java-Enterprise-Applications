@@ -2,6 +2,7 @@ package cz.restty.app.rest.dto;
 
 import javax.validation.constraints.NotNull;
 
+import cz.restty.app.entities.Endpoint;
 import cz.restty.app.entities.Header;
 
 /**
@@ -20,19 +21,26 @@ public class HeaderDto {
     @NotNull
     private String value;
 
+    private Boolean global;
+    private Boolean enabled;
+
     public HeaderDto() {}
 
     public HeaderDto(Header header) {
         this.id = header.getId();
         this.header = header.getHeader();
         this.value = header.getValue();
+        this.global = header.getGlobal();
     }
 
-    // constructor is used by reflection in HeaderRepository
-    public HeaderDto(Long id, String header, String value) {
-        this.id = id;
-        this.header = header;
-        this.value = value;
+    public HeaderDto(Header header, Endpoint endpoint) {
+        this(header);
+
+        header.getEndpoints().forEach(eh1 -> {
+            if (endpoint.getHeaders().contains(eh1)) {
+                this.enabled = eh1.getEnabled();
+            }
+        });
     }
 
     public Long getId() {
@@ -57,6 +65,22 @@ public class HeaderDto {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Boolean getGlobal() {
+        return global;
+    }
+
+    public void setGlobal(Boolean global) {
+        this.global = global;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

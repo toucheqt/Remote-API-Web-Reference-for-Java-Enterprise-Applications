@@ -40,7 +40,7 @@ public class ResponseServiceImpl implements ResponseService {
         response.setDescription(responseDto.getDescription());
         
         if (StringUtils.isNotBlank(responseDto.getModelName())) {
-            Optional<Model> model = modelRepository.findByNameIgnoreCase(responseDto.getModelName());
+            Optional<Model> model = modelRepository.findByProjectAndNameIgnoreCase(endpoint.getProject(), responseDto.getModelName());
             if (!model.isPresent()) {
                 logger.warn(String.format("Error creating endpoint's response [ENDPOINT=%s %s], model [NAME=%s] does not exist.",
                         endpoint.getMethod().toString(), endpoint.getPath(), responseDto.getModelName()));

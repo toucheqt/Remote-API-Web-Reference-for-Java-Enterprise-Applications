@@ -22,7 +22,6 @@ public class ErrorDto {
         this.params = params;
     }
 
-
     public String getErrorCode() {
         return errorCode;
     }

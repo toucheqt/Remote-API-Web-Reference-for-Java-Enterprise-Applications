@@ -33,6 +33,9 @@ public class Log {
 
     private Long id;
 
+    private String responseStatus;
+    private String responseMessage;
+
     private LocalDateTime run;
     private Boolean success;
 
@@ -48,6 +51,24 @@ public class Log {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Column(name = "response_status")
+    public String getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(String responseStatus) {
+        this.responseStatus = responseStatus;
+    }
+
+    @Column(name = "response_message")
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
     @NotNull

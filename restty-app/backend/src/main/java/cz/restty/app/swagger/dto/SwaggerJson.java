@@ -141,6 +141,11 @@ public class SwaggerJson {
                                     }
                                 }
                             });
+                        } else {
+                            String type = JsonUtils.getPathValue(parameterNode, TYPE_PROPERTY, false);
+                            if (StringUtils.isNotBlank(type)) {
+                                parameterDto.setParameter(type);
+                            }
                         }
 
                         if (parameterDto.getIn() != null && parameterDto.getName() != null) {

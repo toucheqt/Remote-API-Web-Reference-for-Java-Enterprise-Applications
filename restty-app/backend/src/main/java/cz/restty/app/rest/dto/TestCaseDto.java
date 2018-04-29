@@ -2,8 +2,9 @@ package cz.restty.app.rest.dto;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
+import org.apache.commons.collections4.CollectionUtils;
 
+import cz.restty.app.entities.Log;
 import cz.restty.app.entities.TestCase;
 
 /**
@@ -12,12 +13,8 @@ import cz.restty.app.entities.TestCase;
  * @author Ondrej Krpec
  *
  */
-public class TestCaseDto {
+public class TestCaseDto extends IdNameDto {
 
-    private Long id;
-
-    @NotNull
-    private String name;
     private String description;
 
     private LocalDateTime lastRun;
@@ -26,27 +23,17 @@ public class TestCaseDto {
     public TestCaseDto() {}
 
     public TestCaseDto(TestCase testCase) {
-        this.id = testCase.getId();
-        this.name = testCase.getName();
+        super(testCase.getId(), testCase.getName());
         this.description = testCase.getDescription();
-        this.lastRun = testCase.getLastRun();
-        this.lastRunSuccess = testCase.getLastRunSuccess();
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        if (CollectionUtils.isNotEmpty(testCase.getLogs())) {
+            Log log = testCase.getLogs()
+                .stream()
+                .sorted((l1, l2) -> l1.getRun().compareTo(l2.getRun()))
+                .findFirst().get();
+            this.lastRun = log.getRun();
+            this.lastRunSuccess = log.getSuccess();
+        }
     }
 
     public String getDescription() {

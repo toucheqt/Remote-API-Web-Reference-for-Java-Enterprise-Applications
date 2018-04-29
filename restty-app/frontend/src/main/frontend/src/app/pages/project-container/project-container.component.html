@@ -22,12 +22,24 @@
 	    	<div class="breadcrumbs">
 		    	<span [routerLink]="['/projects']" class="breadcrumbs-link right">Projects</span>
 		      	<span class="fa fa-angle-double-right"></span>
-		      	<div *ngIf="contentView; else default" class="breadcrumbs-content">
-		      		<span [routerLink]="['/projects', project.id]" class="breadcrumbs-link left right">{{project.name}}</span>
+		      	<div *ngIf="contentView !== 'Dashboard'; else default" class="breadcrumbs-content">
+		      		<span [routerLink]="['/projects', project.id]" (click)="onBreadcrumbsClick($event)" class="breadcrumbs-link left right">{{project.name}}</span>
 		      		<span class="fa fa-angle-double-right"></span>
-		      		<span *ngIf="contentView == 'API'" [routerLink]="['/projects', project.id, 'api']" class="breadcrumbs-link left">API</span>
-		      		<span *ngIf="contentView == 'Test cases'" [routerLink]="['/projects', project.id, 'test-cases']" class="breadcrumbs-link left">Test Cases</span>
-		      		<span *ngIf="contentView == 'Settings'" [routerLink]="['/projects', project.id, 'settings']" class="breadcrumbs-link left">Settings</span>
+		      		<span *ngIf="contentView === 'API'" 
+		      		      [routerLink]="['/projects', project.id, 'api']" 
+		      			  (click)="onBreadcrumbsClick($event)" class="breadcrumbs-link left">
+		      			API
+		      		</span>
+		      		<span *ngIf="contentView === 'Test Cases'" 
+		      			  [routerLink]="['/projects', project.id, 'test-cases']" 
+		      			  (click)="onBreadcrumbsClick($event)" class="breadcrumbs-link left">
+		      			Test Cases
+		      		</span>
+		      		<span *ngIf="contentView === 'Settings'" 
+		      		      [routerLink]="['/projects', project.id, 'settings']" 
+		      		      (click)="onBreadcrumbsClick($event)" class="breadcrumbs-link left">
+		      			Settings
+		      		</span>
 		      	</div>
 			  	<ng-template #default>
 			  		<span [routerLink]="['/projects', project.id]" class="breadcrumbs-link left">{{project.name}}</span>

@@ -12,7 +12,7 @@ import { NavigationItemConfig } from 'patternfly-ng';
 })
 export class ProjectContainerComponent implements OnInit {
 
-  contentView = null;
+  contentView = 'Dashboard';
 
   project: Project;
   loading = true;
@@ -46,7 +46,7 @@ export class ProjectContainerComponent implements OnInit {
         url: '/navigation/api'
       },
       {
-        title: 'Test cases',
+        title: 'Test Cases',
         iconStyleClass: 'fa fa-cubes',
         url: '/navigation/test-cases'
       },
@@ -60,22 +60,35 @@ export class ProjectContainerComponent implements OnInit {
 
   onItemClicked($event: NavigationItemConfig): void {
     this.contentView = $event.title;
-    if ($event.title === 'Dashboard') {
-      this.contentView = null;
-      this.router.navigate(['projects', this.project.id]);
-    } else if ($event.title === 'API') {
-      this.router.navigate(['projects', this.project.id, 'api']);
-    } else if ($event.title === 'Test cases') {
-      this.router.navigate(['projects', this.project.id, 'test-cases']);
-    } else if ($event.title === 'Settings') {
-      this.router.navigate(['projects', this.project.id, 'settings']);
-    }
-
+    this.switchView($event.title);
     this.navigationItems.forEach(item => {
       item.trackActiveState = false;
     });
 
     $event.trackActiveState = true;
+  }
+
+  onBreadcrumbsClick($event): void {
+    if ($event.target.innerText === this.project.name) {
+      this.contentView = 'Dashboard';
+    } else {
+      this.contentView = $event.target.innerText;
+    }
+
+    this.navigationItems.forEach(item => item.trackActiveState = item.title === this.contentView);
+    this.switchView(this.contentView);
+  }
+
+  switchView(viewName: string) {
+    if (viewName === 'Dashboard') {
+      this.router.navigate(['projects', this.project.id]);
+    } else if (viewName === 'API') {
+      this.router.navigate(['projects', this.project.id, 'api']);
+    } else if (viewName === 'Test Cases') {
+      this.router.navigate(['projects', this.project.id, 'test-cases']);
+    } else if (viewName === 'Settings') {
+      this.router.navigate(['projects', this.project.id, 'settings']);
+    }
   }
 
 }

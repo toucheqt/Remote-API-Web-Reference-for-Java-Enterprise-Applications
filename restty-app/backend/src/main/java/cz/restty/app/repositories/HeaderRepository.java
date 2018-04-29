@@ -3,13 +3,12 @@ package cz.restty.app.repositories;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import cz.restty.app.entities.Endpoint;
 import cz.restty.app.entities.Header;
 import cz.restty.app.entities.Project;
-import cz.restty.app.rest.dto.HeaderDto;
 
 /**
  * Repository that declares methods to work with {@link Header}s. Extends {@link CrudRepository} for basic functionality.
@@ -18,51 +17,91 @@ import cz.restty.app.rest.dto.HeaderDto;
  *
  */
 public interface HeaderRepository extends CrudRepository<Header, Long> {
-
+    
     /**
      * Finds all global headers for given {@link Project}.
      * 
      * @param project
-     *            Project to search by.
-     * @return list of {@link HeaderDto}
+     *            Project to search by
+     * @return list of global headers
      */
-    @Query("SELECT new cz.restty.app.rest.dto.HeaderDto(h.id, h.header, h.value)"
-            + " FROM #{#entityName} h "
-            + " WHERE h.project = ?1 AND h.endpoint IS NULL")
-    List<HeaderDto> findAllGlobalByProject(Project project);
-
+    @Query("SELECT header FROM #{#entityName} header"
+            + " INNER JOIN header.endpoints endpointHeader "
+            + " INNER JOIN endpointHeader.endpoint endpoint "
+            + " WHERE header.global = true AND endpoint.project = ?1"
+            + " GROUP BY header ")
+    List<Header> findAllGlobalByProject(Project project);
+    
     /**
-     * Finds {@link Header} for given project by given name.
+     * Finds all headers by given endpoint.
      * 
-     * @param projectId
-     *            ID of project to search by
-     * @param headerName
-     *            Header name to search by
-     * @return {@link Header}
+     * @param endpoint
+     *            {@link Endpoint} to search by
+     * @return list of headers
      */
-    @Query("FROM #{#entityName} WHERE project.id = ?1 AND lower(header) = lower(?2)")
-    Optional<Header> findByHeaderName(Long projectId, String headerName);
+    @Query("SELECT header FROM #{#entityName} header"
+            + " INNER JOIN header.endpoints headerEndpoint"
+            + " WHERE headerEndpoint.endpoint = ?1")
+    List<Header> findAllByEndpoint(Endpoint endpoint);
 
     /**
-     * Deletes all headers for given projects. Deletes both global and endpoint specific headers.
+     * Finds global header by header's name for given project.
      * 
      * @param project
-     *            {@link Project} to delete headers for.
+     *            {@link Project} to search by
+     * @param headerName
+     *            Header's name to search by
+     * @return global header with specified name
      */
-    @Modifying
-    @Query("DELETE FROM #{#entityName} WHERE project = ?1")
-    void deleteAllByProject(Project project);
+    @Query("SELECT header FROM #{#entityName} header"
+            + " INNER JOIN header.endpoints endpointHeader"
+            + " INNER JOIN endpointHeader.endpoint endpoint"
+            + " WHERE header.global = true AND endpoint.project = ?1 AND lower(header.header) = lower(?2) "
+            + " GROUP BY header ")
+    Optional<Header> findGlobalHeaderByName(Project project, String headerName);
+    
+    /**
+     * Finds header by header's name and endpoint.
+     * 
+     * @param endpoint
+     *            {@link Endpoint} to search by
+     * @param headerName
+     *            Header's name to search by
+     * @return header with specified name
+     */
+    @Query("SELECT header FROM #{#entityName} header"
+            + " INNER JOIN header.endpoints endpointHeader"
+            + " WHERE header.global = false AND endpointHeader.endpoint = ?1 AND lower(header.header) = lower(?2)")
+    Optional<Header> findHeaderByName(Endpoint endpoint, String headerName);
 
     /**
-     * Deletes headers with given ids from given project.
+     * Finds global header by given id.
      * 
-     * @param projectId
-     *            ID of project
+     * @param headerId
+     *            ID to search by
+     * @return global header or empty optional if such header does not exist
+     */
+    Optional<Header> findByGlobalTrueAndId(Long headerId);
+
+    /**
+     * Deletes headers with given IDs.
+     * 
      * @param headerIds
      *            IDs of headers to delete
      */
-    @Modifying
-    @Query("DELETE FROM #{#entityName} WHERE project.id = ?1 AND id IN (?2)")
-    void deleteByIds(Long projectId, List<Long> headerIds);
+    void deleteByIdIn(List<Long> headerIds);
+
+
+
+
+    // /**
+    // * Deletes all headers for given projects. Deletes both global and endpoint specific headers.
+    // *
+    // * @param project
+    // * {@link Project} to delete headers for.
+    // */
+    // @Modifying
+    // @Query("DELETE FROM #{#entityName} h WHERE h.endpoint IN (SELECT e FROM Endpoint e WHERE e.project = ?1)")
+    // void deleteAllByProject(Project project);
 
 }

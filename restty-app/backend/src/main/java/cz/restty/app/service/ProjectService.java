@@ -2,6 +2,8 @@ package cz.restty.app.service;
 
 import java.io.IOException;
 
+import org.springframework.web.client.RestClientException;
+
 import cz.restty.app.entities.Project;
 import cz.restty.app.rest.dto.ProjectDto;
 
@@ -18,22 +20,40 @@ public interface ProjectService {
      * 
      * @param projectDto
      *            {@link ProjectDto}
-     * @return {@link ProjectDto}
+     * @return {@link Project}
+     * @throws RestClientException
+     *             If any problem while retrieving the Swagger's API file occurs.
      * @throws IOException
-     *             If any problem while parsing swagger api file occurs
+     *             If any problem while parsing Swagger's API file occurs.
      */
-    ProjectDto createProject(ProjectDto projectDto) throws IOException;
+    Project createProject(ProjectDto projectDto) throws RestClientException, IOException;
 
     /**
      * Renames project.
      * 
-     * @param projectId
-     *            ID of project to rename.
+     * @param project
+     *            Project to rename.
      * @param name
      *            New name of the project.
      * @return Updated project.
      */
-    Project renameProject(Long projectId, String name);
+    Project renameProject(Project project, String name);
+
+
+    /*
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+
+
+
+
 
     /**
      * Deletes given project. Note that all correspondent API endpoints, test cases and settings are deleted too.

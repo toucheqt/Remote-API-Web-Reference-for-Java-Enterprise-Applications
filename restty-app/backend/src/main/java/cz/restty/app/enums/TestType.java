@@ -1,4 +1,4 @@
-package cz.restty.app.entities;
+package cz.restty.app.enums;
 
 /**
  * Test types in the application.

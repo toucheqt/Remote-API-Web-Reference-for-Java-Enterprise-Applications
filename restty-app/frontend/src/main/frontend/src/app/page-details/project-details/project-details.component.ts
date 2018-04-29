@@ -1,6 +1,7 @@
 import { Project } from '../../model/project';
 import { Stats } from '../../model/stats';
 import { EndpointService } from '../../services/endpoint.service';
+import { ProjectService } from '../../services/project.service';
 import { TestCaseService } from '../../services/test-case.service';
 import { Component, OnInit, TemplateRef, ViewChild, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -27,14 +28,13 @@ export class ProjectDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private endpointsService: EndpointService,
-    private testCasesService: TestCaseService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
     this.route.parent.params.subscribe(pathVariable => {
       this.projectId = pathVariable.id;
-      this.endpointsService.findStatsByProject(this.projectId).subscribe(stats => {
+      this.projectService.findEndpointsStats(this.projectId).subscribe(stats => {
         this.endpointsData = [
           ['New', stats.untested],
           ['Successful', stats.successes],
@@ -63,7 +63,7 @@ export class ProjectDetailsComponent implements OnInit {
     });
 
     this.route.params.subscribe(pathVariable => {
-      this.testCasesService.findStatsByProject(pathVariable.id).subscribe(stats => {
+      this.projectService.findTestCasesStats(pathVariable.id).subscribe(stats => {
         this.testCasesData = [
           ['New', stats.untested],
           ['Successful', stats.successes],

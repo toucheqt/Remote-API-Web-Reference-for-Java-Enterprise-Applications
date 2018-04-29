@@ -32,15 +32,16 @@ export class FailuresTableComponent implements OnInit {
 
   ngOnInit() {
     this.initTable();
-    this.projectService.findLastRunFailures(this.projectId).subscribe(lastRuns => {
-      this.allRows = lastRuns.map(lastRun => {
+    this.projectService.findRecentFailedRuns(this.projectId).subscribe(runs => {
+      this.allRows = runs.map(run => {
         return {
-          id: lastRun.id,
-          name: lastRun.name,
-          method: lastRun.method,
-          testType: lastRun.testType,
-          lastRun: lastRun.lastRun === null
-            ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(lastRun.lastRun),
+          id: run.id,
+          name: run.name,
+          method: run.method,
+          testType: run.testType,
+          run: run.run === null
+            ? '<span>Never</span>'
+            : new TimeAgoPipe(this.ref, this.ngZone).transform(run.run),
         };
       });
 
@@ -70,7 +71,7 @@ export class FailuresTableComponent implements OnInit {
       sortable: false
     }, {
       draggable: false,
-      prop: 'lastRun',
+      prop: 'run',
       name: 'Last run',
       resizeable: false,
       sortable: false

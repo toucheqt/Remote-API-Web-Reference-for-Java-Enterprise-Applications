@@ -1,9 +1,19 @@
 package cz.restty.app.service.impl;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import cz.restty.app.entities.Endpoint;
+import cz.restty.app.entities.Log;
 import cz.restty.app.entities.Project;
 import cz.restty.app.repositories.EndpointRepository;
 import cz.restty.app.repositories.LogRepository;
@@ -32,6 +42,41 @@ public class EndpointServiceImpl implements EndpointService {
 
     @Autowired
     private LogRepository logRepository;
+
+    @Override
+    public boolean run(Endpoint endpoint) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        endpoint.getHeaders().stream().filter(header -> header.getEnabled()).forEach(endpointHeader -> {
+            headers.add(endpointHeader.getHeader().getHeader(), endpointHeader.getHeader().getValue());
+        });
+
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        Log log = new Log();
+        log.setEndpoint(endpoint);
+        log.setRun(LocalDateTime.now());
+        log.setResponseStatus(HttpStatus.OK.toString());
+        log.setSuccess(true);
+
+        try {
+            String path = endpoint.getProject().getPath() + endpoint.getPath();
+            restTemplate.exchange(path, HttpMethod.GET, entity, String.class);
+        } catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
+            log.setSuccess(false);
+            log.setResponseStatus(httpClientOrServerExc.getStatusCode().toString());
+            log.setResponseMessage(httpClientOrServerExc.getMessage());
+        } catch (Exception ex) {
+            log.setSuccess(false);
+            log.setResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            log.setResponseMessage(ex.getMessage());
+        }
+
+        logRepository.save(log);
+
+        return log.getSuccess();
+    }
 
     @Override
     public Endpoint createEndpoint(Project project, Path path) {

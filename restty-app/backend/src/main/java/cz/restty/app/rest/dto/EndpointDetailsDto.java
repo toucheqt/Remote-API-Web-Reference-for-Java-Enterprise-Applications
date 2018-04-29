@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpMethod;
 
 import cz.restty.app.entities.Endpoint;
@@ -25,6 +26,7 @@ public class EndpointDetailsDto {
 
     private LocalDateTime lastRun;
     private Boolean lastRunSuccess;
+    private String lastRunMessage;
 
     private List<ParameterJsonDto> parameters;
     private List<ResponseJsonDto> responses;
@@ -35,8 +37,17 @@ public class EndpointDetailsDto {
         this.path = endpoint.getPath();
         this.method = endpoint.getMethod();
         this.description = endpoint.getDescription();
-        this.lastRun = endpoint.getLastRun();
-        this.lastRunSuccess = endpoint.getLastRunSuccess();
+        
+        if (CollectionUtils.isNotEmpty(endpoint.getLogs())) {
+            Log log = endpoint.getLogs()
+                .stream()
+                .sorted((l1, l2) -> l1.getRun().compareTo(l2.getRun()))
+                .findFirst().get();
+            this.lastRun = log.getRun();
+            this.lastRunSuccess = log.getSuccess();
+            this.lastRunMessage = log.getResponseMessage();
+        }
+
         this.parameters = endpoint.getParameters().stream().map(param -> new ParameterJsonDto(param)).collect(Collectors.toList());
         this.responses = endpoint.getResponses()
                 .stream()
@@ -92,6 +103,14 @@ public class EndpointDetailsDto {
 
     public void setLastRunSuccess(Boolean lastRunSuccess) {
         this.lastRunSuccess = lastRunSuccess;
+    }
+
+    public String getLastRunMessage() {
+        return lastRunMessage;
+    }
+
+    public void setLastRunMessage(String lastRunMessage) {
+        this.lastRunMessage = lastRunMessage;
     }
 
     public List<ParameterJsonDto> getParameters() {

@@ -3,7 +3,6 @@ package cz.restty.app.entities;
 import static cz.restty.app.constants.DbConstants.TEST_CASE_SEQUENCE;
 import static cz.restty.app.constants.DbConstants.TEST_CASE_TABLE;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,9 +36,6 @@ public class TestCase {
 
     private String name;
     private String description;
-
-    private LocalDateTime lastRun;
-    private Boolean lastRunSuccess;
 
     private Project project;
 
@@ -75,25 +71,6 @@ public class TestCase {
         this.description = description;
     }
 
-    @Column(name = "last_run")
-    public LocalDateTime getLastRun() {
-        return lastRun;
-    }
-
-
-    public void setLastRun(LocalDateTime lastRun) {
-        this.lastRun = lastRun;
-    }
-
-    @Column(name = "last_run_success")
-    public Boolean getLastRunSuccess() {
-        return lastRunSuccess;
-    }
-
-    public void setLastRunSuccess(Boolean lastRunSuccess) {
-        this.lastRunSuccess = lastRunSuccess;
-    }
-
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_test_case_fkey"))
@@ -112,10 +89,6 @@ public class TestCase {
 
     public void setLogs(Set<Log> logs) {
         this.logs = logs;
-    }
-
-    public void addLog(Log log) {
-        logs.add(log);
     }
 
 }

@@ -11,6 +11,7 @@ public class DbConstants {
     // Tables
     public static final String ATTRIBUTE_TABLE = "attribute";
     public static final String ENDPOINT_TABLE = "endpoint";
+    public static final String ENDPOINT_HEADER_TABLE = "endpoint_header";
     public static final String HEADER_TABLE = "header";
     public static final String LOG_TABLE = "log";
     public static final String MODEL_TABLE = "model";
@@ -22,6 +23,7 @@ public class DbConstants {
     // Sequences
     public static final String ATTRIBUTE_SEQUENCE = "attribute_id_sequence";
     public static final String ENDPOINT_SEQUENCE = "endpoint_id_sequence";
+    public static final String ENDPOINT_HEADER_SEQUENCE = "endpoint_header_id_sequence";
     public static final String HEADER_SEQUENCE = "header_id_sequence";
     public static final String LOG_SEQUENCE = "log_id_sequence";
     public static final String MODEL_SEQUENCE = "model_id_sequence";

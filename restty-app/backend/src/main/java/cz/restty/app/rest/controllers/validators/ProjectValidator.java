@@ -56,7 +56,7 @@ public class ProjectValidator {
                     RestErrorCode.PROJECT_NAME_INVALID);
         }
 
-        Optional<Project> project = projectRepository.findByName(name);
+        Optional<Project> project = projectRepository.findByNameIgnoreCase(name);
         if ((project.isPresent() && !projectId.isPresent())
                 || (project.isPresent() && projectId.isPresent() && !projectId.get().equals(project.get().getId()))) {
             throw new ValidationException(String.format("Project [name=%s] already exists.", name), RestErrorCode.PROJECT_NAME_INVALID);

@@ -21,9 +21,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService
-      .findProjects()
-      .subscribe(result => {
-        if (result.length > 0) {
+      .findAll()
+      .subscribe(projects => {
+        if (projects.length > 0) {
           this.router.navigate(['projects']);
         } else {
           this.router.navigate(['new-project']);

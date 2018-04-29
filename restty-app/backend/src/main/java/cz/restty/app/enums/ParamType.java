@@ -1,4 +1,4 @@
-package cz.restty.app.entities;
+package cz.restty.app.enums;
 
 /**
  * Parameter types in the application.

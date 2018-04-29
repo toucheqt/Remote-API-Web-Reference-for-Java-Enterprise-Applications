@@ -17,13 +17,15 @@ import cz.restty.app.entities.Project;
 public interface ModelRepository extends CrudRepository<Model, Long> {
 
     /**
-     * Finds {@link Model} by given name. Method ignores case.
+     * Finds {@link Model} by given name for given project. Method ignores case.
      * 
+     * @param project
+     *            Project to search by.
      * @param name
-     *            Name to search by
+     *            Name to search by.
      * @return {@link Model} or empty optional if such model does not exist.
      */
-    Optional<Model> findByNameIgnoreCase(String name);
+    Optional<Model> findByProjectAndNameIgnoreCase(Project project, String name);
 
     /**
      * Finds all models for given project.

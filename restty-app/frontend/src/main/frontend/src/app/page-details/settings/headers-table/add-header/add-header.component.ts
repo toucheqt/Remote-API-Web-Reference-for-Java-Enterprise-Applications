@@ -1,5 +1,5 @@
 import { Header } from '../../../../model/header';
-import { SettingsService } from '../../../../services/settings.service';
+import { HeaderService } from '../../../../services/header.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +24,7 @@ export class AddHeaderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private settingsService: SettingsService
+    private headerService: HeaderService
   ) {
     this.route.parent.params.subscribe(pathVariable => this.projectId = pathVariable.id);
   }
@@ -48,7 +48,7 @@ export class AddHeaderComponent implements OnInit {
         debounceTime(400)
       ).subscribe(header => {
         if (this.headerForm.get('header').valid) {
-          this.settingsService.findByHeader(this.projectId, header).subscribe(result => this.unique = result == null);
+          this.headerService.findGlobalByHeader(this.projectId, header).subscribe(result => this.unique = result == null);
         }
       });
   }
@@ -61,7 +61,7 @@ export class AddHeaderComponent implements OnInit {
     if (this.headerForm.valid) {
       this.headerEntity.header = this.headerForm.get('header').value;
       this.headerEntity.value = this.headerForm.get('value').value;
-      this.settingsService.createHeader(this.projectId, this.headerEntity).subscribe(header => {
+      this.headerService.createGlobalHeader(this.projectId, this.headerEntity).subscribe(header => {
         this.headerEntity.id = header.id;
         this.headerCreateEvent.emit(this.headerEntity);
       });

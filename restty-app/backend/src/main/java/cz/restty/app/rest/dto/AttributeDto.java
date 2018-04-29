@@ -6,18 +6,9 @@ package cz.restty.app.rest.dto;
  * @author Ondrej Krpec
  *
  */
-public class AttributeDto {
+public class AttributeDto extends IdNameDto {
 
-    private String name;
     private String type;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getType() {
         return type;

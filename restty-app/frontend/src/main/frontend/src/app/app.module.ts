@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProjectService } from './services/project.service';
 import { NgxPopperModule } from 'ngx-popper';
 
-
 import { AppComponent } from './app.component';
 import { MastheadComponent } from './components/masthead/masthead.component';
 import { ProjectExplorerComponent } from './pages/project-explorer/project-explorer.component';
@@ -23,7 +22,7 @@ import { EditProjectComponent } from './pages/project-explorer/edit-project/edit
 import { DeleteProjectComponent } from './pages/project-explorer/delete-project/delete-project.component';
 import { EndpointService } from './services/endpoint.service';
 import { TestCaseService } from './services/test-case.service';
-import { SettingsService } from './services/settings.service';
+import { HeaderService } from './services/header.service';
 import { HeadersTableComponent } from './page-details/settings/headers-table/headers-table.component';
 import { AddHeaderComponent } from './page-details/settings/headers-table/add-header/add-header.component';
 import { FailuresTableComponent } from './page-details/project-details/failures-table/failures-table.component';
@@ -35,6 +34,12 @@ import { TestCaseTableComponent } from './page-details/test-cases/test-case-tabl
 import { AddTestCaseComponent } from './page-details/test-cases/add-test-case/add-test-case.component';
 import { ApiTableComponent } from './page-details/api/api-table/api-table.component';
 import { BasicContentComponent } from './page-details/api/api-table/basic-content/basic-content.component';
+import { ApiDetailTabComponent } from './page-details/api-detail/api-detail-tab/api-detail-tab.component';
+import { ApiConfigTabComponent } from './page-details/api-detail/api-config-tab/api-config-tab.component';
+import { ApiHistoryTableComponent } from './page-details/api-detail/api-history-table/api-history-table.component';
+import { LogService } from './services/log.service';
+import { AddEndpointHeaderComponent } from './page-details/api-detail/api-config-tab/add-endpoint-header/add-endpoint-header.component';
+import { EditEndpointHeaderComponent } from './page-details/api-detail/api-config-tab/edit-endpoint-header/edit-endpoint-header.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +65,12 @@ import { BasicContentComponent } from './page-details/api/api-table/basic-conten
     TestCaseTableComponent,
     AddTestCaseComponent,
     ApiTableComponent,
-    BasicContentComponent
+    BasicContentComponent,
+    ApiDetailTabComponent,
+    ApiConfigTabComponent,
+    ApiHistoryTableComponent,
+    AddEndpointHeaderComponent,
+    EditEndpointHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +88,8 @@ import { BasicContentComponent } from './page-details/api/api-table/basic-conten
     ProjectService,
     EndpointService,
     TestCaseService,
-    SettingsService
+    HeaderService,
+    LogService
   ],
   bootstrap: [AppComponent]
 })

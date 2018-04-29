@@ -33,6 +33,7 @@ public class Attribute {
 
     private String name;
     private String type;
+    private String value;
 
     private Model model;
 
@@ -64,6 +65,15 @@ public class Attribute {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Column(name = "value")
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     @NotNull

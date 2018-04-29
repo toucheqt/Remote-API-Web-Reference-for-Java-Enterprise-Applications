@@ -13,6 +13,15 @@ import cz.restty.app.swagger.dto.Path;
 public interface EndpointService {
 
     /**
+     * Runs given endpoint against the test server.
+     * 
+     * @param endpoint
+     *            Endpoint to run.
+     * @return True if run was successful, false otherwise.
+     */
+    boolean run(Endpoint endpoint);
+
+    /**
      * Creates endpoint for given project from given path.
      * 
      * @param project

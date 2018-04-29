@@ -10,7 +10,8 @@ import cz.restty.app.entities.Project;
 import cz.restty.app.rest.dto.StatsDto;
 
 /**
- * Repository that declares method to work with {@link Endpoint}s. Extends {@link CrudRepository} to provide basic functionality.
+ * Repository that declares methods to work with {@link Endpoint}s. Extends {@link CrudRepository} to provide basic functionality.
+ * 
  * @author Ondrej Krpec
  *
  */
@@ -33,11 +34,13 @@ public interface EndpointRepository extends CrudRepository<Endpoint, Long> {
      * @return {@link StatsDto}
      */
     @Query("SELECT new cz.restty.app.rest.dto.StatsDto("
-            + " sum(CASE WHEN e.lastRunSuccess IS NULL THEN 1 END), "
-            + " sum(CASE WHEN e.lastRunSuccess = true THEN 1 END), "
-            + " sum(CASE WHEN e.lastRunSuccess = false THEN 1 END) "
-            + ") FROM #{#entityName} e "
-            + " WHERE e.project.id = ?1")
-    StatsDto getStatsByProject(Long projectId);
+            + " sum(CASE WHEN l.run IS NULL THEN 1 END), "
+            + " sum(CASE WHEN l.success = true THEN 1 END), "
+            + " sum(CASE WHEN l.success = false THEN 1 END) "
+            + ") FROM #{#entityName} e"
+            + " LEFT JOIN e.logs l "
+            + " WHERE e.project = ?1 "
+            + " AND (l.id = (SELECT max(l2.id) FROM Log l2 WHERE l2.endpoint = e) OR l.id IS NULL)")
+    StatsDto getStatsByProject(Project project);
 
 }

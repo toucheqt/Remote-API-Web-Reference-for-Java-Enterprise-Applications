@@ -1,5 +1,7 @@
 package cz.restty.app.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,6 +17,43 @@ import cz.restty.app.entities.TestCase;
  *
  */
 public interface LogRepository extends CrudRepository<Log, Long> {
+
+    /**
+     * Finds all logs for given endpoint.
+     * 
+     * @param endpoint
+     *            {@link Endpoint} to search by
+     * @return list of logs
+     */
+    List<Log> findAllByEndpointOrderByRunDesc(Endpoint endpoint);
+
+    /**
+     * Finds all logs for given test case.
+     * 
+     * @param testCase
+     *            {@link TestCase} to search by
+     * @return list of logs
+     */
+    List<Log> findAllByTestCaseOrderByRunDesc(TestCase testCase);
+
+    /**
+     * Finds most recent log for given endpoint.
+     * 
+     * @param endpoint
+     *            {@link Endpoint} to search by
+     * @return most recent log
+     */
+    Log findTop1ByEndpointOrderByRunDesc(Endpoint endpoint);
+
+    /**
+     * Finds most recent log for given test case.
+     * 
+     * @param testCase
+     *            {@link TestCase} to search by
+     * @return most recent log
+     */
+    Log findTop1ByTestCaseOrderByRunDesc(TestCase testCase);
+
 
     /**
      * Deletes all logs for given endpoint

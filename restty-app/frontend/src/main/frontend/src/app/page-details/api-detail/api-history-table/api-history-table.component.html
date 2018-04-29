@@ -1,0 +1,30 @@
+<div *ngIf="loading; else pageLoaded" class="loading">
+	<div class="spinner spinner-lg"></div>
+	<span>Loading</span>
+</div>
+<ng-template #pageLoaded>
+	<div id="logs-table">
+		<div class="row">
+			<div class="col-sm-12">
+				<pfng-toolbar [config]="toolbarConfig"
+			        (onFilterChange)="filterChanged($event)"
+			        (onFilterTypeAhead)="filterQueries($event)"
+			        (onSortChange)="handleSortChanged($event)">
+			    </pfng-toolbar>
+			</div>
+			<div class="row">
+		  		<div class="col-sm-12">
+		  			<div class="margin-top-10">
+		  				<pfng-table [columns]="columns" [rows]="rows" [config]="tableConfig"
+		            		(onFilterTypeAhead)="filterQueries($event)"
+		            		(onPageNumberChange)="handlePageNumber($event)"
+		            		(onPageSizeChange)="handlePageSize($event)"
+		            		(onSelectionChange)="handleSelectionChange($event)"
+                     		(onTypeAhead)="filterQueries($event)">
+		            	</pfng-table>
+		  			</div>
+		  		</div>
+		  	</div>
+		</div>
+	</div>
+</ng-template>

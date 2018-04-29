@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cz.restty.app.entities.Project;
@@ -23,7 +23,6 @@ import cz.restty.app.entities.TestCase;
 import cz.restty.app.repositories.TestCaseRepository;
 import cz.restty.app.rest.controllers.validators.ProjectValidator;
 import cz.restty.app.rest.controllers.validators.TestCaseValidator;
-import cz.restty.app.rest.dto.StatsDto;
 import cz.restty.app.rest.dto.TestCaseDto;
 import cz.restty.app.service.TestCaseService;
 
@@ -38,7 +37,7 @@ import cz.restty.app.service.TestCaseService;
 public class TestCaseController {
 
     public static final String TEST_CASES_PATH = PROJECT_PATH + "/test-cases";
-    public static final String TEST_CASES_STATS_PATH = TEST_CASES_PATH + "/stats";
+    public static final String TEST_CASE_VALIDATION_PATH = TEST_CASES_PATH + "/validate";
 
     @Autowired
     private TestCaseService testCaseService;
@@ -61,7 +60,7 @@ public class TestCaseController {
      */
     @Transactional(readOnly = true)
     @GetMapping(TEST_CASES_PATH)
-    public List<TestCaseDto> findAllByProjectId(@PathVariable Long projectId) {
+    public List<TestCaseDto> findAllByProject(@PathVariable Long projectId) {
         return testCaseRepository.findAllByProject(projectValidator.validate(projectId))
                 .stream()
                 .map(testCase -> new TestCaseDto(testCase))
@@ -69,32 +68,34 @@ public class TestCaseController {
     }
 
     /**
-     * Finds test case from given project with given name.
+     * Finds test case with given name from given project.
      * 
      * @param projectId
-     *            ID of project to search by.
+     *            ID of project to search by
      * @param name
-     *            Name to search by.
+     *            Name to search by
      * @return {@link TestCase}
      */
     @Transactional(readOnly = true)
-    @GetMapping(TEST_CASES_PATH + "/validate/{name}")
-    public TestCase findByName(@PathVariable Long projectId, @PathVariable String name) {
+    @GetMapping(TEST_CASE_VALIDATION_PATH)
+    public TestCase findByName(@PathVariable Long projectId, @RequestParam(name = "name", required = true) String name) {
         return testCaseRepository.findByProjectAndNameIgnoreCase(projectValidator.validate(projectId), name).orElse(null);
     }
 
     /**
-     * Finds test case statistics for given project
+     * Creates test case from information in {@link TestCaseDto}.
      * 
      * @param projectId
-     *            ID of project to search by
-     * @return {@link StatsDto}
+     *            ID of project to add test case to
+     * @param testCaseDto
+     *            {@link TestCaseDto} that contains information about new test case
+     * @return {@link TestCaseDto} and {@link HttpStatus#CREATED}
      */
-    @Transactional(readOnly = true)
-    @GetMapping(TEST_CASES_STATS_PATH)
-    public StatsDto getStatsByProject(@PathVariable Long projectId) {
-        projectValidator.validate(projectId);
-        return testCaseRepository.getStatsByProject(projectId);
+    @PostMapping(TEST_CASES_PATH)
+    public ResponseEntity<TestCaseDto> createTestCase(@PathVariable Long projectId, @RequestBody TestCaseDto testCaseDto) {
+        Project project = projectValidator.validate(projectId);
+        testCaseValidator.validateName(project, testCaseDto.getName());
+        return new ResponseEntity<>(testCaseService.createTestCase(project, testCaseDto), HttpStatus.CREATED);
     }
 
     /**
@@ -113,22 +114,6 @@ public class TestCaseController {
         }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    /**
-     * Creates test case from information in {@link TestCaseDto}
-     * 
-     * @param projectId
-     *            ID of project to add test case to
-     * @param testCaseDto
-     *            {@link TestCaseDto} that contains information about new test case
-     * @return {@link TestCaseDto} and {@link HttpStatus#CREATED}
-     */
-    @PostMapping(TEST_CASES_PATH)
-    public ResponseEntity<TestCaseDto> createTestCase(@PathVariable Long projectId, @RequestBody @Validated TestCaseDto testCaseDto) {
-        Project project = projectValidator.validate(projectId);
-        testCaseValidator.validateName(project, testCaseDto.getName());
-        return new ResponseEntity<>(testCaseService.createTestCase(project, testCaseDto), HttpStatus.CREATED);
     }
 
 }

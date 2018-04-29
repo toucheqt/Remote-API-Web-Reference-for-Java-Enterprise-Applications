@@ -10,7 +10,7 @@ import cz.restty.app.rest.dto.AttributeDto;
 import cz.restty.app.service.AttributeService;
 
 /**
- * Default implementation of {@link AttributeService}
+ * Default implementation of {@link AttributeService}.
  * 
  * @author Ondrej Krpec
  *

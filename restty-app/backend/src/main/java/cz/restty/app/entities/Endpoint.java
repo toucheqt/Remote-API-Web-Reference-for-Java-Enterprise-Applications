@@ -3,7 +3,6 @@ package cz.restty.app.entities;
 import static cz.restty.app.constants.DbConstants.ENDPOINT_SEQUENCE;
 import static cz.restty.app.constants.DbConstants.ENDPOINT_TABLE;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,12 +43,10 @@ public class Endpoint {
     private HttpMethod method;
     private String description;
 
+    private Set<EndpointHeader> headers = new HashSet<>();
     private Set<Parameter> parameters = new HashSet<>();
     private Set<Response> responses = new HashSet<>();
     private Set<Log> logs = new HashSet<>();
-
-    private LocalDateTime lastRun;
-    private Boolean lastRunSuccess;
 
     private Project project;
 
@@ -94,24 +91,6 @@ public class Endpoint {
         this.description = description;
     }
 
-    @Column(name = "last_run")
-    public LocalDateTime getLastRun() {
-        return lastRun;
-    }
-
-    public void setLastRun(LocalDateTime lastRun) {
-        this.lastRun = lastRun;
-    }
-
-    @Column(name = "last_run_success")
-    public Boolean getLastRunSuccess() {
-        return lastRunSuccess;
-    }
-
-    public void setLastRunSuccess(Boolean lastRunSuccess) {
-        this.lastRunSuccess = lastRunSuccess;
-    }
-
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_project", nullable = false, foreignKey = @ForeignKey(name = "id_project_endpoint_fkey"))
@@ -121,6 +100,15 @@ public class Endpoint {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "endpoint", cascade = CascadeType.ALL)
+    public Set<EndpointHeader> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Set<EndpointHeader> headers) {
+        this.headers = headers;
     }
 
     @JoinColumn(name = "id_endpoint")
@@ -160,10 +148,6 @@ public class Endpoint {
 
     public void setLogs(Set<Log> logs) {
         this.logs = logs;
-    }
-
-    public void addLog(Log log) {
-        logs.add(log);
     }
 
 }

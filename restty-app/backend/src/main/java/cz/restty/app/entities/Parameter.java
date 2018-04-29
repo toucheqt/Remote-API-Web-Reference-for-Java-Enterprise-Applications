@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import cz.restty.app.enums.ParamType;
+
 /**
  * Entity that contains information about request's params.
  * 

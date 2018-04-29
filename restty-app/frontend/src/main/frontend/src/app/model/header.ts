@@ -7,4 +7,6 @@ export class Header {
   id: number;
   header: string;
   value: string;
+  global: boolean;
+  enabled: boolean;
 }

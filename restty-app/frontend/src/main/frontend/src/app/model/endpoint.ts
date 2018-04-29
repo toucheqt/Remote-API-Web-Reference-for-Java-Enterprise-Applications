@@ -14,6 +14,7 @@ export class Endpoint {
 
   lastRun: string;
   lastRunSuccess: boolean;
+  lastRunMessage: string;
 
   parameters: Parameter[];
   responses: Response[];

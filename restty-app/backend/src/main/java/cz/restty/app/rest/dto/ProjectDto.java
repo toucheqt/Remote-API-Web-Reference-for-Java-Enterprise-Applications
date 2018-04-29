@@ -1,7 +1,5 @@
 package cz.restty.app.rest.dto;
 
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.collections4.CollectionUtils;
 
 import cz.restty.app.entities.Project;
@@ -12,14 +10,8 @@ import cz.restty.app.entities.Project;
  * @author Ondrej Krpec
  *
  */
-public class ProjectDto {
+public class ProjectDto extends IdNameDto {
 
-    private Long id;
-
-    @NotNull
-    private String name;
-
-    @NotNull
     private String source;
 
     private Long tests;
@@ -28,9 +20,9 @@ public class ProjectDto {
     public ProjectDto() {}
 
     public ProjectDto(Project project) {
-        this.id = project.getId();
-        this.name = project.getName();
+        super(project.getId(), project.getName());
         this.source = project.getSource();
+
         if (CollectionUtils.isNotEmpty(project.getEndpoints())) {
             this.endpoints = project.getEndpoints().stream().count();
         }
@@ -42,27 +34,10 @@ public class ProjectDto {
 
     // constructor is used by reflection in ProjectRepository
     public ProjectDto(Long id, String name, String source, Long endpoints, Long tests) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.source = source;
         this.tests = tests;
         this.endpoints = endpoints;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSource() {

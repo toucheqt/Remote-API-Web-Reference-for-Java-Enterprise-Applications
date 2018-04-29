@@ -37,9 +37,9 @@ public class Model {
     private Long id;
 
     private String name;
-    private Set<Attribute> attributes = new HashSet<>();
-
     private Project project;
+
+    private Set<Attribute> attributes = new HashSet<>();
 
     @Id
     @Column(name = "id")
@@ -82,6 +82,5 @@ public class Model {
     public void setProject(Project project) {
         this.project = project;
     }
-
 
 }

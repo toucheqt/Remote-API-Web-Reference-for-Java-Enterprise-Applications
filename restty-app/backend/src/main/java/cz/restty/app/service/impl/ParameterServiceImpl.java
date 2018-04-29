@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import cz.restty.app.entities.Endpoint;
 import cz.restty.app.entities.Model;
-import cz.restty.app.entities.ParamType;
 import cz.restty.app.entities.Parameter;
+import cz.restty.app.enums.ParamType;
 import cz.restty.app.repositories.ModelRepository;
 import cz.restty.app.repositories.ParameterRepository;
 import cz.restty.app.rest.dto.ParameterDto;
@@ -47,7 +47,7 @@ public class ParameterServiceImpl implements ParameterService {
         parameter.setRequired(parameterDto.isRequired());
 
         if (StringUtils.isNotBlank(parameterDto.getModelName())) {
-            Optional<Model> model = modelRepository.findByNameIgnoreCase(parameterDto.getModelName());
+            Optional<Model> model = modelRepository.findByProjectAndNameIgnoreCase(endpoint.getProject(), parameterDto.getModelName());
             if (!model.isPresent()) {
                 logger.warn(String.format("Error creating endpoint's parameter [ENDPOINT=%s %s], model [NAME=%s] does not exist.",
                         endpoint.getMethod().toString(), endpoint.getPath(), parameterDto.getModelName()));

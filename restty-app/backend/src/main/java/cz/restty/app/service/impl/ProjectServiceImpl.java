@@ -1,7 +1,5 @@
 package cz.restty.app.service.impl;
 
-import static cz.restty.app.rest.dto.RestErrorCode.PROJECT_NAME_INVALID;
-
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import cz.restty.app.repositories.HeaderRepository;
 import cz.restty.app.repositories.ProjectRepository;
 import cz.restty.app.rest.dto.ProjectDto;
 import cz.restty.app.rest.exceptions.SwaggerFileUnavailableException;
-import cz.restty.app.rest.exceptions.ValidationException;
 import cz.restty.app.service.EndpointService;
 import cz.restty.app.service.ModelService;
 import cz.restty.app.service.ProjectService;
@@ -48,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
     private HeaderRepository headerRepository;
 
     @Override
-    public ProjectDto createProject(ProjectDto projectDto) throws RestClientException, IOException {
+    public Project createProject(ProjectDto projectDto) throws RestClientException, IOException {
         SwaggerJson json = parseSource(projectDto.getSource());
         Project project = new Project();
         project.setName(projectDto.getName());
@@ -59,26 +56,16 @@ public class ProjectServiceImpl implements ProjectService {
         json.getModels().forEach(model -> project.addModel(modelService.createModel(project, model)));
         json.getPaths().forEach(path -> project.addEndpoint(endpointService.createEndpoint(project, path)));
 
-        return new ProjectDto(projectRepository.save(project));
-    }
-
-    @Override
-    public Project renameProject(Long projectId, String name) {
-        Project project = projectRepository.findById(projectId).orElseThrow(
-                () -> new ValidationException(String.format("Project [ID=%d] does not exist.", projectId), PROJECT_NAME_INVALID));
-        project.setName(name);
         return projectRepository.save(project);
     }
 
     @Override
-    public void deleteProject(Project project) {
-        modelService.deleteAllByProject(project);
-        headerRepository.deleteAllByProject(project);
-        endpointService.deleteAllByProject(project);
-        testCaseService.deleteAllByProject(project);
-        projectRepository.delete(project);
+    public Project renameProject(Project project, String name) {
+        project.setName(name);
+        return projectRepository.save(project);
     }
 
+    // fetches and parses Swagger's API file
     private SwaggerJson parseSource(String source) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(source, String.class);
@@ -88,5 +75,17 @@ public class ProjectServiceImpl implements ProjectService {
 
         return new SwaggerJson(source, response.getBody());
     }
+
+    @Override
+    public void deleteProject(Project project) {
+        modelService.deleteAllByProject(project);
+        // TODO
+        // headerRepository.deleteAllByProject(project);
+        endpointService.deleteAllByProject(project);
+        testCaseService.deleteAllByProject(project);
+        projectRepository.delete(project);
+    }
+
+
 
 }

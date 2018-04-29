@@ -1,4 +1,4 @@
-import { SettingsService } from '../../services/settings.service';
+import { HeaderService } from '../../services/header.service';
 import { Component, OnInit, ViewChild, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 

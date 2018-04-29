@@ -51,7 +51,7 @@ public class ModelServiceImpl implements ModelService {
         Set<Attribute> attributes = modelDto.getAttributes()
             .stream()
             .map(attr -> attributeService.createAttribute(model, attr))
-                .collect(Collectors.toSet());
+            .collect(Collectors.toSet());
         
         model.setAttributes(attributes);
         return modelRepository.save(model);
@@ -60,7 +60,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public void deleteAllByProject(Project project) {
         modelRepository.findAllByProject(project).forEach(model -> {
-            attributeRepository.deleteAllByModel(model);
+            attributeRepository.removeAllByModel(model);
             parameterRepository.deleteAllByModel(model);
             responseRepository.deleteAllByModel(model);
             modelRepository.delete(model);

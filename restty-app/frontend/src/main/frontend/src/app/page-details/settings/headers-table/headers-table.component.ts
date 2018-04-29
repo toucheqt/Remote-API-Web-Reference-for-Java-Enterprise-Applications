@@ -1,5 +1,5 @@
 import { Header } from '../../../model/header';
-import { SettingsService } from '../../../services/settings.service';
+import { HeaderService } from '../../../services/header.service';
 import { Component, OnInit, ViewChild, ViewEncapsulation, TemplateRef, Input } from '@angular/core';
 import { SortField, FilterConfig, PaginationConfig, SortConfig, TableConfig,
   ToolbarConfig, FilterType, FilterField, Action, FilterEvent, Filter,
@@ -38,11 +38,11 @@ export class HeadersTableComponent implements OnInit {
   filtersText = '';
   isAscendingSort = true;
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(private headerService: HeaderService) {}
 
   ngOnInit(): void {
     this.initTable();
-    this.settingsService.findGlobalHeaders(this.projectId).subscribe(headers => {
+    this.headerService.findAllGlobalHeadersByProject(this.projectId).subscribe(headers => {
       this.allRows = headers.map(headerEntity => {
         return {
           header: headerEntity.header,
@@ -137,8 +137,8 @@ export class HeadersTableComponent implements OnInit {
 
   deleteHeaders() {
     if (this.selectedRows) {
-      this.settingsService.deleteHeaders(this.projectId, this.selectedRows.map(header => header.id)).subscribe(result => {
-        this.settingsService.findGlobalHeaders(this.projectId).subscribe(headers => {
+      this.headerService.deleteHeaders(this.selectedRows.map(header => header.id)).subscribe(result => {
+        this.headerService.findAllGlobalHeadersByProject(this.projectId).subscribe(headers => {
           this.allRows = headers.map(headerEntity => {
             return {
               header: headerEntity.header,

@@ -13,8 +13,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ApiDetailComponent implements OnInit {
 
-
-  projectId: number;
   apiId: number;
 
   endpoint: Endpoint;
@@ -34,7 +32,6 @@ export class ApiDetailComponent implements OnInit {
     private endpointService: EndpointService,
     private notificationService: NotificationService
   ) {
-    this.route.parent.params.subscribe(pathVariable => this.projectId = pathVariable.id);
     this.route.params.subscribe(pathVariable => this.apiId = pathVariable.apiId);
   }
 

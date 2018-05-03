@@ -1,3 +1,33 @@
-<p>
-  test-case-detail works!
-</p>
+<div *ngIf="loading; else pageLoaded" class="loading">
+	<div class="spinner spinner-lg"></div>
+	<span>Loading</span>
+</div>
+<ng-template #pageLoaded>
+	<div class="page-header page-header-bleed-left">
+		<div>
+			<h1 class="contains-actions disable-margin-bottom">{{testCase.name}}</h1>
+			<button class="btn btn-default run-button" (click)="run()">Run</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs">
+				<li role="presentation" [ngClass]="{'active': detailsActive}"><a (click)="handleTabChange('Details')">Details</a></li>
+			  	<li role="presentation" [ngClass]="{'active': historyActive}"><a (click)="handleTabChange('History')">History</a></li>
+			</ul>
+			
+			<div *ngIf="activeTab === 'Details'">
+<!-- 				<app-api-detail-tab [endpoint]="endpoint" [update]="updateLogs"></app-api-detail-tab> -->
+			</div>
+			
+			<div *ngIf="activeTab === 'History'">
+<!-- 				<app-api-history-table [update]="updateLogs"></app-api-history-table> -->
+			</div>
+			
+		</div>
+	</div>
+</ng-template>
+<pfng-toast-notification-list [notifications]="notifications|async" class="margin-top-32"></pfng-toast-notification-list>
+
+
+

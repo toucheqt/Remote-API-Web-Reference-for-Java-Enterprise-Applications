@@ -1273,27 +1273,46 @@ created using the~Swagger framework., style=dp-default, label=lst-swagger-json]
 \chapter{Application Design}
 \label{Design}
 This chapter covers the~requirements for~the~Restty application and~presents
-the~application design drafts in~detail. The~design drafts can help reveal any
-clashing visual elements while it is still easy to~change them before writing
-the~code. Moreove, the~drafts allow to~fully flesh out the~ideas and~choose
-the~best possible options. The~design drafts pictured in~the~following sections
-consists of~separate UI elements that once combined, represent the~final design
-draft of~the~Restty application.
+the~application's model and~design drafts in~detail. The~model is designed using Entity Relationship Diagram
+which describes the~entities and~their relations, and~may be useful for~visualizing database design ideas,
+identifying the~mistakes and~design flawes before creating the~database.
+The~design drafts on~the~other hand, can help reveal any clashing visual elements while it is still easy
+to~change them before writing the~code. Moreover, the~drafts allow to~fully flesh out the~ideas
+and~choose the~best possible options. The~design drafts pictured in~the~following sections consists of~separate
+UI elements that once combined, represents the~final design draft of~the~application.
+
+\section{The~Restty's Model}
+The~application will consists of~three major entities -- projects, endpoints and~test cases. It will allow users
+to~create multiple projects to~work on, with~every project containing various endpoints and test cases. Each project,
+specified by~its name and~the~Swagger's API file, draws its endpoints from~that said file. Depending on~the~content
+of~the~file, endpoints may vary in~headers (specified for~the~particular endpoint or~for~all of~them), response
+statuses and~parameters. The~parameters may vary in~types, for~instance the~endpoint can contain path variables, query parameters,
+or~body data, which can be either primitive data types or~objects that are represented by~model entities.
+
+\begin{figure}[!hbt]
+	\centering
+	\includegraphics[scale=0.7]{./figures/erd.pdf}
+	\caption{The~ER Diagram that describes how the~entities relate to~each other within the~application.}
+\end{figure}
+
+In~addition, the~application contains test cases. Test cases consists of~unspecified amount of~endpoints that can have
+separate settings -- custom values of~parameters or~models, for~each test case. In~addition, both the~endpoint and~test cases will contain
+logs of~previous test runs, to~provide users information about the~tests that were executed in~the~past, and~their results.
 
 
 \section{Requirements for~the~Restty Application}
 As~mentioned earlier, the~aim of~the~thesis is to~create an~application that
-allows to~test single endpoints of~the~interfaces of~other applications
+allows to~test endpoints of~interfaces of~other applications
 as~well~as to~create extensive test cases from~said interfaces. The~interface
 that should be tested will be provided via the~Swagger's JSON file which
 contains all necessary information about~the~interface. Therefore the~Restty has
-to~allow the~users to~choose the~application's interface upon which will
-the~Restty work. If the~interface and~its endpoints is successfully loaded
-and~the~data are persisted in~the~Restty's database, the~user should be
-redirected to~the~dashboard which should display basic statistics about
-the~status of~the~endpoints and~test cases.
+to~allow the~users to~choose the~application's interface upon which the~Restty will work.
+ If the~interface and~its endpoints is successfully loaded
+and~the~data are persisted in~the~database, the~user will be
+redirected to~the~dashboard which will display basic statistics about
+the~current state of~the~endpoints and~test cases.
 
-From~the~dashboard the~users should be able to~navigate to~the~overview of~all
+From~the~dashboard the~users will be able to~navigate to~the~overview of~all
 interface's endpoints, their details, configurations and~past test runs.
 In~addition, the~users should be able to~navigate to~the~similar overview
 with~test cases, which the~users can create using the~Restty's Test Case
@@ -1443,6 +1462,23 @@ of~API endpoints to~test. Backend of~the~application is implemented using Java~8
 Spring Boot, persistence framework Hibernate 5 and~in~memory database H2. The~frontend is implemented using
 Angular~5, TypeScript language and~the~web framework PatternFly.
 
+\section{Separation of Concerns}
+Before diving into the~implementation, it is important to~specify the~separation of~concerns between
+the~presentation layer (frontend), and~the~data access layer (backend) of~the~application. 
+The~frontend is primarily implemented using~Angular while backend is implemented using~Spring Boot. Combining
+these frameworks allows to~create a~minimal, but runnable, application with as~little dependencies and~setup as~possible.
+
+Therefore by~following the~separation of~concerns principle, the~application is split into separate Maven modules for~the~frontend
+and~backend, where each module has its own POM\footnote{A~Project Object Model (POM) is the~fundamental unit of~work in~Maven.
+It is an~XML file that contains information about the~project and~configuration details used by~Maven to~build the~project.} configuration
+file linked to~the~parent configuration file. To~build the~Angular application with~Maven, the~frontend's POM file have to~contain 
+the~Frontend Maven Plugin dependency, which is needed to~install prerequisities needed by~the~application and~to~keep
+the~frontend and~backend builds as~separate as~possible. However, even with~the~Frontend Maven Plugin the~Angular application will not
+ended up in~the~final jar. To~ensure that, the~packaged Angular application have to~be added to~backend's resources. This whole approeach
+ensures the~separation of~concern principles and~allows the~whole application (frontend and~backend) to~be build using Maven's install command only.
+
+
+
 \section{Structure of the Frontend}
 When implementing an~the~application, the~most important task is to structure the~application's code
 the~right way. Ideally, the~whole application should be a~tree of~components that implement clearly
@@ -1518,54 +1554,279 @@ onItemClicked($event: NavigationItemConfig): void {
 \end{lstlisting}
 
 \section{Parsing the Swagger's JSON}
-Sekce o tom, jak dochazi k vytvoreni noveho projektu - konkretne parsovani JSON souboru,
-ktery obsahuje informace o API projektu, ktery je vytvaren.
+When creating the~project within~the~Restty, the~application consumes Swagger's API file and~parses the~information
+about project's interface from~it. As~can be seen in~the~listing~\ref{lst-swagger-json} the~content of~the~file may be extremely
+large and~complicated. 
 
-\section{The~Restty's Model}
-Informace o tom, jak vypada vysledny db model, do ktereho se ukladaji data z json souboru.
-Dale zde bude zmineno, jak je vyreseno pouziti 'in memory' databaze tak, aby byla perzistentni
-a data tak byla zachovana i po vypnuti aplikace.
+Initially the~source of~the~file is passed to~the~backend when creating the~project, in~which the~\textit{createProject(ProjectDto projectDto)}
+method in~the~implementation of~\textit{ProjectService} handles the~project creation. At~first, the~content of~Swagger's file is fetched
+using the~Spring's \textit{RestTemplate} class and~then it is parsed to~Data Transfer Objects (DTO) of~which, the~database entities are created.
 
-\section{Implementation of TCC}
-Informace o tom, jak je implementovano vytvareni testovacich scenaru, jak na strane FE, tak i BE
-Dale zde bude zmineno, proc v projektu nakonec nebyla pouzita drag and drop funkcionalita, ale zvolil se vyber ze 
-selectboxu po kliknuti na uzel (uzlem je myslen start / endpoint nebo test case)
+\vspace{1mm}
+\begin{lstlisting}[caption=Parsing the~address of~the~test server from~Swagger's API file,
+style=dp-default, language=Java]
+ObjectMapper mapper = new ObjectMapper(_;
+JsonNode rootNode = mapper.readTree(json);
+
+String scheme = JsonUtils.getScheme(rootNode);
+String host = JsonUtils.getPathValue(rootNode, HOST_PROPERTY, false);
+String basePath = Objects.toString(JsonUtils.getPathValue(rootNode, "basePath", false), "");
+if (StringUtils.isBlank(scheme) || StringUtils.isBlank(host)) {
+	this.basePath = source.substring(0, source.lastIndexOf("/") + 1) + basePath;
+} else {
+	this.basePath = scheme + host + basePath;
+}
+\end{lstlisting}
+
+The~file contains various information about the~project and~its API, but for~the~Restty's purposes it is important to~parse only~the~information
+about~the~test server, endpoints and~the~models. The~information about test server is stored inside the~\textit{host}, \textit{basePath} and~\textit{schemes}
+attributes which, once combined, creates a~complete path~that will be used as~default when making API calls. Note that according to~Swagger's specification,
+the~\textit{host} and~\textit{scheme} can be omitted for~a~more dynamic association. In~that case, the~host and~scheme used to~serve the~API
+documentation will be used for~API calls. 
+
+Once the~information about the~test server are parsed, the~application proceeds to~parsing the~data for~the~entities for~which it needs to~process two
+attributes --~\textit{paths} and~\textit{definitions}. The~paths consist of~list of~objects where each object represents particular endpoint. In~addition,
+each endpoint contains objects represented by~HTTP methods that are allowed for~the~particular endpoint. Finally, each HTTP~method object contains the~detailed
+information about~the~endpoint like its description, parameters or~responses. On~the~other hand, the~definitions consist of~a~list of~objects that represents
+entities used~within~the~imported project's API. These definitions are then referenced from~the~endpoints as~parameters or~response bodies.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=Parsing the~API's model definitions from~the~Swagger's API file.,
+style=dp-default, language=Java]
+ObjectNode definitionsNode = JsonUtils.getObjectNode(rootNode, "definitions", false);
+	if (definitionsNode != null) {
+		definitionsNode.fields().forEachRemaining(definitionNode -> {
+			ModelDto model = new ModelDto();
+			model.setName(definitionNode.getKey());
+                
+			ObjectNode propertiesNodes = 
+				JsonUtils.getObjectNode(definitionNode.getValue(), "properties", false);
+			if (propertiesNodes != null) {
+				propertiesNodes.fields().forEachRemaining(propertyNode -> {
+					AttributeDto attribute = new AttributeDto();
+                    attribute.setName(propertyNode.getKey());
+
+                    String type = 
+                    	JsonUtils.getPathValue(propertyNode.getValue(), "type", false);
+                    if (StringUtils.isNotBlank(type)) {
+                    	attribute.setType(type);
+                        model.addAttribute(attribute);
+                   	} else {
+                    	String modelName = 
+                    		JsonUtils.getPathValue(propertyNode.getValue(), "ref", false);
+                        if (StringUtils.isNotBlank(modelName)) {
+                        	attribute.setType(modelName.substring(modelName.lastIndexOf('/') + 1));
+                           	model.addAttribute(attribute);
+                        }
+                    }
+            	});
+            }
+
+            models.add(model);
+    	});
+	}
+\end{lstlisting}
+
+\section{Implementation of the API Testing}
+This section contains the~details about implementation of~the~cornerstone of~the~whole application 
+--~how the~test cases are created and~how they are, along with~endpoints, run. By~default, users can run
+the~endpoints straight away but they most likely will not work. That is because the~application does not know
+the~parameter values required by~the~endpoints. Therefore users are needed to~specify the~parameters of~endpoints
+to~be used in~future endpoints or~test cases runs. 
+
+\vspace{1mm}
+\begin{lstlisting}[caption=Frontend's implementation of~setting the~parameter's value in~which\, all logic is handled by~the~matching
+TypeScript file., style=dp-html]
+<div class="flex-info-left request-params bold">
+	<app-edit-param (paramEditEvent)="refreshOnParamEdit($event)" [parameter]="parameter">
+	</app-edit-param>
+	<div class="edit-parameter inline-block">
+		<span class="pf pficon-edit clickable" (click)="createModal('#editParamModal', parameter.id)">
+		</span>
+	</div>
+	<div class="inline-block">
+		<span>{{parameter.name}}</span><br>
+		<span class="font-size-sm">(query)</span>
+	</div>
+</div>
+\end{lstlisting}
+
+Once all parameters required by~the~endpoint are specified, the~users may run the~test using appropriate button.
+The~button is connected to~a~listener, which, on~click, triggers a~REST API call to~the~backend with~the~id of~the~endpoint
+that should be tested. On~the~backend, the~request is handled by~the~\textit{EndpointController} that
+finds all available information about said endpoint and~passes it~to~the~appropriate service that handles the~test.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=The~implementation of~a~test run in~backend's service.,
+style=dp-default, language=Java, label=lst-test-run]
+RestTemplate restTemplate = new RestTemplate();
+HttpHeaders headers = new HttpHeaders();
+endpoint.getHeaders().stream().filter(header -> header.getEnabled()).forEach(endpointHeader -> {
+	headers.add(endpointHeader.getHeader().getHeader(), endpointHeader.getHeader().getValue());
+});
+
+List<Parameter> pathVariables = endpoint.getParameters()
+	 .stream()
+    .filter(pathVariable -> ParamType.PATH.equals(pathVariable.getType()))
+    .collect(Collectors.toList());
+
+String path = endpoint.getProject().getPath() + endpoint.getPath();
+String resolvedPath = resolvePathVariables(path, pathVariables);
+            
+Optional<Parameter> body = endpoint.getParameters()
+	.stream()
+    .filter(parameter -> ParamType.BODY.equals(parameter.getType()))
+    .findFirst();
+    
+JSONObject jsonBody = new JSONObject();
+if (body.isPresent()) {
+	body.get().getModel().getAttributes().forEach(attr -> {
+		jsonBody.put(attr.getName(), attr.getValue());
+	}
+            
+HttpEntity<String> entity = new HttpEntity<>(jsonBody.toString(), headers);
+restTemplate.exchange(resolvedPath, endpoint.getMethod(), entity, String.class);
+\end{lstlisting}
+
+The~test is implemented using Spring's \textit{RestTemplate} class which allows calling customizable HTTP requests from~the~backend
+services. Furthermore, as~can be seen in~the~listing~\ref{lst-test-run}, when the~test is executed, the~logs are created for~the~endpoint or~test case
+that was subject of~the~test, keeping the~information about the~run persisted. Finally, the~testing of~test cases is implemented in~a~similar fashion.
+That is because in~fact, a~test case is more or~less a~linked list of~endpoints.
+
+However, there is a~slight difference in~the~test cases implementation. Obviously, the~users might want to~use different parameter values for~the~same
+endpoint in~different test cases which is not~possible with~the~current implementation of~the~endpoint's parameters. Therefore the~\textit{TextCaseSettings}
+class was created. It~links the~endpoint with~specific test case and~copies the~endpoint's parameters to~its own properties which means that by~default,
+if the~endpoint is added to~the~test case, it contains the~parameters that were specified in~the~endpoint's configuration. However, the~parameter values
+in~the~\textit{TestCaseSettings} class may be modified without it having an~effect on~the~original endpoint's values. Overall, this approach allows the~users
+to~create test cases with~specific conditions which results in~better test coverage of~the~tested project's interface.
+
 
 \section{Testing with Red Hat JBoss BPM Suite}
-Zakladni uvedeni nastroje bpm suite
+\label{Testing}
+The~testing of~the~application consistes of~two parts. The~first part consisted of~testing the~Restty's REST API
+interface using the~cURL and~Postman applications which validated that the~backend of~the~Restty works as~expected.
+The~second, more important part, consisted of~manual testing the~application as~a~whole using the~Red Hat JBoss BPM
+Suite application's remote interface.
 
-\subsection{Red Hat JBoss BPM Suite's API}
-Kratke uvedeni bpm suite's API, ktere bude vyuzito v prubehu testovani
+\subsection{Red Hat JBoss BPM Suite's Basic Concepts}
+The~Red Hat JBoss BPM Suite is an~open source business process management suite that combines Business Process Management
+and~Businnes Rules Management and~enables business and~IT users to~create, manage, validate, and~deploy Business Processes
+and~Rules. To~accomodate Business Rules component, JBoss BPM Suite includes integrated Red Hat JBoss BRMS which is a~comprehensive
+bussiness automatiom platform for bussiness rules management, business resource optimization, and~complex event processing.
+
+Red Hat JBoss BRMS and~Red Hat JBoss BPM Suite use a~centralized repository where all resources are stored. This ensures
+consistency, transparency, and~the~ability to~audit across the~business. Business users can modify business logic and~business processes
+without requiring assistance from~IT personnel.
+
+The~application provides tools for~creating, editing, running, and~runtime management of~BPMN process models. The~models are defined
+using the~BPMN2 language, but more importantly, they can be created using the~JBoss BPM Suite API which will be subject of~the~testing.
+To~briefly point out options of~what BPM Suite can do, using the~API it is necessary to~provide a~bit of~background on~what rules, events
+and~processes are about.
+
+A~business process is a~process that describes the~order in~which a~series of~steps need to~be executed, using a~flow chart. Next, the~events
+specify moments in~the~execution process. The~events are fired by~the~BPM's engine during graph execution. An~event is always relative to~an~element
+in~the~process definition. Last but not least, a~business rule is a~rule that defines or~contrains some aspect of~process and~always resolves to~either
+true or~false. In~other words, rules are linked with~the~process models to~enforce the~correct policies at~each process step.
+
 
 \subsection{Testing the Restty}
-Uvedeni par prikladu testovani pomoci jednotlivych endpointu a dale i vytvareni testovacich scenaru
-na zaklade bpm suite api
+As~mentioned earlier, the~testing was divided into two parts. The~first part was focused on~testing Restty's REST API using
+cURL at~first and~Postman later for~more complicated API calls. The~API consists of~several endpoints which are managed
+by~appropriate controllers on~the~backend. In~this~section, the~focus will be on~testing the~\textit{ProjectController}
+that handles all endpoints, in~which the~path starts with~\textit{/api/projects}.
+
+When starting the~application, the~users will come in~first contact with~projects dashboard e.g. it was needed to~create an~endpoint
+that would find all existing projects in~the~Restty application. In~the~listing~\ref{lst-findAll} can be seen the~code used for~testing
+the~said endpoint, returning the~list of~all projects within~the~application. 
+
+\vspace{1mm}
+\begin{lstlisting}[caption=Testing the~\textit{/api/projects} endpoint using cURL.,
+style=dp-default,label=lst-findAll]
+curl http://localhost:8081/api/projects
+[
+	{
+		"id": 20,
+		"name": "swagger-models",
+		"source": "http://petstore.swagger.io/v2/swagger.json",
+		"tests": 1,
+		"endpoints": 20
+	}
+]
+\end{lstlisting}
+
+As~can be seen~in~the~listing~\ref{lst-findAll}, the~project with~BPM Suite's API is missing, therefore it is needed to~create it using
+the~same endpoint as~for~finding the~projects within~the~Restty, but with~the~POST method this time. In~the~listing~\ref{lst-createBPM}
+can be seen an~example of~such API call and~its response.
+
+\vspace{1mm}
+\begin{lstlisting}[caption=Testing the~creating of~an~project within~the~Restty.,
+label=lst-createBPM, style=dp-default, language=XML]
+curl --request POST \
+  --url http://localhost:8081/api/projects \
+  -d '{
+  	"name": "bpm-suite", \ 
+  	"source": "http://localhost:8080/kie-server/services/rest/server/swagger.json" \
+  }'
+\end{lstlisting}
+
+Once~the~BPM Suite's project is created, it is possible to~step up in~the~testing process, meaning to~test the~application as~a~whole using
+remote interface provided by~the~project. In~particular, for~testing purposes was imported BPM's process server execution module which allows
+users to~communicate with~the~process server through REST API. The~first step might be to~test simple GET request, for~instance
+the~\textit{/server/containers} which retrieves containers deployed to~the~test server. After the~test is completed, the~user is informed about
+its result using a~PatternFly's notification. This process may be repeated multiple times for~multiple endpoints furthermore testing the~application.
+
+However, the~functionality to~test separate API endpoints is provided by~many other applications, as~was stated earlier. Therefore it is necessary 
+to~properly test the~functionality of~the~test case. Consider a~following test case -- the~user wants to~test a~deletion of~a~process instance. Normally
+he would have to~create the~instance manually, retrieve its id and~then delete it using the~id. However, using Restty this can be automated. User may simple
+create a~test case and~to~that test case insert two API requests. The~first request would be the~POST request with~parameters filled 
+either from~endpoint's configuration or~by~the~user and~the~following request would be DELETE request that would use the~parameters from~the~previous request.
+After running the~test, the~user is again informed about its outcome and~most importantly, he does not have to~modify the~test if~he would want to~run it~again
+at~some point in~the~future.
 
 \section{Future extensions}
-Par slov o moznych rozsireni aplikace
+\label{Improvements}
+Even though the~Restty makes testing much easier for~developers, it does not reach its full potential within the~thesis.
+The~testing is an~extensive discipline therefore the~application has always room for~improvements. To~make it even more usable 
+in~practice, the~following extensions were suggested.
 
-% aby Test Case Creator umel i cykly a slozky pro test casy
+\begin{enumerate}
+  \item The~logs that stores the~information about previous test runs could contain more information about the~run besides the~response code and~response message.
+  It is possible to~save the~exact format of~the~request, its headers, parameters, etc., and~of~the~response.
+  \item The~Project Explorer might offer users to~export existing projects or~to~import projects that were previously created.
+  \item The~Restty could offer a~migration to~the~newer version of~the~API, for~instance on~the~backend could be implemented a~cron job that would check if
+  the~Swagger's API file was changed and~if it has it could offer an~automatic migration.
+  \item Finally, the~Restty could create trivial test cases on~its own -- for~instance, the~tests for~deleting a~resource or~testing the~pagination etc., could
+  be done automatically, saving time for~the~developers. 
+  \item The~test cases can be extended to~allow users create conditions. For~instance, the~test case could contain a~request that would tried to~find
+  a~requested resource. If~the~resource does not exist, it~could be created by~using another appropriate request.
+\end{enumerate}
+
+Obviously, the~extensions stated above are not the~only things that can be added to~the~application. It is always possible to~optimize,
+the~application itself both in~terms of~performance and~user experience.
 
 \chapter{Conclusion}
-%The~aim of~this term project was to~design an~application that will allow its
-%users to~create test cases from~other applications API. As~a~part of~working
-%on~the~above goal the~technologies and~frameworks that will be needed when
-%building the~application upon~the~design were presented.
+The~aim of~the~thesis was to~design and~develop an~application that will allows its users
+to~test API endpoints of~other applications and~to~create extensive test cases from~said endpoints.
+As~a~part of~working on~the~above goal, I studied the~topics of~Web Services, in~particular the~RESTful
+Web Services and~their application programming interfaces. On~top of~that I studied the~technologies needed
+for~the~development of~the~application and~conducted a~research on~existing API testing solutions.
 
-%On~top of~that using patterns from~the~PatternFly framework the~first
-%application's designs were created and~the~most important part
-%of~the~application -- the~Test Case Creator was designed as~an~interactive
-%editor that uses simplified state machine diagrams to~allow users to~build the~test
-%cases easily and~fastly.
+In~Chapter~\ref{Design}, I designed a~custom solution of~the~problem using~the~design integrity of~the~PatternFly
+framework. The~designs, that were several times consulted in~Red Hat, were used to~reveal any clashing visual elements
+or~design flaws before writing the~code. After several reworks and~improvements they wre used as~a~basis
+for~the~development of~the~application.
 
-%For~the~future, the~following improvements are planned such as~redesign of~the
-%endpoint's details that would allow the~users to~fill in~some~default data
-%for~that particular endpoint, which would allow the~users to~add endpoints
-%directly to~the~test cases without the~need to~specify the~endpoint's data.
+The~development consisted of~two parts -- building the~frontend and~a~backend as~separate sections, following the~Separation
+of~Concerns principles. The~achievement is that the~backend of~the~application is fully capable of~parsing the~Swagger's API 
+file, running and~managing its endpoints, and~allowing to~create extensive test cases from~said endpoints. In~addition,
+the~frontend of~the~application provides clear and~easy to~use interface, even in~case of~large remote interfaces.
 
-%Another key step is to~implement the~application using the~technologies listed
-%in~Chapter~\ref{Technologies} and~to~test it~using the~Red Hat JBoss BPM Suite
-%as~a~test project.
+Finally, as~stated~in~the~section~\ref{Testing}, Restty was tested on~Red Hat JBoss BPM Suite application, which provided
+a~large remote interfaces consisting of~various different endpoints that were used to~reveal any~errors or~bugs in~the~application
+and~to~learn more about the~Restty's future improvements, such~as~automatic test case creation or~automatic migrations to~the~newer
+versions of~the~remote interfaces. Overall, the~application serves its purpose and~has a~potential to~become the~leading application
+for~the~API testing processes and~test automation.
+
 
 
 %================================================================================

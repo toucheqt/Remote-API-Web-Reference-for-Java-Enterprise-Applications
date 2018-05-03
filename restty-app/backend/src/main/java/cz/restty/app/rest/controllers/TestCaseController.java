@@ -37,7 +37,10 @@ import cz.restty.app.service.TestCaseService;
 public class TestCaseController {
 
     public static final String TEST_CASES_PATH = PROJECT_PATH + "/test-cases";
+    public static final String TEST_CASE_PATH = TEST_CASES_PATH + "/{testCaseId}";
     public static final String TEST_CASE_VALIDATION_PATH = TEST_CASES_PATH + "/validate";
+
+    public static final String RUN_TEST_CASE_PATH = TEST_CASE_PATH + "/run";
 
     @Autowired
     private TestCaseService testCaseService;
@@ -68,6 +71,19 @@ public class TestCaseController {
     }
 
     /**
+     * Finds test case by given ID.
+     * 
+     * @param testCaseId
+     *            ID to search by
+     * @return {@link TestCaseDto}
+     */
+    @Transactional(readOnly = true)
+    @GetMapping(TEST_CASE_PATH)
+    public TestCaseDto findById(@PathVariable Long testCaseId) {
+        return new TestCaseDto(testCaseValidator.validate(testCaseId));
+    }
+
+    /**
      * Finds test case with given name from given project.
      * 
      * @param projectId
@@ -80,6 +96,21 @@ public class TestCaseController {
     @GetMapping(TEST_CASE_VALIDATION_PATH)
     public TestCase findByName(@PathVariable Long projectId, @RequestParam(name = "name", required = true) String name) {
         return testCaseRepository.findByProjectAndNameIgnoreCase(projectValidator.validate(projectId), name).orElse(null);
+    }
+
+    /**
+     * Finds test case by given ID and runs it against the source server.
+     * 
+     * @param testCaseId
+     *            ID of test case to run
+     * @return {@link HttpStatus#OK} if run was successful, {@link HttpStatus#BAD_REQUEST} otherwise.
+     */
+    public ResponseEntity<?> run(@PathVariable Long testCaseId) {
+        if (testCaseService.run(testCaseValidator.validate(testCaseId))) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     /**

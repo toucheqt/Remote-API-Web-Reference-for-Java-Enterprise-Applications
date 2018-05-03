@@ -13,6 +13,16 @@ import cz.restty.app.rest.dto.TestCaseDto;
 public interface TestCaseService {
 
     /**
+     * Runs given testCase against the test server.
+     * 
+     * @param testCase
+     *            TestCase to run.
+     * @return True if run was successful, false otherwise.
+     */
+    boolean run(TestCase testCase);
+
+
+    /**
      * Creates {@link TestCase} in given project.
      * 
      * @param project

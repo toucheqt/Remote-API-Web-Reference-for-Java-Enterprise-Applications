@@ -14,7 +14,10 @@ const httpOptions = {
 export class TestCaseService {
 
   public static get TEST_CASES_PATH(): string { return '/test-cases'; }
+  public static get TEST_CASE_PATH(): string { return '/api/test-cases'; }
   public static get TEST_CASE_VALIDATION_PATH(): string { return TestCaseService.TEST_CASES_PATH + '/validate'; }
+
+  public static get TEST_CASE_RUN_PATH(): string { return '/run'; }
 
   constructor(private http: HttpClient) {}
 
@@ -29,6 +32,16 @@ export class TestCaseService {
   }
 
   /**
+   * Finds test case by given ID.
+   *
+   * @param testCaseId ID of test case to search by
+   * @return TestCase
+   */
+  findById(testCaseId: number) {
+    return this.http.get<TestCase>(TestCaseService.TEST_CASE_PATH + `/${testCaseId}`);
+  }
+
+  /**
    * Finds test case by given name.
    *
    * @param projectId ID of project to search by
@@ -39,6 +52,16 @@ export class TestCaseService {
     let params = new HttpParams();
     params = params.append('name', name);
     return this.http.get(ProjectService.PROJECTS_PATH + `/${projectId}` + TestCaseService.TEST_CASE_VALIDATION_PATH, {params: params});
+  }
+
+  /**
+   * Finds test case by given ID and runs it.
+   *
+   * @param testCaseId ID of test case to run.
+   * @return response status
+   */
+  run(testCaseId: number) {
+    return this.http.post(TestCaseService.TEST_CASE_PATH + `/${testCaseId}` + TestCaseService.TEST_CASE_RUN_PATH, null);
   }
 
   /**

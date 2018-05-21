@@ -11,14 +11,14 @@ which is a~set of~protocols and~tools for~building application software.}. APIs
 are supposed to~connect engineers, let companies add value to~their~products
 and~create an~ecosystem of~shared knowledge that allows other developers to~use
 the~functions provided by~the~interfaces. To~fulfill these tasks, the~interfaces
-have to~be clear, accessible and~most importantly human and~machine readable. 
+have to~be clear, accessible and, most importantly, human and~machine readable. 
 However, despite their importance, there hasn't been an~industry standard
 for~documentating nor~testing them.
 
 The~thesis aims to~solve the~problem of~testing the~applications interfaces.
 The~goal is to~develop an~application having an~innovative user interface
-with~regard to~clarity and~simple use, aimed to~developers, even in~case
-of~large interfaces. The~application will be based on~Swagger framework, which
+with~regard to~clarity and~simple use, aimed at~developers, even in~the~case
+of~large interfaces. The~application will be based on~the~Swagger framework, which
 provides a~way to~automate API reference generation. The~resulting application,
 called Restty, will provide not~only way to~test single API endpoints, but
 mainly the~functionality to~create extensive test cases from~the~listed web
@@ -27,9 +27,9 @@ services.
 The~thesis is organized as~follows. Chapter~\ref{Preliminaries} gives
 definitions needed to~follow the~thesis and~explains web services and~RESTful
 APIs in~detail. Chapter~\ref{Technologies} focuses on~technologies that were
-used for~development of~the~Restty application. Chapter~\ref{Design} describes
+used for~the~development of~the~Restty application. Chapter~\ref{Design} describes
 the~application's designs and~mockups, which were used to~reveal any clashing
-visual elements before writing the~code. The~second to~last
+visual elements before writing the~code. The~penultimate
 Chapter covers the~development of~Restty using the~technologies listed
 in~previous sections and~testing the~application using the~API from~the~Red Hat
 JBoss BPM Suite application. The~last Chapter contains an~overall summary
@@ -44,10 +44,10 @@ of~the~developed solution and~final thoughts on~the~work done within the~thesis.
 \chapter{Preliminaries and Definitions}
 \label{Preliminaries}
 This chapter will gradually introduce terms necessary to~follow the~thesis.
-In~the~first section is introduced basic terminology and~established notion
-of~remote interfaces and~web services. In~the~next section is provided
-an~explanation of~what APIs are and~the~last section covers the~importance
-of~theirs testing.
+In~the~first section basic terminology is introduced and~established notion
+of~remote interfaces and~web services. In~the~next section
+an~explanation of~what APIs are is provided and~the~last section covers the~importance
+of~their testing.
 
 
 
@@ -66,7 +66,7 @@ Protocol is a~protocol specification for~exchanging structured information
 in~the~implementation of~web services in~the~computer networks.} over~HTTP
 protocol~\cite{HTTP}, allowing less costly interactions over~the~Internet.
 However, in~2004 the~W3C extended the~definition of~web services
-about~\uv{REST-complient} web services~\cite{W3CWebServices}, in~which
+about~\uv{REST-compliant} web services~\cite{W3CWebServices}, in~which
 the~primary purpose of~the~web service is to~manipulate XML or~JSON
 representations of~web resources using a~uniform set of~stateless operations.
 
@@ -87,20 +87,20 @@ typically HTTP. A~client and~a~server exchange representations of~resources
 by~using standardized interface and~a~protocol. When the~client accesses
 the~resource using unique URI, a~representation of~the~resource is returned.
 With~each new resource representation, the~client is said to~transfer state.
-The~resources are typically represented by~text, JSON or~XML, while JSON being
+The~resources are typically represented by~text, JSON or~XML, with~JSON being
 currently the~most popular format being used.
 
 
 
 \subsection{Messaging}
-As~mentioned in~previous section, the~RESTful web services can use any stateless
+As~mentioned in~the~previous section, the~RESTful web services can use any stateless
 communication protocol as~a~medium of~communication between client and~a~server.
 However, the~HTTP protocol is the~most popular. The~communication works
 as~follows: the~client sends a~message in~form of~HTTP~Request and~the~server
 responds in~the~form of~HTTP Response. This technique is termed
 as~\textit{Messaging}. Apart from~the~data, the~messages also contain some
 metadata about the~message itself. As~can be seen
-in~the~figure~\ref{fig-HTTPRequest} a~request message consists of~five major
+in~the~figure~\ref{fig-HTTPRequest}, a~request message consists of~five major
 parts.
 
 \begin{figure}[!hbt]
@@ -147,7 +147,7 @@ decide the~format for~the~response at~runtime depending on~the~value
 of~the~\textit{Accept} header.
 
 When the~server receives the~request it responds with~a~HTTP response which
-consists of~four major parts as~can be seen
+consists of~four major parts, as~can be seen
 in~the~figure~\ref{fig-HTTPResponse}.
 
 \begin{figure}[!hbt]
@@ -399,34 +399,34 @@ portability and~reliability. These formal constraints are as~follows:
 \label{frameworks}
 Software testing is an~important phase of~the~software development life cycle
 in~general, with~API testing being one of~its most challenging
-parts~\cite{TestingAPI}. It is being more~and~more recognised as~being more
+parts~\cite{TestingAPI}. It is being increasingly recognised as~being more
 suitable for~test automation and~continuous testing than other forms of~testing.
 Many~developer teams are starting to~increase the~level of~API testing while
 decreasing their reliance on~GUI testing because the~tests at~the~API layer are
 less brittle and~easier to~maintain even thought they have to~cover
 individual functionalities as~well~as~series or~chain of~functionalities.
 
-In~general the~API testing is used to~determine whether the~APIs
+In~general API testing is used to~determine whether the~APIs
 and~the~integrations they enable work in~the~most optimal manner e.g. whether
 they return the~correct response, react properly to~edge cases, delivery
 responses in~an~acceptable amount of~time, and~respond securely to~potential
-security attacks. On~particular, the~testing concentrates on~using software
+security attacks. In~particular, the~testing concentrates on~using software
 to~make API calls in~order to~receive an~output before observing and~logging
 the~system's response. This enables to~test if the~API returns a~correct
 response or~output under varying conditions. The~output is typically a~pass
-or~fail status, date, information or~a~call to~another API. However it is
+or~fail status, date, information or~a~call to~another API. However, it is
 important to~point out that there could be no output at~all or~something
 completely unpredicted can occur.
 
 Overall, it's very clear that the~risk of~putting a~bad and~especially insecure
-product on~the~market is greater than the~cost to~test it which is why the~API
+product on~the~market is greater than the~cost of~testing it which is why the~API
 testing is crucial part of~the~application development process.
 
 
 
 \subsection{Beginning with cURL}
-As~APIs are becoming an~integral part of~how software works it is not
-a~surprise that many frameworks and~applications for~theirs testing were
+As~APIs are becoming an~integral part of~how software works it is unsurprising
+that many frameworks and~applications for~theirs testing were
 developed. Probably the~oldest of~them is cURL~\cite{cURL}. It is a~command line
 tool for~transferring data using various protocols. It consists of~two products
 --~libcurl and~curl. Libcurl is a~\uv{client-side} transfer library with~support
@@ -503,10 +503,10 @@ of~another request.
 
 \chapter{Technologies and Frameworks}
 \label{Technologies}
-In~this chapter are discussed the~details of~technologies and~frameworks that
-were used for~the~development of~the~Restty aplication. In~the first sections is
-introduced the~Java language and~the~Spring and~Hibernate frameworks that were
-used for~building the~backend of~the~application. Following the~thesis
+In~this chapter the~details of~technologies and~frameworks that
+were used for~the~development of~the~Restty aplication are discussed. In~the first sections
+the~Java language and~the~Spring and~Hibernate frameworks that were
+used for~building the~backend of~the~application are introduced. Following the~thesis
 the~frontend web application framework Angular along with~the~superset
 of~EcmaScript~6 --~the~TypeScript language is presented, as~well~as~the~web
 framework PatternFly and~its key features. Finally, the~last section covers
@@ -520,7 +520,7 @@ for~use in~one of~his \uv{set-top} box projects. The~language, initially called
 \textit{Oak}, ended up later being renamed as~Java when it was first publicly
 released by~Sun Microsystems in~1995. The~language promised \uv{Write Once, Run
 Anywhere} (WORA), meaning that compiled Java code can run on~all platforms that
-support Java without the~need for~recompilations.
+support Java without the~need for~recompilations, as~illustrated in~the~figure~\ref{fig-wora}.
 
 The~WORA is achieved by~compiling the~Java language code to~an~intermediate
 representation called Java bytecode, instead of~compiling the~code directly
@@ -533,6 +533,7 @@ for~the~specific platform on~which the~Java code is run.
 	\includegraphics[scale=0.7]{./figures/java-jvm.pdf}
 	\caption{Illustration how Java ensures the~\uv{Write Once, Run Anywhere}
 	property.}
+	\label{fig-wora}
 \end{figure}
 
 However, the~Java's portability is not its only advantage over~other languages
@@ -581,7 +582,7 @@ not a~surprise that the~syntax is similar. However, there are some differences.
   \item All method names should start with a~lower case letter. If several words
   are used to~form the~name of~the~method, then each inner word's first letter
   should be in~upper case.
-  \item Name of~the~class file should exactly match the~class names. That is
+  \item The~name of~the~class file should exactly match the~class names. That is
   because if~the~file name and~the~class name do not match, the~program will not
   compile.
 \end{enumerate}
@@ -691,10 +692,10 @@ of~the~Restty application I've chosen to~use the~Hibernate
 framework~\cite{Hibernate} on~top of~the~H2 database.
 
 Hibernate is a~high performance ORM solution for~Java, created by~G.~King
-in~2001. Hibernate maps Java classes to~database tables ~Java data types to~SQL
+in~2001. Hibernate maps Java classes to~database tables, Java data types to~SQL
 data types and~relieves the~developer from~most of~common data persistence
 related programming tasks. Hibernate consists of~layered architecture which
-helps the~developer to~operate without having to~know the~underlying APIs. It
+helps the~developer to~operate without having to~know the~underlying APIs, as~illustrated in~the~figure~\ref{fig-hibernate}. It
 makes use of~the~database and~configuration data to~provide persistence services
 (and~persistent objects) to~the~application. The~entire concept of~Hibernate is
 to~take the~values from~Java class attributes and~persist them to~a~database
@@ -713,10 +714,11 @@ table. To~provide such functionality, the~classes should follow specific rules.
 	\centering
 	\includegraphics[scale=0.8]{./figures/hibernate-architecture.pdf}
 	\caption{High level view of~the~Hibernate framework architecture.}
+	\label{fig-hibernate}
 \end{figure}
 
 As~can be seen in~the~listing~\ref{lst-table}, a~class is mapped to~the~database
-using Hibernate annotations on~the~entity. Hibernate's annotations are a~way
+using Hibernate's annotations on~the~entity. Hibernate's annotations are a~way
 of~providing the~metadata for~the~ORM mapping. All the~metadata is clubbed
 into~the~POJO Java file along with~the~code, which helps the~developer
 to~understand the~table structure and~POJO simultaneously during
@@ -766,7 +768,7 @@ parameters~--~strategy and~generator.
 
 \vspace{1mm}
 \begin{lstlisting}[caption=The~SQL code that is generated by~Hibernate when
-mapping the~entity from~the~listing~\ref{lst-table}, style=dp-default,
+mapping the~entity from~the~listing~\ref{lst-table}., style=dp-default,
 language=SQL, label=lst-table-sql]
 CREATE TABLE public.users
 (
@@ -890,7 +892,7 @@ export class HelloWorldComponent {
 \end{lstlisting}
 
 The~second cornerstone of~an~Angular application is dependency injection.
-The~idea behind it is pretty simple. If a~component that depends on~a~service is
+The~idea behind it is pretty simple, as~illustrated in~the~figure~\ref{fig-dependency-injection}. If a~component that depends on~a~service is
 needed, the~developers do not create the~service by~themselves. Instead they
 request one in~the~constructor and~the~framework will provide one. This approach
 leads to~more decoupled code which enables testability and~easier maintainence.
@@ -914,9 +916,7 @@ As~can be seen, the~Angular's dependency injection module is flexible, and~easy
 to~use because the~objects can be injected only via constructors. In~addition,
 the~injectors form a~hierarchy, and~the~injectable object does not have to~be
 an~\uv{application-level} singleton as~it might by~default in~Spring
-framework\footnote{Spring framework is an~application framework and~inversion
-of~control container for~the~Java platform that relies heavily on~dependency
-injection.}.
+framework.
 \pagebreak
 
 \begin{lstlisting}[caption=An~example of~dependency injection in~Angular.,
@@ -946,7 +946,7 @@ export class UsersComponent {
 
 \section{Introducing~TypeScript}
 \label{TypeScript}
-In~september 1995 was first introduced JavaScript as~a~language for~the~client
+In~september 1995 JavaScript was first introduced as~a~language for~the~client
 side. It was used to~make webpages interactive and~to~provide online programs,
 including video games. However, as~JavaScript code grows, it tends to~get
 messier, making it difficult to~maintain and~reuse. Moreover, its failure
@@ -967,7 +967,7 @@ the~barrier to~entry as~low as~possible, only providing compile type safter
 for~the~JavaScript code. The~great thing is that the~types are completely
 optional.
 
-TypeScript provides data types as~a~part of~its optional type system. As~a~super
+TypeScript provides data types as~a~part of~its optional type system, as~illustrated in~the~figure~\ref{fig-datatypes}. As~a~super
 type of~all types, the~\textit{any} data type is used. It denotes a~dynamic type
 and~using it is equivalent to~opting out of~type checking for~a~variable. That
 suggests that the~variable may be declared with no type which means that
@@ -975,7 +975,7 @@ the~type of~the~varible will be inferred by~the~TypeScript Language Service.
 All~other \uv{built-in} types and~\uv{user-defined} types inherit
 from~the~\textit{any} type.
 
-Important to~mention is that the~\uv{built-in} types \textit{undefined}
+It is important to~mention that the~\uv{built-in} types \textit{undefined}
 and~\textit{null} may look similar but are not the~same. A~variable initialized
 with~\textit{undefined} means that the~variable has no value or~object assigned
 to~it, while \textit{null} means that the~variable has been set to~an~object
@@ -997,7 +997,7 @@ type checking.
 
 \subsection{Future JavaScript}
 The~second goal of~TypeScript was to~provide planned features from~future
-JavaScript editions. Nowadays, it provides a~number of~features that are planned
+JavaScript editions. Nowadays, it provides a~number of~features that were planned
 in~EcmaScript~6\footnote{The~EcmaScript specification is a~standardized
 specification of~a~scripting language.} for~current JavaScript engines.
 For~instance, the~language features modules and~\uv{class-based} orientation
@@ -1017,9 +1017,9 @@ to~find the~bugs in~the~code.
 \section{Styling with PatternFly}
 The~success of~an~application depends on~a~\uv{well-designed} user interface.
 The~good or~bad design can influence the~perceived usability of~an~application,
-and~if the~application's design is not done well, whole application can be
-perceived as~bad. The~PatternFly framework was developed specifically to~address
-the~issue.
+and~if the~application's design is not done well, the~whole application can be badly perceived.
+The~PatternFly framework was developed specifically to~address
+this issue.
 
 One of~the~main things that sets the~framework apart from~other libraries, such
 as~Bootstrap, is the~focus on~design for~IT enterprise applications. It
@@ -1027,7 +1027,7 @@ recognizes the~importance for~a~user to~be able to~migrate seamlessly from~one
 product to~another without having to~relearn the~UI. Behavioral consistency
 leads to~better usability because users are familiar with~the~interactions.
 Visual consistency establishes a~look and~feel that users recognize and~allows
-to~unify disparate projects, make them look great and~make them look like they
+it unify disparate projects, make them look great and~make them look like they
 belong in~the~same portfolio.
 
 PatternFly is an~open source project that is based
@@ -1060,6 +1060,7 @@ descriptive class names that have a~meaning, it is not specific
 about~implementation details. Therefore all classes can be overriden with~custom
 style and~still, the~meaning of~the~class will remain the~same.
 
+\vspace{1mm}
 \begin{lstlisting}[caption=An~example of~styling the~component using predefined
 class \textit{.alert}., label=lst-alert, style=dp-html]
 <div class="container">
@@ -1086,7 +1087,7 @@ features and~functions rather than application designs.
 \end{figure}
 
 \subsection{Working with the Grid}
-In~the~beginning of~this section was mentioned that the~PatternFly, respectively
+In~the~beginning of~this section it was mentioned that the~PatternFly, respectively
 its predecessor Bootstrap, was developed with~a~\uv{mobile-first} design
 philosophy, which resulted in~a~framework that is responsive by~design. The~end
 result is that it easily and~efficiently scales with~a~single code base,
@@ -1096,13 +1097,14 @@ according to~the~size of~the~device or~viewport. The~grids provides structure
 to~the~layout, defining the~horizontal and~vertical guidelines for~arranging
 content and~enforcing margins.
 
-To~use the~grid system, a~few rules have to~be followed. Grid column elements
+As~can be seen in~the~listing~\ref{lst-grid}, to~use the~grid system, a~few rules have to~be followed. Grid column elements
 have to~be placed inside row elements, which creates horizontal groups
 of~columns. It is possible to~have as~many rows as~needed, but it is necessary
 that the~columns are immediate children of~rows. In~a~full row, the~column
 widths are any combination that adds up~to~12, however it is not mandatory
 to~use all~available columns.
 
+\vspace{1mm}
 \begin{lstlisting}[caption=An~illustration of~the~grid system in~PatternFly.,
 label=lst-grid, style=dp-html]
 <div class="container">
@@ -1119,7 +1121,7 @@ label=lst-grid, style=dp-html]
 </div>
 \end{lstlisting}
 
-The~rows have to~be places in~a~\uv{fixed-width} layout wrapper that has
+The~rows have to~be placed in~a~\uv{fixed-width} layout wrapper that has
 a~\textit{.container} class attached and~a~width of~1170px or~in~\uv{full-width}
 layout wrapper, which has~\textit{.container-fluid} class attached, and~which
 enables the~responsive behavior in~that row. The~grid system is based on~four
@@ -1275,14 +1277,14 @@ created using the~Swagger framework., style=dp-default, label=lst-swagger-json]
 This chapter covers the~requirements for~the~Restty application and~presents
 the~application's model and~design drafts in~detail. The~model is designed using Entity Relationship Diagram
 which describes the~entities and~their relations, and~may be useful for~visualizing database design ideas,
-identifying the~mistakes and~design flawes before creating the~database.
+identifying the~mistakes and~design flaws before creating the~database.
 The~design drafts on~the~other hand, can help reveal any clashing visual elements while it is still easy
 to~change them before writing the~code. Moreover, the~drafts allow to~fully flesh out the~ideas
 and~choose the~best possible options. The~design drafts pictured in~the~following sections consists of~separate
 UI elements that once combined, represents the~final design draft of~the~application.
 
 \section{The~Restty's Model}
-The~application will consists of~three major entities -- projects, endpoints and~test cases. It will allow users
+The~application, as~illustrated in~the~figure~\ref{fig-erd}, consists of~three major entities -- projects, endpoints and~test cases. It will allow users
 to~create multiple projects to~work on, with~every project containing various endpoints and test cases. Each project,
 specified by~its name and~the~Swagger's API file, draws its endpoints from~that said file. Depending on~the~content
 of~the~file, endpoints may vary in~headers (specified for~the~particular endpoint or~for~all of~them), response
@@ -1293,6 +1295,7 @@ or~body data, which can be either primitive data types or~objects that are repre
 	\centering
 	\includegraphics[scale=0.7]{./figures/erd.pdf}
 	\caption{The~ER Diagram that describes how the~entities relate to~each other within the~application.}
+	\label{fig-erd}
 \end{figure}
 
 In~addition, the~application contains test cases. Test cases consists of~unspecified amount of~endpoints that can have
@@ -1316,8 +1319,8 @@ From~the~dashboard the~users will be able to~navigate to~the~overview of~all
 interface's endpoints, their details, configurations and~past test runs.
 In~addition, the~users should be able to~navigate to~the~similar overview
 with~test cases, which the~users can create using the~Restty's Test Case
-Creator (TCS). The~TCS should allow create test cases that can combine various
-endpoints and~other test cases. To~clarify, it should be possible to~test
+Creator (TCC). The~TCC should allow create test cases that can combine various
+endpoints. To~clarify, it should be possible to~test
 an~API's endpoint and~use its output as~an~input of~another endpoint.
 
 \section{Design drafts}
@@ -1328,14 +1331,14 @@ the~development process.
 
 \subsection{Designing the~Project Explorer}
 The~entry point of~the~application should be the~Project Explorer. The~Project
-Explorer should allow users to~create and~manage the~projects created within
+Explorer, illustrated in~the~figure~\ref{fig-project-explorer}, should allow users to~create and~manage the~projects created within
 the~Restty. Each project should have a~unique name which distinguishes it
 in~the~application. When the~project is created by~the~user, besides its name,
 it needs to~have specified a~source of~the~project's endpoints. As~a~source
 (in~form of~a~URL) is considered Swagger JSON with~information about
 the~project's interface. The~source should be then passed to~the~Restty's
 backend that should make an~request for~the~interface, parse the~request's
-response and~persist the~information about interface's endpoints and~models
+response and~persist the~information about interface's endpoints, its parameters, responses, and~models,
 to~the~database. If~the~project information are successfully persisted
 in~the~Restty's database, the~user should see the~newly added project and~its
 attributes, such as~amount of~endpoints and~test cases, in~the~Project
@@ -1346,6 +1349,7 @@ Explorer's list table.
 	\includegraphics[scale=0.55]{./designs/project-explorer.pdf}
 	\caption{The~Project Explorer that contains list of~projects created
 	in~the~Restty application.}
+	\label{fig-project-explorer}
 \end{figure}
 
 Overall, the~list table should show the~users some basic information about their
@@ -1354,7 +1358,7 @@ item the~users should be redirected to~the~specified project's dashboard.
 
 
 \subsection{The~Project Dashboard}
-The~dashboard is the~entry point of~each specific project. It consists
+The~dashboard is the~entry point of~each specific project. As~can be seen in~the~figure~\ref{fig-dashboard}, it consists
 of~a~horizontal and~vertical navigation bars, donut charts and~tables that
 contains latest information about the~project. To~keep things simple,
 the~horizontal navigation bar should allow users to~swiftly switch between
@@ -1366,17 +1370,18 @@ However, the~main aim of~the~Dashboard is to~show the~current state
 of~the~project to~the~user. Which is achieved by~showing the~user two donut
 charts and~two tables. The~donut charts displays the~state of~the~project's
 endpoints and~test cases -- how many of~them were successfully (or~not) tested,
-or~if~they were tested at~all. The~tables on~the~other hand shows the~user
+or~if~they were not tested at~all. The~tables on~the~other hand shows the~user
 the~information about~the~recent API or~test runs. The~Recent table shows
 the~user last five runs no matter if they were successful or~not. Whereas
 the~Failures table shows the~user unsuccessful runs only, if there are any. From
-there on~, using the~navigation bar or~the~quick navigation in~the~tables, user
+there on, using the~navigation bar or~the~quick navigation in~the~tables, users
 can start exploring the~endpoints or~the~tests.
 
 \begin{figure}[!hbt]
 	\centering
 	\includegraphics[scale=0.6]{./designs/dashboard.pdf}
 	\caption{The~dashboard of~a~project with~lastest information about test runs.}
+	\label{fig-dashboard}
 \end{figure}
 
 \subsection{Exploring the~Endpoints}
@@ -1387,7 +1392,7 @@ of~the~endpoints does not scale well enough if they have to~display a~large
 number of~the~endpoints. To~address this issue, the~Restty puts the~endpoints
 into filterable list table with~a~simple expansion for~each item. 
 
-Each item contains information about its last test run and~its success.
+As~illustrated in~the~figure~\ref{fig-endpoints}, each item contains information about its last test run and~its success.
 Moreover, the~item's expansion contains the~details of~the~item's particular
 endpoint such as~request headers, path variables, parameters and~responses.
 
@@ -1395,25 +1400,26 @@ endpoint such as~request headers, path variables, parameters and~responses.
 	\centering
 	\includegraphics[scale=0.7]{./designs/api-list.pdf}
 	\caption{Expanded API endpoint in~the~endpoint's list table.}
+	\label{fig-endpoints}
 \end{figure}
 
 In~addition, when clicking on~the~endpoint's name, its detail is displayed.
 The~detail consists of~a~tab view with~three tabs. The~first tab is similar to~the~list item's extension,
-showing the~information about request and~responses. The~next one is contains a~configuration that
+showing the~information about request and~responses. The~next one contains a~configuration that
 allows to~make changes to~the~endpoint e.g. changing the~request params, body or~headers. The~last
 tab contains records of~previous test runs, so that users know in~which point the~endpoint stopped working
 or~when was the~endpoint's code fixed.
 
 \subsection{The Test Cases}
 Even though it is important to~enable users to~work with~the~endpoints directly,
-the~main focus of~the~Restty is to~test cases. When users view the~test cases page,
+the~main focus of~the~Restty is on~test cases. When users view the~test cases page,
 they should be able to~manage them. The~management of~the~test cases is outlined using
 the~table with~filtering, sorting and~pagination components. Moreover, each item in~the~table
 contains basic information about~the~specific test case (e.g. the~date of~last run, its success etc.).
 
 Upon clicking on~the~test case's name, its detail is shown in~a~similar fashion as~the~endpoints detail.
 The~view consists of~a~tab view, in~which the~most important tab is the~configuration tab -- containing
-the~Test Case Creator (TCC). The~design of~tCC is based on~canvas, which is a~HTML~5 element that allows
+the~Test Case Creator (TCC). The~design of~TCC is based on~canvas, which is a~HTML~5 element that allows
 for~dynamic, scriptable rendering of~2D shapes and~bitmap images. TCC was designed as~an~dynamic editor that
 allows users to~build test cases using various endpoints an~other test cases. The~idea behind it is that the~users
 will be able to~construct complex test cases in~the~same way as~they would create a~linked list\footnote{
@@ -1423,15 +1429,15 @@ consisting of~a~group of~nodes which together represent a~sequence.}.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.7]{./designs/add-endpoint.pdf}
-	\caption{A~modal window that appears when adding first endpoint to~the~canvas.}
-	\label{fig-add-endpoint}
+	\includegraphics[scale=0.65]{./designs/test-case.pdf}
+	\caption{The~TCC with~an~example of~a~test case.}
+	\label{fig-test-case}
 \end{figure}
 
 The~TCC consists of~several parts. All of~them together allow users to~model desired
 test cases using the~drag and~drop functionality. To~clarify how it works, consider an~example
-as~shown in~the~figure~\ref{fig-test-case}. In~the~figure, using the~drag and~drop functionality was
-inserted several endpoints from~the~list to~the~canvas. When the~endpoint is dropped, a~modal window
+from~the~figure~\ref{fig-test-case}. In~the~figure, using the~drag and~drop functionality was
+inserted several endpoints from~the~list to~the~canvas. When the~endpoint is dropped, a~modal window, as~illustrated in~the~figure~\ref{fig-add-endpoint}, 
 with~the~endpoint's details appears. Note that the~window is prefilled with~the~endpoint's details,
 loaded from~its configuration.
 
@@ -1444,9 +1450,9 @@ the~deletion of~the~student resource.
 
 \begin{figure}[!hbt]
 	\centering
-	\includegraphics[scale=0.65]{./designs/test-case.pdf}
-	\caption{The~TCC with~an~example of~a~test case.}
-	\label{fig-test-case}
+	\includegraphics[scale=0.7]{./designs/add-endpoint.pdf}
+	\caption{A~modal window that appears when adding first endpoint to~the~canvas.}
+	\label{fig-add-endpoint}
 \end{figure}
 
 
@@ -1466,7 +1472,7 @@ Angular~5, TypeScript language and~the~web framework PatternFly.
 Before diving into the~implementation, it is important to~specify the~separation of~concerns between
 the~presentation layer (frontend), and~the~data access layer (backend) of~the~application. 
 The~frontend is primarily implemented using~Angular while backend is implemented using~Spring Boot. Combining
-these frameworks allows to~create a~minimal, but runnable, application with as~little dependencies and~setup as~possible.
+these frameworks allows the~creation of~a~minimal, but runnable, application with as~little dependencies and~setup as~possible.
 
 Therefore by~following the~separation of~concerns principle, the~application is split into separate Maven modules for~the~frontend
 and~backend, where each module has its own POM\footnote{A~Project Object Model (POM) is the~fundamental unit of~work in~Maven.
@@ -1480,9 +1486,9 @@ ensures the~separation of~concern principles and~allows the~whole application (f
 
 
 \section{Structure of the Frontend}
-When implementing an~the~application, the~most important task is to structure the~application's code
+When implementing the~Restty, the~most important task is to structure the~application's code
 the~right way. Ideally, the~whole application should be a~tree of~components that implement clearly
-defined inputs and~outputs, and~minimaze \uv{two-way} databinding. That way, it is easier to~predict
+defined inputs and~outputs, and~minimize \uv{two-way} databinding. That way, it is easier to~predict
 when data changes and~what the~state of~a~component is.
 
 When developing Restty, the~goal was to~create an~application that is scalable and~consists
@@ -1507,11 +1513,11 @@ Moreover, vertical navigation supports common left to~right flow
 and~navigation categories are easily differentiated from~other information that may exist in~the~header area
 of~the~application. Which in~Restty's case contains a~hamburger menu and~a~breadcrumbs navigation. 
 The~hamburger menu is always visible in~the~top left corner and~allows to~use the~vertical navigation even
-on~small devices using \textit{@media} queries and~PatternFly's \textit{navbar-collapse} class.
+on~small devices using \textit{@media} queries and~PatternFly's \textit{navbar-collapse} class, as~can be seen in~the~listing~\ref{lst-media}.
 
 \vspace{1mm}
-\begin{lstlisting}[caption=Media queries on the .navbar-collapse class that enables the~navbar
-to~work even on~small devices., style=dp-default]
+\begin{lstlisting}[caption=Media queries on the \textit{.navbar-collapse} class that enables the~navigation bar
+to~work even on~small devices., style=dp-default, label=lst-media]
 @media (min-width: 768px) {
 	.navbar-collapse.collapse {
 		display: block !important;
@@ -1532,11 +1538,12 @@ replaced a~context selector that should allow for~quick changing between various
 the~breadcrumbs are more useful to~the~user as~the~secondary navigation items like tables are not always exposed.
 
 The~last component in~the~layout is the~\textit{ProjectDetailComponent} that creates a~container for~all subpages,
-such as~endpoint and~test cases tables, details etc. The~subpages are displayed using routing which is a~technique
+such as~endpoint and~test cases tables, details, etc. As~can be seen in~the~listing~\ref{lst-routing}, the~subpages are displayed using routing which is a~technique
 that can interpret a~browser URL as~an~instruction to~navigate to~a~client generated view.
 
+\vspace{1mm}
 \begin{lstlisting}[caption=Solution of~routing the~subpages in~the~\textit{ProjectDetailComponent}.,
-style=dp-default]
+style=dp-default, label=lst-routing]
 // Handles navigation bar clicks
 onItemClicked($event: NavigationItemConfig): void {
 	this.contentView = $event.title;
@@ -1558,12 +1565,12 @@ When creating the~project within~the~Restty, the~application consumes Swagger's 
 about project's interface from~it. As~can be seen in~the~listing~\ref{lst-swagger-json} the~content of~the~file may be extremely
 large and~complicated. 
 
-Initially the~source of~the~file is passed to~the~backend when creating the~project, in~which the~\textit{createProject(ProjectDto projectDto)}
+Initially, when creating the~project, the~source of~the~file is passed to~the~backend, in~which the~\textit{createProject(ProjectDto projectDto)}
 method in~the~implementation of~\textit{ProjectService} handles the~project creation. At~first, the~content of~Swagger's file is fetched
 using the~Spring's \textit{RestTemplate} class and~then it is parsed to~Data Transfer Objects (DTO) of~which, the~database entities are created.
 
 \vspace{1mm}
-\begin{lstlisting}[caption=Parsing the~address of~the~test server from~Swagger's API file,
+\begin{lstlisting}[caption=Parsing the~address of~the~test server from~Swagger's API file.,
 style=dp-default, language=Java]
 ObjectMapper mapper = new ObjectMapper(_;
 JsonNode rootNode = mapper.readTree(json);
@@ -1582,10 +1589,10 @@ The~file contains various information about the~project and~its API, but for~the
 about~the~test server, endpoints and~the~models. The~information about test server is stored inside the~\textit{host}, \textit{basePath} and~\textit{schemes}
 attributes which, once combined, creates a~complete path~that will be used as~default when making API calls. Note that according to~Swagger's specification,
 the~\textit{host} and~\textit{scheme} can be omitted for~a~more dynamic association. In~that case, the~host and~scheme used to~serve the~API
-documentation will be used for~API calls. 
+documentation is used for~API calls. 
 
 Once the~information about the~test server are parsed, the~application proceeds to~parsing the~data for~the~entities for~which it needs to~process two
-attributes --~\textit{paths} and~\textit{definitions}. The~paths consist of~list of~objects where each object represents particular endpoint. In~addition,
+attributes --~\textit{paths} and~\textit{definitions}. The~paths consists of~list of~objects where each object represents particular endpoint. In~addition,
 each endpoint contains objects represented by~HTTP methods that are allowed for~the~particular endpoint. Finally, each HTTP~method object contains the~detailed
 information about~the~endpoint like its description, parameters or~responses. On~the~other hand, the~definitions consist of~a~list of~objects that represents
 entities used~within~the~imported project's API. These definitions are then referenced from~the~endpoints as~parameters or~response bodies.
@@ -1654,7 +1661,7 @@ TypeScript file., style=dp-html]
 Once all parameters required by~the~endpoint are specified, the~users may run the~test using appropriate button.
 The~button is connected to~a~listener, which, on~click, triggers a~REST API call to~the~backend with~the~id of~the~endpoint
 that should be tested. On~the~backend, the~request is handled by~the~\textit{EndpointController} that
-finds all available information about said endpoint and~passes it~to~the~appropriate service that handles the~test.
+finds all available information about said endpoint and, as~can be seen in~the~listing~\ref{lst-test-run}, passes it~to~the~appropriate service that handles the~test.
 
 \vspace{1mm}
 \begin{lstlisting}[caption=The~implementation of~a~test run in~backend's service.,
@@ -1666,7 +1673,7 @@ endpoint.getHeaders().stream().filter(header -> header.getEnabled()).forEach(end
 });
 
 List<Parameter> pathVariables = endpoint.getParameters()
-	 .stream()
+	.stream()
     .filter(pathVariable -> ParamType.PATH.equals(pathVariable.getType()))
     .collect(Collectors.toList());
 
@@ -1675,8 +1682,8 @@ String resolvedPath = resolvePathVariables(path, pathVariables);
             
 Optional<Parameter> body = endpoint.getParameters()
 	.stream()
-    .filter(parameter -> ParamType.BODY.equals(parameter.getType()))
-    .findFirst();
+	.filter(parameter -> ParamType.BODY.equals(parameter.getType()))
+	.findFirst();
     
 JSONObject jsonBody = new JSONObject();
 if (body.isPresent()) {
@@ -1689,7 +1696,7 @@ restTemplate.exchange(resolvedPath, endpoint.getMethod(), entity, String.class);
 \end{lstlisting}
 
 The~test is implemented using Spring's \textit{RestTemplate} class which allows calling customizable HTTP requests from~the~backend
-services. Furthermore, as~can be seen in~the~listing~\ref{lst-test-run}, when the~test is executed, the~logs are created for~the~endpoint or~test case
+services. Furthermore, when the~test is executed, the~logs are created for~the~endpoint or~test case
 that was subject of~the~test, keeping the~information about the~run persisted. Finally, the~testing of~test cases is implemented in~a~similar fashion.
 That is because in~fact, a~test case is more or~less a~linked list of~endpoints.
 
@@ -1703,25 +1710,25 @@ to~create test cases with~specific conditions which results in~better test cover
 
 \section{Testing with Red Hat JBoss BPM Suite}
 \label{Testing}
-The~testing of~the~application consistes of~two parts. The~first part consisted of~testing the~Restty's REST API
+The~testing of~the~application consisted of~two parts. The~first part consisted of~testing the~Restty's REST API
 interface using the~cURL and~Postman applications which validated that the~backend of~the~Restty works as~expected.
-The~second, more important part, consisted of~manual testing the~application as~a~whole using the~Red Hat JBoss BPM
+The~second, more important part, consisted of~the~manual testing of~the~application as~a~whole using the~Red Hat JBoss BPM
 Suite application's remote interface.
 
 \subsection{Red Hat JBoss BPM Suite's Basic Concepts}
 The~Red Hat JBoss BPM Suite is an~open source business process management suite that combines Business Process Management
 and~Businnes Rules Management and~enables business and~IT users to~create, manage, validate, and~deploy Business Processes
 and~Rules. To~accomodate Business Rules component, JBoss BPM Suite includes integrated Red Hat JBoss BRMS which is a~comprehensive
-bussiness automatiom platform for bussiness rules management, business resource optimization, and~complex event processing.
+bussiness automation platform for~bussiness rules management, business resource optimization, and~complex event processing.
 
-Red Hat JBoss BRMS and~Red Hat JBoss BPM Suite use a~centralized repository where all resources are stored. This ensures
+The~Red Hat JBoss BRMS and~Red Hat JBoss BPM Suite use a~centralized repository where all resources are stored. This ensures
 consistency, transparency, and~the~ability to~audit across the~business. Business users can modify business logic and~business processes
 without requiring assistance from~IT personnel.
 
 The~application provides tools for~creating, editing, running, and~runtime management of~BPMN process models. The~models are defined
 using the~BPMN2 language, but more importantly, they can be created using the~JBoss BPM Suite API which will be subject of~the~testing.
-To~briefly point out options of~what BPM Suite can do, using the~API it is necessary to~provide a~bit of~background on~what rules, events
-and~processes are about.
+To~briefly point out options of~what BPM Suite can do, it is necessary to~provide a~bit of~background on~what rules, events
+and~processes are.
 
 A~business process is a~process that describes the~order in~which a~series of~steps need to~be executed, using a~flow chart. Next, the~events
 specify moments in~the~execution process. The~events are fired by~the~BPM's engine during graph execution. An~event is always relative to~an~element
@@ -1755,8 +1762,8 @@ curl http://localhost:8081/api/projects
 \end{lstlisting}
 
 As~can be seen~in~the~listing~\ref{lst-findAll}, the~project with~BPM Suite's API is missing, therefore it is needed to~create it using
-the~same endpoint as~for~finding the~projects within~the~Restty, but with~the~POST method this time. In~the~listing~\ref{lst-createBPM}
-can be seen an~example of~such API call and~its response.
+the~same endpoint as~for~finding the~projects within~the~Restty, but using the~POST method. In~the~listing~\ref{lst-createBPM}
+can be seen an~example of~such API call.
 
 \vspace{1mm}
 \begin{lstlisting}[caption=Testing the~creating of~an~project within~the~Restty.,
@@ -1772,12 +1779,12 @@ curl --request POST \
 Once~the~BPM Suite's project is created, it is possible to~step up in~the~testing process, meaning to~test the~application as~a~whole using
 remote interface provided by~the~project. In~particular, for~testing purposes was imported BPM's process server execution module which allows
 users to~communicate with~the~process server through REST API. The~first step might be to~test simple GET request, for~instance
-the~\textit{/server/containers} which retrieves containers deployed to~the~test server. After the~test is completed, the~user is informed about
+the~\textit{/server/containers} which retrieves containers deployed on~the~test server. After the~test is completed, the~user is informed about
 its result using a~PatternFly's notification. This process may be repeated multiple times for~multiple endpoints furthermore testing the~application.
 
-However, the~functionality to~test separate API endpoints is provided by~many other applications, as~was stated earlier. Therefore it is necessary 
-to~properly test the~functionality of~the~test case. Consider a~following test case -- the~user wants to~test a~deletion of~a~process instance. Normally
-he would have to~create the~instance manually, retrieve its id and~then delete it using the~id. However, using Restty this can be automated. User may simple
+However, as~was stated earlier, the~functionality to~test separate API endpoints is provided by~many other applications. Therefore it is necessary 
+to~properly test the~functionality of~the~test cases. Consider a~following test case -- the~user wants to~test a~deletion of~a~process instance. Normally
+he would have to~create the~instance manually, retrieve its id and~then delete it using the~id. However, using Restty, the~process can be automatized. User may simple
 create a~test case and~to~that test case insert two API requests. The~first request would be the~POST request with~parameters filled 
 either from~endpoint's configuration or~by~the~user and~the~following request would be DELETE request that would use the~parameters from~the~previous request.
 After running the~test, the~user is again informed about its outcome and~most importantly, he does not have to~modify the~test if~he would want to~run it~again
@@ -1794,7 +1801,7 @@ in~practice, the~following extensions were suggested.
   It is possible to~save the~exact format of~the~request, its headers, parameters, etc., and~of~the~response.
   \item The~Project Explorer might offer users to~export existing projects or~to~import projects that were previously created.
   \item The~Restty could offer a~migration to~the~newer version of~the~API, for~instance on~the~backend could be implemented a~cron job that would check if
-  the~Swagger's API file was changed and~if it has it could offer an~automatic migration.
+  the~Swagger's API file has changed and~if it has it could offer an~automatic migration.
   \item Finally, the~Restty could create trivial test cases on~its own -- for~instance, the~tests for~deleting a~resource or~testing the~pagination etc., could
   be done automatically, saving time for~the~developers. 
   \item The~test cases can be extended to~allow users create conditions. For~instance, the~test case could contain a~request that would tried to~find
@@ -1805,7 +1812,7 @@ Obviously, the~extensions stated above are not the~only things that can be added
 the~application itself both in~terms of~performance and~user experience.
 
 \chapter{Conclusion}
-The~aim of~the~thesis was to~design and~develop an~application that will allows its users
+The~aim of~the~thesis was to~design and~develop an~application that allows its users
 to~test API endpoints of~other applications and~to~create extensive test cases from~said endpoints.
 As~a~part of~working on~the~above goal, I studied the~topics of~Web Services, in~particular the~RESTful
 Web Services and~their application programming interfaces. On~top of~that I studied the~technologies needed
@@ -1813,16 +1820,16 @@ for~the~development of~the~application and~conducted a~research on~existing API 
 
 In~Chapter~\ref{Design}, I designed a~custom solution of~the~problem using~the~design integrity of~the~PatternFly
 framework. The~designs, that were several times consulted in~Red Hat, were used to~reveal any clashing visual elements
-or~design flaws before writing the~code. After several reworks and~improvements they wre used as~a~basis
+or~design flaws before writing the~code. After several reworks and~improvements they were used as~a~basis
 for~the~development of~the~application.
 
-The~development consisted of~two parts -- building the~frontend and~a~backend as~separate sections, following the~Separation
+The~development consisted of~building the~client side (frontend) and~the~server side (backend) of~the~application as~separate sections, following the~Separation
 of~Concerns principles. The~achievement is that the~backend of~the~application is fully capable of~parsing the~Swagger's API 
 file, running and~managing its endpoints, and~allowing to~create extensive test cases from~said endpoints. In~addition,
 the~frontend of~the~application provides clear and~easy to~use interface, even in~case of~large remote interfaces.
 
-Finally, as~stated~in~the~section~\ref{Testing}, Restty was tested on~Red Hat JBoss BPM Suite application, which provided
-a~large remote interfaces consisting of~various different endpoints that were used to~reveal any~errors or~bugs in~the~application
+Finally, as~stated~in~the~section~\ref{Testing}, the~developed application -- Restty, was tested on~Red Hat JBoss BPM Suite application, which provided
+a~large remote interface consisting of~various different endpoints that were used to~reveal any~errors or~bugs in~the~application
 and~to~learn more about the~Restty's future improvements, such~as~automatic test case creation or~automatic migrations to~the~newer
 versions of~the~remote interfaces. Overall, the~application serves its purpose and~has a~potential to~become the~leading application
 for~the~API testing processes and~test automation.

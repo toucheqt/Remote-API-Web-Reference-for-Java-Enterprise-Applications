@@ -155,7 +155,7 @@
   %Prace / Thesis
   project=DP,            %typ prace BP/SP/DP/DR  / thesis type (SP = term
   % project)
-  year=2017,             %rok odevzdání / year of submission
+  year=2018,             %rok odevzdání / year of submission
   date=\today,           %datum odevzdani / submission date
   %Nazev prace / thesis title
   title.cs={Testování vzdálených aplikačních rozhraní Java Enterprise aplikací}, 
@@ -215,18 +215,58 @@ kapitola o~implementaci a~testování, pro~které je zvoleno rozhraní nástroje
 Hat JBoss BPM Suite. V~závěru práce jsou vyhodnoceny přínosy aplikace Restty
 a~navrženy případné budoucí rozšíření.}
 
-\abstract[en]{The~master thesis focuses on~testing REST API interfaces of~web
+\abstract[en]{The~Master's thesis focuses on~testing REST API interfaces of~web
 applications. The~result of~the~thesis is~the~Restty application, which allows
 to~test API endpoints of~said interfaces, as~well~as~to~create extensive test
 cases from~the~interface's endpoints. The~theoretical part of~the~thesis
 explains the~principles of~web services, remote interfaces, technologies that
 are used for~development of~the~application, and~the~Swagger framework upon
-which is~the~application built. Subsequently, the~desing drafts
+which the~application is built. Subsequently, the~design drafts
 of~the~application are presented in~detail. The~following section covers
 Restty's implementation and~demonstrates how the~Restty can be used for~testing
 the~interface of~a~Red Hat JBoss BPM Suite application. In~conclusion,
 the~benefits of~the~Restty application are evaluated and~its possible
 extensions are proposed.}
+
+\extendedabstract{Tato diplomová práce popisuje testování REST API rozhraní aplikací. Výsledkem
+práce je aplikace Restty, která je založená na~použití nástroje Swagger, jenž 
+umožňuje získat dokumentaci REST API rozhraní aplikací z~jejich zdrojového kódu
+a~zpřístupnit toto rozhraní v~podobě JSON souboru. Cílem Restty je umožnit jejím uživatelům
+testovat jednotlivé části API aplikací a~navíc i~vytvářet a~spouštět komplexní testovací scénáře
+nad~daným rozhraním.
+
+Teoretická část práce nejrpve vysvětluje principy webových služeb, vzdálených rozhraní, REST principy
+a~především způsoby komunikace a~přístupu ke~zdrojům v~rámci jednotlivých webových služeb pomocí metod,
+poskytovaných HTTP protokolem. Následně jsou v~práci představeny některé, již existující aplikace, které
+jsou v~současnosti používany pro~testování REST rozhraní aplikací, jejich nedostatky a~nevýhody.
+
+V~následující kapitole jsou představeny technologie použité pro~implementaci aplikace. Uvedené technologie
+jsou rozdělené do~tří částí. V~první části jsou rozebrány technologie pro~implementaci serverové části aplikace,
+konkrétně jazyk Java a~standardní podporované knihovny pro~tvorbu webových aplikací v~tomto jazyce~--~konkrétně
+knihovna Spring, umožňující tvorbu samotné webové aplikace, a~Hibernate, knihovna poskytující \uv{objektově-relační}
+mapování. Ve~druhé části jsou vysvětleny principy technologií, které jsou použity pro~vývoj klientské části aplikace.
+Konkrétně se jedná o~knihovnu Angular, která umožňuje vytvářet klientskou část webových aplikací pomocí jazyků HTML,
+CSS a~TypeScript. V~následujících odstavcích jsou vysvětleny principy již zmíněného jazyka TypeScript, jenž vznikl jako
+rozšíření jazyka JavaScript, a~jeho role v~použité knihovně Angular. V~poslední řadě, se kapitola věnuje představení
+knihovny PatternFly, a~jejím principům, která byla použita ke~stylování aplikace. Třetí část kapitoly se věnuje výhradně
+popisu nástroje Swagger a~jeho použití v~aplikaci.
+
+Následující kapitola obsahuje kompletní návrh aplikace Restty a~popisuje s~jakými cíly byla aplikace navržena. 
+V~prvních odstavcích jsou nejprve detailně probrány požadavky, které byly na~výslednou aplikaci kladeny. Na~jejich 
+základech byl následně vytvořen databázový model celé aplikace, který je v~kapitole detailně rozebrán a~ilustrován
+ve~formě ER diagramu. Na~databázový model poté postupně navazují odstavce, jenž popisují designové návrhy aplikace,
+které byly použity jako předloha pro~samotný vývoj klientské části aplikace.
+
+Na~návrhy aplikace plynule navazuje kapitola o~implementaci a~testování, ve~které je nejprve probráno rozdělení
+aplikace na~klientskou a~serverovou část, konkrétně použití návrhového vzoru \uv{Separation of~Concerns}, a~následně
+struktura obou částí. Dále jsou v~kapitola detailněji rozebrány důležité části implementace, konkrétně je v~textu
+vysvětleno vytváření nových projektů v~Restty a~zpracování vstupního JSON souboru s~API dokumentací, a~také samotná implementace
+testování API a~volání jejich HTTP dotazů. V~poslední řadě je v~diplomové práci probráno testování aplikace Restty, k~čemuž bylo
+využito rozhraní aplikace Red Hat JBoss BPM Suite.
+
+V~závěru je celá práce shrnuta, jsou vyhodnoceny přínosy celé aplikace oproti stávajícím řešením a~je
+navrženo několik dodatečných rozšíření, které umožní aplikaci ještě více šetřit čas vývojářům, kteří by jinak
+museli tento čas trávit manuálním psaním testů.}
 
 %Klicova slova (cesky, slovensky ci anglicky) / Keywords (in czech, slovak or english)
 \keywords[cs]{Webové služby, REST, Automatické testování, Průběžné testování,
@@ -246,7 +286,7 @@ information sources, which were used during preparation of~the~thesis are
 properly cired and~included in~the~list of~references.}
 
 %Podekovani (nepovinne, nejlepe v jazyce prace) / Acknowledgement (optional, ideally in the language of the thesis
-\acknowledgment{I would like to~thank Mgr. Ivo Bek for~his technical leading
+\acknowledgment{I would like to~thank Mgr. Ivo Bek for~his technical guidance
 of~the~master thesis. At~the~same time, I would like to~thank Ing. Radek Kočí,
 Ph.D., for~his pedagogical leadership.}
 

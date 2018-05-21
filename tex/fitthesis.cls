@@ -285,7 +285,7 @@
 \define@key{projinfo}{keywords.en}{\def\@tkeywords@EN{#1}}
 \define@key{projinfo}{abstract.cs}{\def\@tabstract@CS{#1}}
 \define@key{projinfo}{abstract.en}{\def\@tabstract@EN{#1}}
-%\define@key{projinfo}{extendedabstract}{\def\@textendedabstract{#1}}
+\define@key{projinfo}{extendedabstract}{\def\@textendedabstract{#1}}
 \define@key{projinfo}{declaration}{\def\@declaration{#1}}
 \define@key{projinfo}{acknowledgment}{\def\@acknowledgment{#1}}
 
@@ -322,9 +322,9 @@
 }
 
 %Rozsireny abstrakt / Extended abstract
-%\newcommand{\extendedabstract}[1]{%
-% \def\@textendedabstract{#1}%
-%}
+\newcommand{\extendedabstract}[1]{%
+ \def\@textendedabstract{#1}%
+}
 
 \newlength{\mkspc}
 \setlength{\mkspc}{2pt}
@@ -484,9 +484,9 @@
 \newpage
 
 %Rozsireny abstrakt / Extended abstract
-%\thispagestyle{empty}%
-%\mktxt@b{16}{\@extendedabstract}\noindent\@textendedabstract
-%\newpage
+\thispagestyle{empty}%
+\mktxt@b{16}{\@extendedabstract}\noindent\@textendedabstract
+\newpage
 
 }
 

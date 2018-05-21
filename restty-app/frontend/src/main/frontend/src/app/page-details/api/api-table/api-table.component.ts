@@ -23,6 +23,7 @@ export class ApiTableComponent implements OnInit {
   paginationConfig: PaginationConfig;
 
   methodQueries: any[];
+  lastRunSuccessQueries: any[];
 
   loading = true;
 
@@ -64,6 +65,14 @@ export class ApiTableComponent implements OnInit {
       value: 'DELETE'
     }];
 
+    this.lastRunSuccessQueries = [{
+      id: 't',
+      value: 'True'
+    }, {
+      id: 'f',
+      value: 'False'
+    }];
+
     this.endpointService.findAll(this.projectId).subscribe(endpoints => {
       this.allItems = endpoints.map(endpoint => {
         return {
@@ -101,6 +110,14 @@ export class ApiTableComponent implements OnInit {
         type: FilterType.TYPEAHEAD,
         queries: [
           ...this.methodQueries,
+        ]
+      }, {
+        id: 'lastRunSuccess',
+        title: 'Successful',
+        placeholder: 'Filter by success',
+        type: FilterType.TYPEAHEAD,
+        queries: [
+          ...this.lastRunSuccessQueries,
         ]
       }] as FilterField[],
       appliedFilters: []
@@ -171,6 +188,8 @@ export class ApiTableComponent implements OnInit {
       match = item.path.match(filter.value) !== null;
     } else if (filter.field.id === 'method') {
       match = item.method.match(filter.value) !== null;
+    } else if (filter.field.id === 'lastRunSuccess') {
+      match = item.lastRunSuccess.match(filter.value === 'True' ? 't' : 'f') !== null;
     }
 
     return match;
@@ -195,6 +214,18 @@ export class ApiTableComponent implements OnInit {
     if (this.filterConfig.fields[index].id = 'method') {
       this.filterConfig.fields[index].queries = [
         ...this.methodQueries.filter((item: any) => {
+          if (item.value) {
+            return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          } else {
+            return true;
+          }
+        })
+      ];
+    }
+
+    if (this.filterConfig.fields[index].id = 'lastRunSuccess') {
+      this.filterConfig.fields[index].queries = [
+        ...this.lastRunSuccessQueries.filter((item: any) => {
           if (item.value) {
             return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
           } else {

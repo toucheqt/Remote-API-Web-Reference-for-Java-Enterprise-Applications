@@ -10,7 +10,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import cz.restty.app.entities.Project;
-import cz.restty.app.repositories.HeaderRepository;
 import cz.restty.app.repositories.ProjectRepository;
 import cz.restty.app.rest.dto.ProjectDto;
 import cz.restty.app.rest.exceptions.SwaggerFileUnavailableException;
@@ -40,10 +39,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
-
-    @Autowired
-    private HeaderRepository headerRepository;
-    // TODO fixni mazani projektu
 
     @Override
     public Project createProject(ProjectDto projectDto) throws RestClientException, IOException {
@@ -80,10 +75,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void deleteProject(Project project) {
         modelService.deleteAllByProject(project);
-        // TODO
-        // headerRepository.deleteAllByProject(project);
-        endpointService.deleteAllByProject(project);
         testCaseService.deleteAllByProject(project);
+        endpointService.deleteAllByProject(project);
         projectRepository.delete(project);
     }
 

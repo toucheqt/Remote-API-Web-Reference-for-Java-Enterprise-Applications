@@ -91,17 +91,4 @@ public interface HeaderRepository extends CrudRepository<Header, Long> {
      */
     void deleteByIdIn(List<Long> headerIds);
 
-
-
-
-    // /**
-    // * Deletes all headers for given projects. Deletes both global and endpoint specific headers.
-    // *
-    // * @param project
-    // * {@link Project} to delete headers for.
-    // */
-    // @Modifying
-    // @Query("DELETE FROM #{#entityName} h WHERE h.endpoint IN (SELECT e FROM Endpoint e WHERE e.project = ?1)")
-    // void deleteAllByProject(Project project);
-
 }

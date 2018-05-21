@@ -22,6 +22,7 @@ import cz.restty.app.entities.Parameter;
 import cz.restty.app.entities.Project;
 import cz.restty.app.enums.ParamType;
 import cz.restty.app.repositories.EndpointRepository;
+import cz.restty.app.repositories.HeaderRepository;
 import cz.restty.app.repositories.LogRepository;
 import cz.restty.app.service.EndpointService;
 import cz.restty.app.service.ParameterService;
@@ -48,6 +49,9 @@ public class EndpointServiceImpl implements EndpointService {
 
     @Autowired
     private LogRepository logRepository;
+
+    @Autowired
+    private HeaderRepository headerRepository;
 
     @Override
     public boolean runAll(Project project) {
@@ -139,6 +143,9 @@ public class EndpointServiceImpl implements EndpointService {
     public void deleteAllByProject(Project project) {
         endpointRepository.findAllByProject(project).forEach(endpoint -> {
             logRepository.deleteAllByEndpoint(endpoint);
+            endpoint.getHeaders().forEach(endpointHeader -> {
+                headerRepository.delete(endpointHeader.getHeader());
+            });
             endpointRepository.delete(endpoint);
         });
     }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FilterConfig, SortConfig, ToolbarConfig, SortField, PaginationConfig, EmptyStateConfig, TableConfig, FilterType,
   FilterField, Filter, FilterEvent, PaginationEvent, SortEvent, TableEvent, NotificationService, NotificationType,
   Notification } from 'patternfly-ng';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 declare var $: any;

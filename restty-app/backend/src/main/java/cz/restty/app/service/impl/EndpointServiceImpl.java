@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -51,6 +50,19 @@ public class EndpointServiceImpl implements EndpointService {
     private LogRepository logRepository;
 
     @Override
+    public boolean runAll(Project project) {
+        boolean allSucessful = true;
+
+        for (Endpoint endpoint : endpointRepository.findAllByProject(project)) {
+            if (!run(endpoint)) {
+                allSucessful = false;
+            }
+        }
+
+        return allSucessful;
+    }
+
+    @Override
     public boolean run(Endpoint endpoint) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -87,10 +99,7 @@ public class EndpointServiceImpl implements EndpointService {
             }
             
             HttpEntity<String> entity = new HttpEntity<>(jsonBody.toString(), headers);
-
-            ResponseEntity<String> response = restTemplate.exchange(resolvedPath, endpoint.getMethod(), entity, String.class);
-            System.out.println(response.getStatusCode().toString());
-            System.out.println(response.getBody());
+            restTemplate.exchange(resolvedPath, endpoint.getMethod(), entity, String.class);
         } catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
             log.setSuccess(false);
             log.setResponseStatus((httpClientOrServerExc).getStatusCode().toString());

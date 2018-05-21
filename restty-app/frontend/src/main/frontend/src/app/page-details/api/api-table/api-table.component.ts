@@ -252,4 +252,51 @@ export class ApiTableComponent implements OnInit {
     this.paginationConfig.totalItems).slice(0, this.paginationConfig.pageSize);
   }
 
+  runAll() {
+    this.endpointService.runAll(this.projectId).subscribe(
+      response => {
+          this.notificationService.message(
+            NotificationType.SUCCESS,
+            'Success',
+            'The test cases was completed successfully',
+            false,
+            null,
+            null
+          );
+          this.refreshData();
+        },
+        error => {
+          this.notificationService.message(
+            NotificationType.DANGER,
+            'Failure',
+            'Some of the test cases failed, see logs for details',
+            false,
+            null,
+            null
+          );
+          this.refreshData();
+        }
+    );
+  }
+
+  refreshData() {
+    this.endpointService.findAll(this.projectId).subscribe(endpoints => {
+      this.allItems = endpoints.map(endpoint => {
+        return {
+          id: endpoint.id,
+          path: endpoint.path,
+          method: endpoint.method,
+          description: endpoint.description,
+          lastRun: endpoint.lastRun === null ? null : new TimeAgoPipe(this.ref, this.ngZone).transform(endpoint.lastRun),
+          lastRunVal: endpoint.lastRun === null ? '--' : endpoint.lastRun,
+          lastRunSuccess: endpoint.lastRunSuccess === null ? null : endpoint.lastRunSuccess ? 't' : 'f'
+        };
+      });
+
+      this.filteredItems = this.allItems;
+      this.updateItems();
+      this.applyFilters(this.filterConfig.appliedFilters || []);
+    });
+  }
+
 }

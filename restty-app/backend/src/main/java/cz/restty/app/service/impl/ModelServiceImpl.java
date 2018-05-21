@@ -3,6 +3,7 @@ package cz.restty.app.service.impl;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,8 @@ import cz.restty.app.utils.JsonUtils;
  */
 @Service
 public class ModelServiceImpl implements ModelService {
+
+    private static final Logger logger = Logger.getLogger(ModelServiceImpl.class);
 
     @Autowired
     private AttributeService attributeService;
@@ -72,7 +75,7 @@ public class ModelServiceImpl implements ModelService {
                 attributeRepository.save(attribute);
             });
         } catch (Exception ex) {
-            System.out.println("Doslo k chybe pri zpracovavani jsonu");
+            logger.error("Error while parsing the Swagger's JSON file", ex);
         }
 
         return modelRepository.save(model);

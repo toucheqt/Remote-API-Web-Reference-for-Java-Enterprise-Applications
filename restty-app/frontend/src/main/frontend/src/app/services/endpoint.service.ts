@@ -44,4 +44,14 @@ export class EndpointService {
     return this.http.post(EndpointService.ENDPOINT_PATH + `/${endpointId}` + EndpointService.RUN_PATH, null);
   }
 
+  /**
+   * Runs all endpoints against test server.
+   *
+   * @param projectId ID of project
+   * @return response status
+   */
+  runAll(projectId: number) {
+    return this.http.post(`/api/projects/${projectId}/endpoints/run`, null);
+  }
+
 }

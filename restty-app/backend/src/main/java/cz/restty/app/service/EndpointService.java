@@ -22,6 +22,15 @@ public interface EndpointService {
     boolean run(Endpoint endpoint);
 
     /**
+     * Runs all endpoints for given project against the test server.
+     * 
+     * @param project
+     *            {@link Project}
+     * @return True if run was successful, false otherwise
+     */
+    boolean runAll(Project project);
+
+    /**
      * Creates endpoint for given project from given path.
      * 
      * @param project

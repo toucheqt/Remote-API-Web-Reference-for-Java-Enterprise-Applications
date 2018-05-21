@@ -34,6 +34,7 @@ public class EndpointController {
     public static final String ENDPOINTS_PATH = PROJECT_PATH + "/endpoints";
     public static final String ENDPOINT_PATH = REST_API_PREFIX + "/endpoints/{endpointId}";
 
+    public static final String RUN_ALL_ENDPOINTS_PATH = "/api/projects/{projectId}/endpoints/run";
     public static final String RUN_ENDPOINT_PATH = ENDPOINT_PATH + "/run";
 
     @Autowired
@@ -87,6 +88,22 @@ public class EndpointController {
     @PostMapping(RUN_ENDPOINT_PATH)
     public ResponseEntity<?> run(@PathVariable Long endpointId) {
         if (endpointService.run(endpointValidator.validate(endpointId))) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Finds all endpoints for given project and runs them against the source server
+     * 
+     * @param projectId
+     *            ID of project to search by
+     * @return {@link HttpStatus#OK} if run was successful, {@link HttpStatus#BAD_REQUEST} otherwise.
+     */
+    @PostMapping(RUN_ALL_ENDPOINTS_PATH)
+    public ResponseEntity<?> runAll(@PathVariable Long projectId) {
+        if (endpointService.runAll(projectValidator.validate(projectId))) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
 

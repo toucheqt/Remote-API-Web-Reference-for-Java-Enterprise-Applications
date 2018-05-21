@@ -1,0 +1,39 @@
+#addTestStepModal .modal-dialog {
+	width: 368px;
+	margin-top: 7.5%;
+}
+
+#addTestStepModal .modal-body {
+	padding-bottom: 0px;
+}
+
+#addTestStepModal .modal-footer {
+	padding: 0px 15px 15px;
+}
+
+#addTestStepModal .combobox {
+	width: 217px;
+}
+
+#addTestStepModal .usePreviousLabel {
+	width: 260px;
+}
+
+#addTestStepModal .usePreviousCheckboxContainer {
+	width: 25px;
+	padding-top: 5px;
+}
+
+#addTestStepModal .usePreviousCheckbox {
+	height: 18px !important;
+	min-height: 18px !important;
+	margin-top: 3px !important;
+	margin-left: -20px !important;
+	width: 17px;
+}
+
+#addTestStepModal .fa-check, .pficon-close {
+	margin-right: 0px;
+	position: initial;
+	font-size: 18px;
+}

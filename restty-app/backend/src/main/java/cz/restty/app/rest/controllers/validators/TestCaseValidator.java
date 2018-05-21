@@ -45,7 +45,7 @@ public class TestCaseValidator {
      *            test case's name to validate
      */
     public void validateName(Project project, String name) {
-        if (StringUtils.isBlank(name) || name.length() <= 2) {
+        if (StringUtils.isBlank(name) || name.length() < 2) {
             throw new ValidationException("Name must have at least two characters.", RestErrorCode.TEST_CASE_NAME_INVALID);
         }
 

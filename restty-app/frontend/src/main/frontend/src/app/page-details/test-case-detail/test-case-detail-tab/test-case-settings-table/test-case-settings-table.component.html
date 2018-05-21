@@ -1,0 +1,43 @@
+<div id="tc-list-table">
+	<div *ngIf="loading; else pageLoaded" class="loading">
+		<div class="spinner spinner-lg"></div>
+		<span>Loading</span>
+	</div>
+	<ng-template #pageLoaded>
+		<app-add-test-step [allSteps]="allSteps" [usePreviousEnabled]="testCase.hasSteps"(testStepCreateEvent)="refreshOnCreate($event)"></app-add-test-step>
+  		<div class="row">
+    		<div class="col-sm-12">
+      			<div class="form-group">
+        			<pfng-list [config]="listConfig" 
+        				[actionTemplate]="actionTemplate"
+            			[expandTemplate]="expandTemplate"
+            			[items]="items"
+            			[itemTemplate]="itemTemplate"
+            			(onActionSelect)="handleAction($event, null)"
+            			(onClick)="handleClick($event)">
+          				<ng-template #itemTemplate let-item="item">
+            				<div class="list-pf-content-wrapper">
+            					<div class="list-pf-main-content">
+                					<div *ngIf="item.endpoint !== undefined" class="list-pf-title">
+                						<span class="method">{{item.endpoint.method}}&nbsp;&nbsp;</span>
+                						<span *ngIf="item.failed === true" class="link-failed">{{item.endpoint.path}}</span>
+                						<span *ngIf="item.failed === false || item.failed === undefined" class="link">{{item.endpoint.path}}</span>
+                					</div>
+                					<div *ngIf="item.testCase !== undefined" class="list-pf-title">
+                						<span class="link">{{item.testCase.name}}</span>
+                					</div>
+                				</div>
+            				</div>
+          				</ng-template>
+         				<ng-template #actionTemplate let-item="item" let-index="index">
+            				<pfng-action class="list-pf-actions" [config]="actionConfig" (onActionSelect)="handleAction($event, item)"></pfng-action>
+          				</ng-template>
+          				<ng-template #expandTemplate let-item="item" let-index="index">
+            				<app-basic-content [item]="item" *ngIf="item.expandId === undefined"></app-basic-content>
+          				</ng-template>
+        			</pfng-list>
+      			</div>
+    		</div>
+  		</div>
+  	</ng-template>
+</div>

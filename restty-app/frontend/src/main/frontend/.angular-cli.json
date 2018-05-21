@@ -22,11 +22,13 @@
        	"../node_modules/patternfly/dist/css/patternfly.min.css",
         "../node_modules/patternfly/dist/css/patternfly-additions.min.css",
         "../node_modules/patternfly-ng/dist/css/patternfly-ng.min.css",
+        "../node_modules/patternfly/node_modules/patternfly-bootstrap-combobox/css/bootstrap-combobox.css",
         "styles.css"
       ],
       "scripts": [
       	"../node_modules/patternfly/node_modules/jquery/dist/jquery.min.js",
       	"../node_modules/patternfly/node_modules/bootstrap/dist/js/bootstrap.min.js",
+      	"../src/assets/custom-bootstrap-combobox.js",
       	"../node_modules/patternfly/dist/js/patternfly.min.js",
       	"../node_modules/patternfly/dist/js/patternfly-settings.js",
       	"../node_modules/patternfly/dist/js/patternfly-settings-base.js",

@@ -1,5 +1,6 @@
 package cz.restty.app.rest.controllers;
 
+import static cz.restty.app.constants.AppConstants.REST_API_PREFIX;
 import static cz.restty.app.rest.controllers.ProjectController.PROJECT_PATH;
 
 import java.util.List;
@@ -37,10 +38,11 @@ import cz.restty.app.service.TestCaseService;
 public class TestCaseController {
 
     public static final String TEST_CASES_PATH = PROJECT_PATH + "/test-cases";
-    public static final String TEST_CASE_PATH = TEST_CASES_PATH + "/{testCaseId}";
+    public static final String TEST_CASE_PATH = REST_API_PREFIX + "/test-cases/{testCaseId}";
     public static final String TEST_CASE_VALIDATION_PATH = TEST_CASES_PATH + "/validate";
 
     public static final String RUN_TEST_CASE_PATH = TEST_CASE_PATH + "/run";
+    public static final String RUN_ALL_PATH = REST_API_PREFIX + "/test-cases/run";
 
     @Autowired
     private TestCaseService testCaseService;
@@ -105,9 +107,35 @@ public class TestCaseController {
      *            ID of test case to run
      * @return {@link HttpStatus#OK} if run was successful, {@link HttpStatus#BAD_REQUEST} otherwise.
      */
+    @PostMapping(RUN_TEST_CASE_PATH)
     public ResponseEntity<?> run(@PathVariable Long testCaseId) {
         if (testCaseService.run(testCaseValidator.validate(testCaseId))) {
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Finds test cases by given ids and runs them against the source server
+     * 
+     * @param testCasesIds
+     *            IDs of test cases to run
+     * @return {@link HttpStatus#OK} if run was successful, {@link HttpStatus#BAD_REQUEST} otherwise.
+     */
+    @PostMapping(RUN_ALL_PATH)
+    public ResponseEntity<?> run(@RequestBody List<Long> testCasesIds) {
+        if (CollectionUtils.isNotEmpty(testCasesIds)) {
+            boolean allSuccessful = true;
+            for (Long testCaseId : testCasesIds) {
+                if (!testCaseService.run(testCaseValidator.validate(testCaseId))) {
+                    allSuccessful = false;
+                }
+            }
+
+            if (allSuccessful) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -141,7 +169,7 @@ public class TestCaseController {
     @DeleteMapping(TEST_CASES_PATH)
     public ResponseEntity<?> deleteTestCases(@PathVariable Long projectId, @RequestBody List<Long> testCasesIds) {
         if (CollectionUtils.isNotEmpty(testCasesIds)) {
-            testCaseRepository.deleteAllByProjectAndIds(projectValidator.validate(projectId), testCasesIds);
+            testCaseService.deleteTestCases(projectValidator.validate(projectId), testCasesIds);
         }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -27,6 +27,15 @@ public interface ParameterService {
     Optional<Parameter> createParameter(Endpoint endpoint, ParameterDto parameterDto);
 
     /**
+     * Clones given parameter.
+     * 
+     * @param parameter
+     *            {@link Parameter}
+     * @return Cloned {@link Parameter}
+     */
+    Parameter cloneParameter(Parameter parameter);
+
+    /**
      * Updates given parameter
      * 
      * @param parameter

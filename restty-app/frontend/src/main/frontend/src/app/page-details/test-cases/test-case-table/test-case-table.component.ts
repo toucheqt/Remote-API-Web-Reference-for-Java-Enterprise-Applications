@@ -3,7 +3,9 @@ import { TestCaseService } from '../../../services/test-case.service';
 import { Component, OnInit, ViewEncapsulation, Input, ViewChild, TemplateRef, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FilterConfig, SortConfig, ToolbarConfig, SortField, PaginationConfig, EmptyStateConfig, TableConfig, FilterType,
-  FilterField, Filter, FilterEvent, PaginationEvent, SortEvent, TableEvent } from 'patternfly-ng';
+  FilterField, Filter, FilterEvent, PaginationEvent, SortEvent, TableEvent, NotificationService, NotificationType,
+  Notification } from 'patternfly-ng';
+import { Observable } from 'rxjs';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 declare var $: any;
@@ -41,11 +43,14 @@ export class TestCaseTableComponent implements OnInit {
   filtersText = '';
   isAscendingSort = true;
 
+  notifications: Observable<Notification[]>;
+
   constructor(
     private testCaseService: TestCaseService,
     private router: Router,
     private ref: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +77,9 @@ export class TestCaseTableComponent implements OnInit {
       this.updateRows();
       this.loading = false;
     });
+
+    this.notifications = this.notificationService.getNotificationsObserver;
+    this.notificationService.setDelay(3000);
   }
 
   initTable() {
@@ -172,33 +180,66 @@ export class TestCaseTableComponent implements OnInit {
     }
   }
 
+  run() {
+    if (this.selectedRows) {
+      this.testCaseService.runAll(this.selectedRows.map(testCase => testCase.id)).subscribe(
+        response => {
+          this.notificationService.message(
+            NotificationType.SUCCESS,
+            'Success',
+            'The test cases was completed successfully',
+            false,
+            null,
+            null
+          );
+          this.refreshData();
+        },
+        error => {
+          this.notificationService.message(
+            NotificationType.DANGER,
+            'Failure',
+            'Some of the test cases failed, see logs for details',
+            false,
+            null,
+            null
+          );
+          this.refreshData();
+        }
+      );
+    }
+  }
+
   deleteTestCases() {
     if (this.selectedRows) {
       this.testCaseService.deleteTestCases(this.projectId, this.selectedRows.map(testCase => testCase.id)).subscribe(result => {
-        this.testCaseService.findAll(this.projectId).subscribe(testCases => {
-          this.allRows = testCases.map(testCase => {
-            return {
-              id: testCase.id,
-              name: testCase.name,
-              lastRun: testCase.lastRun === null
-                ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
-              lastRunVal: testCase.lastRun === null ? '' : testCase.lastRun,
-              lastRunSuccess: testCase.lastRunSuccess === null
-                ? '<span class="padding-left-17 padding-top-5">--</span>'
-                : testCase.lastRunSuccess
-                  ? '<span class="fa fa-check padding-top-5"></span>'
-                  : '<span class="pf pficon-close unsuccessful padding-top-5"></span>',
-              lastRunSuccessVal: testCase.lastRunSuccess === null ? null : testCase.lastRunSuccess ? 't' : 'f'
-            };
-          });
-
-          this.filteredRows = this.allRows;
-          this.updateRows();
-          this.applyFilters(this.filterConfig.appliedFilters || []);
-          this.selectedRows = null;
-        });
+        this.refreshData();
       });
     }
+  }
+
+  refreshData() {
+    this.testCaseService.findAll(this.projectId).subscribe(testCases => {
+      this.allRows = testCases.map(testCase => {
+        return {
+          id: testCase.id,
+          name: testCase.name,
+          lastRun: testCase.lastRun === null
+            ? '<span>Never</span>' : new TimeAgoPipe(this.ref, this.ngZone).transform(testCase.lastRun),
+          lastRunVal: testCase.lastRun === null ? '' : testCase.lastRun,
+          lastRunSuccess: testCase.lastRunSuccess === null
+            ? '<span class="padding-left-17 padding-top-5">--</span>'
+            : testCase.lastRunSuccess
+              ? '<span class="fa fa-check padding-top-5"></span>'
+              : '<span class="pf pficon-close unsuccessful padding-top-5"></span>',
+          lastRunSuccessVal: testCase.lastRunSuccess === null ? null : testCase.lastRunSuccess ? 't' : 'f'
+        };
+      });
+
+      this.filteredRows = this.allRows;
+      this.updateRows();
+      this.applyFilters(this.filterConfig.appliedFilters || []);
+      this.selectedRows = null;
+    });
   }
 
   // Filter

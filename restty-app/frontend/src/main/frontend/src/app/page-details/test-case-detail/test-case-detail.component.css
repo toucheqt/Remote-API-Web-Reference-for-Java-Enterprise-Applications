@@ -1,44 +1,44 @@
-.disable-margin-bottom {
+#tc-detail .disable-margin-bottom {
 	margin-bottom: 0px;
 }
 
-.loading {
+#tc-detail .loading {
 	margin-top: 20.5%;
 	text-align: center;
 	font-size: 15px;
 }
 
-.contains-actions {
+#tc-detail .contains-actions {
 	display: inline-block;
 }
 
-.run-button {
+#tc-detail .run-button {
 	position: absolute;
 	right: 20px;
 	top: 19px;
 	width: 50px;
 }
 
-.nav-tabs {
+#tc-detail .nav-tabs {
 	margin-left: -5px;
 	padding-top: 35px;
 }
 
-.nav-tabs {
+#tc-detail .nav-tabs {
 	border-bottom: 1px solid #e4e4e4;
 }
 
-.nav-tabs>li>a {
+#tc-detail .nav-tabs>li>a {
 	border: none;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+#tc-detail .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
 	background-color: transparent;
 	border: none;
 	border-bottom: 1px solid #0088ce; 
 }
 
-.nav-tabs>li>a:hover {
+#tc-detail .nav-tabs>li>a:hover {
 	background-color: transparent;
 	border: none;
 	border-bottom: 1px solid #0088ce; 
@@ -46,7 +46,7 @@
 	cursor: pointer;
 }
 
-.toast-notifications-list-pf {
-	margin-top: 34px;
+#tc-detail .toast-notifications-list-pf {
+	margin-top: 28px;
 	margin-right: 75px;
 }

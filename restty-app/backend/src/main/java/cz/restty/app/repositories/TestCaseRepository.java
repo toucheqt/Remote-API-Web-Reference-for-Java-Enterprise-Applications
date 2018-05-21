@@ -42,9 +42,8 @@ public interface TestCaseRepository extends CrudRepository<TestCase, Long> {
             + ") FROM #{#entityName} tc"
             + " LEFT JOIN tc.logs l "
             + " WHERE tc.project = ?1 "
-            + " AND (l.id = (SELECT max(l2.id) FROM Log l2 WHERE l2.endpoint = tc) OR l.id IS NULL)")
+            + " AND (l.id = (SELECT max(l2.id) FROM Log l2 WHERE l2.testCase = tc) OR l.id IS NULL)")
     StatsDto getStatsByProject(Project project);
-
 
     /**
      * Finds test case from given project with given name.
@@ -67,18 +66,6 @@ public interface TestCaseRepository extends CrudRepository<TestCase, Long> {
     @Modifying
     @Query("DELETE FROM #{#entityName} WHERE project = ?1")
     void deleteAllByProject(Project project);
-
-    /**
-     * Deletes test cases with given IDs that belong to the project.
-     * 
-     * @param projectId
-     *            ID of project
-     * @param testCasesIds
-     *            IDs of test cases to delete
-     */
-    @Modifying
-    @Query("DELETE FROM #{#entityName} WHERE project = ?1 AND id IN (?2)")
-    void deleteAllByProjectAndIds(Project project, List<Long> testCasesIds);
 
 }
 

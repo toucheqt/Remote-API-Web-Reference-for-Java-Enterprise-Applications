@@ -1,5 +1,7 @@
 package cz.restty.app.service;
 
+import java.util.List;
+
 import cz.restty.app.entities.Project;
 import cz.restty.app.entities.TestCase;
 import cz.restty.app.rest.dto.TestCaseDto;
@@ -40,5 +42,15 @@ public interface TestCaseService {
      *            {@link Project} to delete test cases for.
      */
     void deleteAllByProject(Project project);
+
+    /**
+     * Deletes test cases with given IDs that belong to the project.
+     * 
+     * @param project
+     *            {@link Project}
+     * @param testCasesIds
+     *            IDs of test cases to delete
+     */
+    void deleteTestCases(Project project, List<Long> testCasesIds);
 
 }

@@ -42,14 +42,13 @@ export class ApiConfigTabComponent implements OnInit {
           const paramValue = parameter.model.attributes[i].value;
 
           content += '\t"' + parameter.model.attributes[i].name + '": ';
-          if (paramType === 'boolean') {
-            content += paramValue === null ? 'false' : paramValue;
+          if (paramValue === null) {
+            content += '--';
           } else {
-            content += '"';
-            if (paramType === 'number' || paramType === 'integer') {
-              content += paramValue === null ? '42"' : paramValue + '"';
-            } else if (paramType === 'string') {
-              content += paramValue === null ? 'Default string"' : paramValue + '"';
+            if (paramType === 'string') {
+              content += '"' + paramValue + '"';
+            } else {
+              content += paramValue;
             }
           }
 

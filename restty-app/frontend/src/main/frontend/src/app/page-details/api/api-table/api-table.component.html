@@ -11,12 +11,12 @@
       					<div class="buttons">
       					<!-- TODO add/delete endpoint buttons -->
 <!-- 	      					<button class="btn btn-default hidden-xs" >Add Endpoint</button>	 -->
-							<button class="btn btn-default hidden-xs" >Run All</button>
+<!-- 							<button class="btn btn-default hidden-xs" >Run All</button> -->
 <!-- 							<button class="btn btn-default hidden-xs">Remove Endpoint</button> -->
       					</div>
+<!--       					TODO pridat expandTemplate [expandTemplate]="expandTemplate" -->
         			<pfng-list [config]="listConfig" 
         				[actionTemplate]="actionTemplate"
-            			[expandTemplate]="expandTemplate"
             			[items]="items"
             			[itemTemplate]="itemTemplate"
             			(onActionSelect)="handleAction($event, null)"

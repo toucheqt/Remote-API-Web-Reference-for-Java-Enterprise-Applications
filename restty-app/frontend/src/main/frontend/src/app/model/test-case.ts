@@ -8,4 +8,6 @@ export class TestCase {
   description: string;
   lastRun: string;
   lastRunSuccess: boolean;
+  lastRunMessage: string;
+  hasSteps: boolean;
 }

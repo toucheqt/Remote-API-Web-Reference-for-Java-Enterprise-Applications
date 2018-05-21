@@ -1,0 +1,40 @@
+<div id="tc-detail-tab">
+	<div class="description">{{testCase.description}}</div>
+	<div class="run-info">
+		<div *ngIf="testCase.lastRunSuccess === null">
+			<span class="pf pficon-warning-triangle-o"></span>
+			<div class="run-info-detail">
+				<span class="fs-14">The test case was never run.</span><br>
+			</div>
+		</div>
+		<div *ngIf="testCase.lastRunSuccess === true">
+			<span class="fa fa-check"></span>
+			<div class="run-info-detail">
+				<span class="fs-14">No errors found.</span><br>
+				<span class="fs-10">tested {{testCase.lastRun | timeAgo}}</span>
+			</div>
+		</div>
+		<div *ngIf="testCase.lastRunSuccess === false">
+			<span class="pf pficon-close"></span>
+			<div class="run-info-detail">
+				<div *ngIf="testCase.lastRunMessage !== null; else messageEmpty">
+					<span class="fs-14">{{testCase.lastRunMessage}}</span><br>
+				</div>
+				<ng-template #messageEmpty>
+					<span class="fs-14">No error message available</span><br>
+				</ng-template>
+				<span class="fs-10">tested {{testCase.lastRun | timeAgo}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<div id="tc-settings">
+	<div *ngIf="!loading">
+		<p class="config">Configuration</p>
+		<button class="btn btn-default add-step-button" (click)="addStep()">Add Step</button>
+		<app-test-case-settings-table [testCaseId]="testCase.id" [update]="update"></app-test-case-settings-table>
+	</div>
+</div>
+
+			

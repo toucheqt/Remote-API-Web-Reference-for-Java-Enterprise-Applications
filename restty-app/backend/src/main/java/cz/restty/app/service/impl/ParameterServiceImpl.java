@@ -63,6 +63,18 @@ public class ParameterServiceImpl implements ParameterService {
     }
 
     @Override
+    public Parameter cloneParameter(Parameter parameter) {
+        Parameter clone = new Parameter();
+        clone.setName(parameter.getName());
+        clone.setType(parameter.getType());
+        clone.setRequired(parameter.getRequired());
+        clone.setModel(parameter.getModel());
+        clone.setParameter(parameter.getParameter());
+        clone.setParameterValue(parameter.getParameterValue());
+        return parameterRepository.save(clone);
+    }
+
+    @Override
     public Parameter updateParameter(Parameter parameter, ParameterJsonDto parameterDto) {
         parameter.setParameterValue(parameterDto.getParameterValue());
         return parameterRepository.save(parameter);

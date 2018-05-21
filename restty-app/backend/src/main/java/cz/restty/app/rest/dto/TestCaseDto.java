@@ -19,6 +19,9 @@ public class TestCaseDto extends IdNameDto {
 
     private LocalDateTime lastRun;
     private Boolean lastRunSuccess;
+    private String lastRunMessage;
+
+    private Boolean hasSteps;
 
     public TestCaseDto() {}
 
@@ -29,11 +32,14 @@ public class TestCaseDto extends IdNameDto {
         if (CollectionUtils.isNotEmpty(testCase.getLogs())) {
             Log log = testCase.getLogs()
                 .stream()
-                .sorted((l1, l2) -> l1.getRun().compareTo(l2.getRun()))
+                    .sorted((l1, l2) -> l1.getRun().compareTo(l2.getRun()) * -1)
                 .findFirst().get();
             this.lastRun = log.getRun();
             this.lastRunSuccess = log.getSuccess();
+            this.lastRunMessage = log.getResponseMessage();
         }
+
+        this.hasSteps = CollectionUtils.isNotEmpty(testCase.getSettings());
     }
 
     public String getDescription() {
@@ -58,6 +64,22 @@ public class TestCaseDto extends IdNameDto {
 
     public void setLastRunSuccess(Boolean lastRunSuccess) {
         this.lastRunSuccess = lastRunSuccess;
+    }
+
+    public Boolean getHasSteps() {
+        return hasSteps;
+    }
+
+    public void setHasSteps(Boolean hasSteps) {
+        this.hasSteps = hasSteps;
+    }
+
+    public String getLastRunMessage() {
+        return lastRunMessage;
+    }
+
+    public void setLastRunMessage(String lastRunMessage) {
+        this.lastRunMessage = lastRunMessage;
     }
 
 }

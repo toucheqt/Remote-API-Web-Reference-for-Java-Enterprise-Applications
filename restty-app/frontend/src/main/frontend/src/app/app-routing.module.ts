@@ -6,6 +6,7 @@ import { EmptyProjectComponent } from './pages/empty-project/empty-project.compo
 import { ProjectExplorerComponent } from './pages/project-explorer/project-explorer.component';
 import { SettingsComponent } from './page-details/settings/settings.component';
 import { TestCaseDetailComponent } from './page-details/test-case-detail/test-case-detail.component';
+import { TestCaseSettingsComponent } from './page-details/test-case-settings/test-case-settings.component';
 import { TestCasesComponent } from './page-details/test-cases/test-cases.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -36,6 +37,10 @@ const appRoutes: Routes = [
       {
         path: 'test-cases/:testCaseId',
         component: TestCaseDetailComponent
+      },
+      {
+        path: 'test-cases-settings/:settingsId',
+        component: TestCaseSettingsComponent
       },
       {
         path: 'settings',

@@ -119,7 +119,7 @@ export class ApiTableComponent implements OnInit {
       selectItems: false,
       selectionMatchProp: 'path',
       showCheckbox: false,
-      useExpandItems: true
+      useExpandItems: false // TODO pridat expandItems
     } as ListConfig;
 
     this.actionConfig = {

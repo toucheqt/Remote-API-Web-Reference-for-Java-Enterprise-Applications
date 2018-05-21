@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -39,6 +40,7 @@ public class TestCase {
 
     private Project project;
 
+    private Set<TestCaseSettings> settings = new HashSet<>();
     private Set<Log> logs = new HashSet<>();
 
     @Id
@@ -89,6 +91,20 @@ public class TestCase {
 
     public void setLogs(Set<Log> logs) {
         this.logs = logs;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", cascade = CascadeType.ALL)
+    public Set<TestCaseSettings> getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Set<TestCaseSettings> settings) {
+        this.settings = settings;
+    }
+
+    @Transient
+    public void addSettings(TestCaseSettings settings) {
+        this.settings.add(settings);
     }
 
 }

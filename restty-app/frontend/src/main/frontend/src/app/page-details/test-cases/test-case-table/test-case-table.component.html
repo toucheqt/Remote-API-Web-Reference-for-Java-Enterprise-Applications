@@ -17,8 +17,7 @@
 			      	<ng-template #actionTemplate>
 			            <div class="pull-right">
 							<button class="btn btn-default hidden-xs" (click)="createAddTestCaseModal($event)">Add Test</button>	
-							<button class="btn btn-default hidden-xs" (click)="createAddTestCaseModal($event)">Run Test</button>
-							<button class="btn btn-default hidden-xs" (click)="createAddTestCaseModal($event)">Run All</button>
+							<button class="btn btn-default hidden-xs" (click)="run()">Run Tests</button>
 							<button class="btn btn-default hidden-xs" (click)="deleteTestCases()">Remove Test</button>
 						</div>
 					</ng-template>
@@ -40,4 +39,5 @@
 		  	</div>
 		</div>
 	</ng-template>
+	<pfng-toast-notification-list [notifications]="notifications|async" class="margin-top-32"></pfng-toast-notification-list>
 </div>

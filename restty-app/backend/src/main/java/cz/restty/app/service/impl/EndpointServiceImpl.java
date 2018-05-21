@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -87,14 +88,16 @@ public class EndpointServiceImpl implements EndpointService {
             
             HttpEntity<String> entity = new HttpEntity<>(jsonBody.toString(), headers);
 
-            restTemplate.exchange(resolvedPath, endpoint.getMethod(), entity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(resolvedPath, endpoint.getMethod(), entity, String.class);
+            System.out.println(response.getStatusCode().toString());
+            System.out.println(response.getBody());
         } catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
             log.setSuccess(false);
             log.setResponseStatus((httpClientOrServerExc).getStatusCode().toString());
             log.setResponseMessage(httpClientOrServerExc.getMessage());
         } catch (Exception ex) {
             log.setSuccess(false);
-            log.setResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            log.setResponseStatus(HttpStatus.BAD_REQUEST.toString());
             log.setResponseMessage(ex.getMessage());
         } finally {
             logRepository.save(log);

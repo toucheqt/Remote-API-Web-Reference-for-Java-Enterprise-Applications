@@ -103,3 +103,8 @@
 	cursor: default;
 }
 
+#test-case-table .toast-notifications-list-pf {
+	margin-top: 32px;
+	margin-right: 5px;
+}
+

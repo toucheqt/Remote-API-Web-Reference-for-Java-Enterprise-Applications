@@ -1,7 +1,7 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NotificationModule, PatternFlyNgModule, ChartModule, ListModule } from 'patternfly-ng';
+import { NotificationModule, PatternFlyNgModule, ChartModule, ListModule, WizardModule } from 'patternfly-ng';
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectService } from './services/project.service';
 import { NgxPopperModule } from 'ngx-popper';
@@ -43,6 +43,13 @@ import { EditEndpointHeaderComponent } from './page-details/api-detail/api-confi
 import { EditParamComponent } from './page-details/api-detail/api-config-tab/edit-param/edit-param.component';
 import { ModelService } from './services/model.service';
 import { ParameterService } from './services/parameter.service';
+import { TestCaseDetailTabComponent } from './page-details/test-case-detail/test-case-detail-tab/test-case-detail-tab.component';
+import { TestCaseHistoryTabComponent } from './page-details/test-case-detail/test-case-history-tab/test-case-history-tab.component';
+import { TestCaseSettingsTableComponent } from './page-details/test-case-detail/test-case-detail-tab/test-case-settings-table/test-case-settings-table.component';
+import { TestCaseSettingsService } from './services/test-case-settings.service';
+import { AddTestStepComponent } from './page-details/test-case-detail/test-case-detail-tab/test-case-settings-table/add-test-step/add-test-step.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { TestCaseSettingsComponent } from './page-details/test-case-settings/test-case-settings.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +81,12 @@ import { ParameterService } from './services/parameter.service';
     ApiHistoryTableComponent,
     AddEndpointHeaderComponent,
     EditEndpointHeaderComponent,
-    EditParamComponent
+    EditParamComponent,
+    TestCaseDetailTabComponent,
+    TestCaseHistoryTabComponent,
+    TestCaseSettingsTableComponent,
+    AddTestStepComponent,
+    TestCaseSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +98,8 @@ import { ParameterService } from './services/parameter.service';
     PatternFlyNgModule,
     AppRoutingModule,
     ChartModule,
-    ListModule
+    ListModule,
+    NgSelectModule
   ],
   providers: [
     ProjectService,
@@ -95,7 +108,8 @@ import { ParameterService } from './services/parameter.service';
     HeaderService,
     LogService,
     ParameterService,
-    ModelService
+    ModelService,
+    TestCaseSettingsService
   ],
   bootstrap: [AppComponent]
 })

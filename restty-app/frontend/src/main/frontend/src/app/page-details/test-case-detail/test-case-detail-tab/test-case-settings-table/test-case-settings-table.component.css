@@ -1,0 +1,89 @@
+#tc-list-table .list-pf-container {
+	cursor: pointer;
+}
+
+#tc-list-table .list-pf-item {
+	border-color: #e4e4e4;
+	border-left: none;
+	border-right: none;
+}
+
+#tc-list-table .list-pf-additional-content {
+	flex-basis: 12.5%;
+}
+
+#tc-list-table .main-info {
+	line-height: 1.4;
+}
+
+#tc-list-table .sub-info {
+	color: #8b8d8f;
+	padding-left: 10px;
+	font-size: 11px;	
+}
+
+#tc-list-table .padding-left-15 {
+	padding-left: 13px;
+}
+
+#tc-list-table .fa-check {
+	color: #3f9c35;
+	padding-left: 23px;
+	font-size: 15px;
+}
+
+#tc-list-table .unsuccessful {
+	color: #cc0000;
+	padding-left: 23px;
+	font-size: 15px;
+	cursor: default;
+}
+
+#tc-list-table .link {
+	color: #0088ce;
+	cursor: pointer;
+}
+
+#tc-list-table .link-failed {
+	color: #cc0000;
+	cursor: pointer;
+}
+
+#tc-list-table .content-view-pf-pagination {
+	border-color: #e4e4e4;
+	border-left: none;
+	border-right: none;
+}
+
+#tc-list-table .list-inline>li:first-child {
+	margin-left: 9px;
+}
+
+#tc-list-table .toolbar-pf-results {
+	border-color: #e4e4e4;
+}
+
+#tc-list-table .filter-pf.filter-fields .form-group {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#tc-list-table .padding-left-25 {
+	padding-left: 25px;
+}
+
+#tc-list-table .buttons {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+}
+
+@media (max-width: 785px) {
+	#tc-list-table .buttons {
+		display: none;
+	}
+}
+
+#tc-list-table .toast-notifications-list-pf .toast-pf {
+	margin-top: 32px;
+}

@@ -65,6 +65,16 @@ export class TestCaseService {
   }
 
   /**
+   * Finds test cases with given IDs and runs them.
+   *
+   * @param testCaseIds IDs of test cases to run
+   * @return response status
+   */
+  runAll(testCaseIds: number[]) {
+    return this.http.post('/api' + TestCaseService.TEST_CASES_PATH + TestCaseService.TEST_CASE_RUN_PATH, testCaseIds, httpOptions);
+  }
+
+  /**
    * Creates new test case from the information in the input parameter.
    *
    * @param projectId ID of project to create test case for

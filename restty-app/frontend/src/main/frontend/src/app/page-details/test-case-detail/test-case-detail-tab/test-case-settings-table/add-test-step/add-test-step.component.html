@@ -1,0 +1,40 @@
+<div *ngIf="!loading" class="modal fade" id="addTestStepModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span class="pficon pficon-close" (click)="onCancel()"></span>
+				</button>
+				<h4 class="modal-title">Add Step</h4>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="settingsForm" #formDir="ngForm" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label required" for="step">*&nbsp;Step</label>
+						<div class="col-sm-9">
+							<select class="form-control combobox" formControlName="step" required>
+								<option [selected]="showDefault"></option>
+								<option *ngFor="let stepItem of allSteps">{{ stepItem.method }} {{ stepItem.name }}</option>
+							</select> 
+							<div *ngIf="step.invalid && (step.dirty || step.touched)">
+								<div *ngIf="step.errors.required" class="has-error">
+									<span class="help-block ng-scope">Step is required.</span>
+								</div>
+							</div>
+						</div>
+						
+						<label class="margin-top-10 col-sm-3 control-label usePreviousLabel" for="usePrevious">Use output from previous step</label>
+						<div class="checkbox margin-top-10 col-sm-9 usePreviousCheckboxContainer">
+							<input id="usePrevious" type="checkbox" value="" class="form-control checkbox pull-right usePreviousCheckbox" formControlName="usePrevious">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+        		<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">Save</button>
+        		<!-- TODO dodelat aby se tlacitko vypnulo [disabled]="settingsForm.invalid" -->
+			</div>
+		</div>
+	</div>
+</div>

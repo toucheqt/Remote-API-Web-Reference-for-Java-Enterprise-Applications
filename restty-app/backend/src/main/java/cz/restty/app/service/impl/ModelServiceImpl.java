@@ -71,7 +71,9 @@ public class ModelServiceImpl implements ModelService {
                 attribute.setValue(JsonUtils.getPathValue(rootNode, attribute.getName(), false));
                 attributeRepository.save(attribute);
             });
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+            System.out.println("Doslo k chybe pri zpracovavani jsonu");
+        }
 
         return modelRepository.save(model);
     }

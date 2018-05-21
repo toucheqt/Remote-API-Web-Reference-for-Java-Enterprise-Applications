@@ -1,0 +1,65 @@
+#tc-detail-tab .description {
+	font-size: 14px;
+	padding-top: 10px;
+}
+
+#tc-detail-tab .run-info {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #e4e4e4;
+}
+
+#tc-detail-tab .run-info-detail {
+	display: inline-block;
+	line-height: 1.1;
+}
+
+#tc-detail-tab .fs-14 {
+	font-size: 14px;
+}
+
+#tc-detail-tab .fs-10 {
+	font-size: 10px;
+}
+
+#tc-detail-tab .fa-check, .pficon-close {
+	margin-right: 10px;
+	position: relative;
+	top: -7px;
+	font-size: 15px;
+}
+
+#tc-detail-tab .pficon-warning-triangle-o {
+	font-size: 15px;
+	padding-right: 5px;
+}
+
+#tc-detail-tab .fa-check {
+	color: #3f9c35;
+}
+
+#tc-detail-tab .pficon-close {
+	color: #cc0000;
+}
+
+#tc-settings {
+	font-size: 14px;
+	padding-top: 25px;
+}
+
+#tc-settings .config {
+	display: inline-block;
+}
+
+#tc-settings .add-step-button {
+	position: absolute;
+	right: 20px;
+	top: 145px;
+}
+
+
+
+
+
+
+

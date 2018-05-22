@@ -284,12 +284,12 @@ export class ApiTableComponent implements OnInit {
   }
 
   runAll() {
-    this.endpointService.runAll(this.projectId).subscribe(
+    this.endpointService.runAll(this.filteredItems.map(endpoint => endpoint.id)).subscribe(
       response => {
           this.notificationService.message(
             NotificationType.SUCCESS,
             'Success',
-            'The test cases was completed successfully',
+            'The endpoints was tested successfully',
             false,
             null,
             null
@@ -300,7 +300,7 @@ export class ApiTableComponent implements OnInit {
           this.notificationService.message(
             NotificationType.DANGER,
             'Failure',
-            'Some of the test cases failed, see logs for details',
+            'Some of the endpoints failed, see logs for details',
             false,
             null,
             null

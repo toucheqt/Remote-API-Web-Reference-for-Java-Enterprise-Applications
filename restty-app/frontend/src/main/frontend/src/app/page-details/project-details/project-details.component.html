@@ -1,7 +1,3 @@
-<div class="page-header page-header-bleed-left">
-	<h1>Overview</h1>
-</div> 
-
 <div *ngIf="loadingCharts; else chartsLoaded" class="loading">
 	<div class="container-fluid">
 		<div class="row">
@@ -13,6 +9,10 @@
 	</div>
 </div>
 <ng-template #chartsLoaded>
+	<div class="page-header page-header-bleed-left">
+		<h1 style="margin-bottom: 0px">Overview</h1>
+		<span style="font-size: 10.5px">of&nbsp;</span><a style="font-size: 10.5px" href="{{project.path}}">{{project.path}}</a>
+	</div> 
 	<div class="padding-15 content">
 		<div class="row">
 			<div class="col-lg-3 col-lg-offset-3 text-center">

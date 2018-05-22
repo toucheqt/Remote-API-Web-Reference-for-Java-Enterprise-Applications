@@ -60,7 +60,10 @@ public class SwaggerJson {
         String host = JsonUtils.getPathValue(rootNode, HOST_PROPERTY, false);
         String basePath = Objects.toString(JsonUtils.getPathValue(rootNode, BASE_PATH_PROPERTY, false), "");
         if (StringUtils.isBlank(scheme) || StringUtils.isBlank(host)) {
-            this.basePath = source.substring(0, source.lastIndexOf("/") + 1) + basePath;
+            this.basePath = source.substring(0, source.indexOf("://") + 3);
+            source = source.replace(this.basePath, "");
+            this.basePath = this.basePath + source.substring(0, source.indexOf("/") + 1) + basePath;
+            // this.basePath = source.substring(0, source.lastIndexOf("/") + 1) + basePath;
         } else {
             this.basePath = scheme + host + basePath;
         }

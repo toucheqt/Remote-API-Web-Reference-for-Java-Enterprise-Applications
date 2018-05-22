@@ -6,6 +6,7 @@ import static cz.restty.app.rest.controllers.ProjectController.PROJECT_PATH;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cz.restty.app.repositories.EndpointRepository;
@@ -34,7 +36,7 @@ public class EndpointController {
     public static final String ENDPOINTS_PATH = PROJECT_PATH + "/endpoints";
     public static final String ENDPOINT_PATH = REST_API_PREFIX + "/endpoints/{endpointId}";
 
-    public static final String RUN_ALL_ENDPOINTS_PATH = "/api/projects/{projectId}/endpoints/run";
+    public static final String RUN_ALL_ENDPOINTS_PATH = "/api/endpoints/run";
     public static final String RUN_ENDPOINT_PATH = ENDPOINT_PATH + "/run";
 
     @Autowired
@@ -97,14 +99,17 @@ public class EndpointController {
     /**
      * Finds all endpoints for given project and runs them against the source server
      * 
-     * @param projectId
-     *            ID of project to search by
+     * @param endpointIds
+     *            IDs of endpoints to run
      * @return {@link HttpStatus#OK} if run was successful, {@link HttpStatus#BAD_REQUEST} otherwise.
      */
     @PostMapping(RUN_ALL_ENDPOINTS_PATH)
-    public ResponseEntity<?> runAll(@PathVariable Long projectId) {
-        if (endpointService.runAll(projectValidator.validate(projectId))) {
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> runAll(@RequestBody List<Long> endpointIds) {
+        if (CollectionUtils.isNotEmpty(endpointIds)) {
+            if (endpointService
+                    .runAll(endpointIds.stream().map(endpointId -> endpointValidator.validate(endpointId)).collect(Collectors.toList()))) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

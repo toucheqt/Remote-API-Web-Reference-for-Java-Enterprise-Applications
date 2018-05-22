@@ -54,10 +54,10 @@ public class EndpointServiceImpl implements EndpointService {
     private HeaderRepository headerRepository;
 
     @Override
-    public boolean runAll(Project project) {
+    public boolean runAll(List<Endpoint> endpoints) {
         boolean allSucessful = true;
 
-        for (Endpoint endpoint : endpointRepository.findAllByProject(project)) {
+        for (Endpoint endpoint : endpoints) {
             if (!run(endpoint)) {
                 allSucessful = false;
             }

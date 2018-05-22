@@ -14,8 +14,8 @@
 						<span class="font-size-sm">(path)</span>
 					</div>
 				</div>
-				<div *ngIf="parameter.parameterValue === null" class="flex-info-right">{{parameter.parameter}}</div>
-				<div *ngIf="parameter.parameterValue !== null"  class="flex-info-right">{{parameter.parameterValue}}</div>
+				<div *ngIf="parameter.parameterValue === null" class="flex-info-right margin-left-15">{{parameter.parameter}}</div>
+				<div *ngIf="parameter.parameterValue !== null"  class="flex-info-right margin-left-15">{{parameter.parameterValue}}</div>
 			</div>
 		</div>
 		<div *ngFor="let parameter of endpoint.parameters">
@@ -30,8 +30,8 @@
 						<span class="font-size-sm">(query)</span>
 					</div>
 				</div>
-				<div *ngIf="parameter.parameterValue === null" class="flex-info-right">{{parameter.parameter}}</div>
-				<div *ngIf="parameter.parameterValue !== null"  class="flex-info-right">{{parameter.parameterValue}}</div>
+				<div *ngIf="parameter.parameterValue === null" class="flex-info-right margin-left-15">{{parameter.parameter}}</div>
+				<div *ngIf="parameter.parameterValue !== null"  class="flex-info-right margin-left-15">{{parameter.parameterValue}}</div>
 			</div>
 		</div>
 		<div *ngFor="let parameter of endpoint.parameters">
@@ -42,7 +42,7 @@
 					</div>
 					<div class="inline-block"><span>{{parameter.name}}</span><br></div>
 				</div>
-				<div *ngIf="!bodyEditable" class="flex-info-right">
+				<div *ngIf="!bodyEditable" class="flex-info-right margin-left-15">
 					<div *ngIf="parameter.model !== null" class="response-model body-model">
 						<span>{{parameter.model.name}}</span>
 						<span> {{'{'}}</span>
@@ -53,7 +53,7 @@
 					</div>
 					<div *ngIf="parameter.parameter !== null">{{parameter.parameterValue}}</div>
 				</div>
-				<div *ngIf="bodyEditable" class="flex-info-right">
+				<div *ngIf="bodyEditable" class="flex-info-right margin-left-15">
 					<div>
 						<textarea id="area-content" rows="{{parameter.model.attributes.length + 2}}" style="width: 94%; resize: none; ">{{bodyString}}</textarea>
 					</div>

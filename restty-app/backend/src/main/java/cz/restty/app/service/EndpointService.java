@@ -1,5 +1,7 @@
 package cz.restty.app.service;
 
+import java.util.List;
+
 import cz.restty.app.entities.Endpoint;
 import cz.restty.app.entities.Project;
 import cz.restty.app.swagger.dto.Path;
@@ -24,11 +26,11 @@ public interface EndpointService {
     /**
      * Runs all endpoints for given project against the test server.
      * 
-     * @param project
-     *            {@link Project}
+     * @param endpoints
+     *            {@link Endpoint}
      * @return True if run was successful, false otherwise
      */
-    boolean runAll(Project project);
+    boolean runAll(List<Endpoint> endpoints);
 
     /**
      * Creates endpoint for given project from given path.

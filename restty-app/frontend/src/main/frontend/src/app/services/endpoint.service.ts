@@ -1,8 +1,14 @@
 import { Endpoint } from '../model/endpoint';
 import { Stats } from '../model/stats';
 import { ProjectService } from './project.service';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpDownloadProgressEvent } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class EndpointService {
@@ -47,11 +53,11 @@ export class EndpointService {
   /**
    * Runs all endpoints against test server.
    *
-   * @param projectId ID of project
+   * @param endpointIds IDs of endpoints to run
    * @return response status
    */
-  runAll(projectId: number) {
-    return this.http.post(`/api/projects/${projectId}/endpoints/run`, null);
+  runAll(endpointIds: number[]) {
+    return this.http.post(`/api/endpoints/run`, endpointIds, httpOptions);
   }
 
 }

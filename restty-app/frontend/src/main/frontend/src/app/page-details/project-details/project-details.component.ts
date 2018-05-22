@@ -17,6 +17,7 @@ import { DonutConfig, TableConfig, TableEvent } from 'patternfly-ng';
 export class ProjectDetailsComponent implements OnInit {
 
   projectId: number;
+  project: Project;
 
   endpointsData: any[];
   testCasesData: any[];
@@ -34,6 +35,7 @@ export class ProjectDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.parent.params.subscribe(pathVariable => {
       this.projectId = pathVariable.id;
+      this.projectService.findById(this.projectId).subscribe(project => this.project = project);
       this.projectService.findEndpointsStats(this.projectId).subscribe(stats => {
         this.endpointsData = [
           ['New', stats.untested],
